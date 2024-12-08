@@ -1,34 +1,66 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  Res
+} from '@nestjs/common';
+import { GetObjectFromRequestDecorator } from 'src/utils/shared/decorators/getObjectFromRequest.decorator';
+import { Roles } from 'src/utils/shared/decorators/roles.decorator';
+import { CreateUserDto } from './dtos/create-user.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { UserDocument } from './entities/user.entity';
+import { Role } from './enums/roles.enum';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UsernameInBodyPipe } from './pipes/username-in-body.pipe';
+import { UsernameInParamPipe } from './pipes/username-in-param.pipe';
+import { Request, Response } from 'express';
 
 @Controller('users')
+@Roles(Role.ADMIN)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(
+    @Res() res: Response,
+    @GetObjectFromRequestDecorator('user') user: UserDocument,
+    @Body(UsernameInBodyPipe) createUserDto: CreateUserDto
+  ) {
+    await this.usersService.create(user, createUserDto);
+    return res.redirect('/users');
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(@Req() req: Request, @Res() res: Response) {
+    const users = await this.usersService.findAll().sort('-createdAt');
+    return res.render('dashboard', {
+      title: 'المشرفين',
+      type: 'users',
+      user: req.user,
+      data: users,
+    });
   }
 
   @Get(':username')
-  findOne(@Param('username') username: string) {
-    return this.usersService.findOne(username);
+  findOne(@Param('username', UsernameInParamPipe) user: UserDocument) {
+    return user;
   }
 
   @Patch(':username')
-  update(@Param('username') username: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(username, updateUserDto);
+  update(
+    @Param('username', UsernameInParamPipe) user: UserDocument,
+    @Body(UsernameInBodyPipe) updateUserDto: UpdateUserDto
+  ) {
+    return this.usersService.update(user, updateUserDto);
   }
 
   @Delete(':username')
-  remove(@Param('username') username: string) {
-    return this.usersService.remove(username);
+  remove(@Param('username', UsernameInParamPipe) user: UserDocument) {
+    return this.usersService.remove(user);
   }
 }

@@ -1,31 +1,49 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
+import { CreateUserDto } from './dtos/create-user.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { User, UserDocument } from './entities/user.entity';
 
+/**
+ * Service for user operations.
+ */
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private usersModel: Model<User>) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.usersModel.create(createUserDto);
+  /**
+   * Creates a new user.
+   * @param user The user who is creating the new user.
+   * @param createUserDto The data for the new user.
+   * @returns The new user.
+   */
+  create(user: UserDocument, createUserDto: CreateUserDto) {
+    const inputData: User = {
+      ...createUserDto,
+      createdBy: user._id,
+      updatedBy: user._id
+    }
+    return this.usersModel.create(inputData);
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.usersModel.find();
   }
 
   findOne(username: string) {
     return this.usersModel.findOne({ username });
   }
 
-  update(username: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${username} user`;
+  update(user: UserDocument, updateUserDto: UpdateUserDto) {
+    const inputData: Partial<User> = {
+      ...updateUserDto,
+      updatedBy: user._id
+    }
+    return user.updateOne(inputData);
   }
 
-  remove(username: string) {
-    return `This action removes a #${username} user`;
+  remove(user: UserDocument) {
+    return user.deleteOne();
   }
 }

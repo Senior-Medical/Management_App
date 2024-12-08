@@ -19,10 +19,22 @@ export class User {
     enum: Role,
     default: Role.STAFF
   })
-  role: Role;
+  role?: Role;
 
   @Prop({ default: new Date() })
   changePasswordAt?: Date;
+
+  @Prop({
+    required: true,
+    ref: 'User'
+  })
+  createdBy: Types.ObjectId;
+
+  @Prop({
+    required: true,
+    ref: 'User'
+  })
+  updatedBy: Types.ObjectId;
 }
 
 export const createUserSchema = (encryptionService: EncryptionService) => {

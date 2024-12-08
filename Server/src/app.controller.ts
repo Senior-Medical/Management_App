@@ -19,15 +19,4 @@ export class AppController {
       return res.redirect('/auth/login');
     }
   }
-
-  /**
-   * Renders the dashboard page.
-   * @param res - Response object.
-   * @returns - The dashboard page.
-   */
-  @Get('dashboard')
-  @UseGuards(AuthenticatedGuard)
-  dashboard(@Req() req: Request, @Res() res: Response) {
-    res.render('dashboard', {user: req.user});
-  }
 }

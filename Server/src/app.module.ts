@@ -16,6 +16,7 @@ import { RolesGuard } from './auth/guards/roles.guard';
 import { LoggerExceptionFilter } from './utils/logger/filters/loggerException.filter';
 import { RequestTimingMiddleware } from './utils/shared/middlewares/requestTiming.middleware';
 import { AuthModule } from './auth/auth.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     LoggerModule,
     AuthModule,
-    UsersModule
+    UsersModule,
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [

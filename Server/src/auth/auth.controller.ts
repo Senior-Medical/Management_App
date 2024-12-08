@@ -21,7 +21,10 @@ export class AuthController {
    */
   @Get('login')
   loginPage(@Res() res: Response) {
-    res.render('login');
+    res.render('login', {
+      alertType: null,
+      message: null,
+    });
   }
 
   /**

@@ -1,46 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="/styles/dashboard.css">
+  <link href="/styles/bootstrap.rtl.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/navbar.css" />
+  <link rel="stylesheet" href="/styles/dashboard.css" />
+  <link rel="stylesheet" href="/styles/users.css" />
+  <title>
+    <%=title%>
+  </title>
 </head>
 
 <body>
-  <div class="dashboard-container">
-    <header>
-      <h1>Management Dashboard</h1>
-      <nav>
-        <a href="#worker">Workers</a>
-        <a href="#department">Departments</a>
-        <a href="#product">Products</a>
-        <a href="#bonus">Bonuses</a>
-        <a href="/auth/logout">Logout</a>
-      </nav>
-    </header>
-
-    </div>
-
-  <script>
-    function editWorker(id) {
-      // Fetch worker data by ID and show a modal for editing
-      alert('Edit Worker ID: ' + id);
-    }
-
-    function editDepartment(id) {
-      alert('Edit Department ID: ' + id);
-    }
-
-    function editProduct(id) {
-      alert('Edit Product ID: ' + id);
-    }
-
-    function editBonus(id) {
-      alert('Edit Bonus ID: ' + id);
-    }
-  </script>
+  <%- include('shared/navbar') %>
+  <%if (type === 'users' ) {%>
+  <%- include('components/users') %>
+  <%} else if (type === 'workers' ) {%>
+  <%- include('components/workers') %>
+  <%} else if (type === 'products' ) {%>
+  <%- include('components/products') %>
+  <%} else if (type === 'departments' ) {%>
+  <%- include('components/departments') %>
+  <%} else if (type === 'production' ) {%>
+  <%- include('components/production') %>
+  <%} else if (type === 'bonus' ) {%>
+  <%- include('components/bonus') %>
+  <%} else {%>
+  <%- include('components/main') %>
+  <%}%>
+  <script src="/scripts/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
