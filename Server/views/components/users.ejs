@@ -1,6 +1,6 @@
 <div class="container-xl">
   <div class="row">
-    <div class="col">
+    <div class="col-4">
       <form action="/users" method="get">
         <div class="searchBox">
           <input class="searchInput" type="text" name="search" placeholder="بحث بإسم المستخدم">
@@ -37,45 +37,128 @@
         </div>
       </form>
     </div>
-    <div class="col-2">
-      <div class="toggle-button">
-        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#add-user-form" aria-expanded="false" aria-controls="add-user-form">
-          إضافة مشرف
-        </button>
+
+    <!-- Add user form modal -->
+    <div class="modal fade" id="add-user-modal" tabindex="-1" aria-labelledby="add-user-modal-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="add-user-modal-label">إضافة مستخدم</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/users" method="post" id="add-user-form">
+              <div class="mb-3">
+                <label for="username" class="col-form-label fs-4">إسم المستخدم:</label>
+                <input type="text" class="form-control" id="username" name="username">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="col-form-label fs-4">كلمة المرور:</label>
+                <input type="password" class="form-control" id="password" name="password"></input>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            <button type="button" class="btn btn-success" id="add-user">إضافة</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   
-  <div class="form-container add-form collapse" id="add-user-form">
-    <form class="form" action="/users" method="post">
-      <h2>إضافة مشرف</h2>
-      <div class="form-group">
-        <label for="username">إسم المستخدم</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div class="form-group">
-        <label for="password">كلمة المرور</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button class="form-submit-btn" type="submit">إضافة</button>
-    </form>
-  </div>
-  <table class="table table-dark table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col">الرقم</th>
-        <th scope="col">إسم المستخدم</th>
-        <th scope="col">الوظيفة</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%data.forEach((user, i)=>{%>
-        <tr>
-          <th scope="row"><%=i+1%></th>
-          <td><%=user.username%></td>
-          <td><%=(user.role === 'admin')?"مشرف أعلى":"مشرف"%></td>
+
+  <div class="table-responsive">
+    <%
+      const dateFormaterOptions = {
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit', 
+        minute: '2-digit'
+      };
+      const dateFormater = new Intl.DateTimeFormat('ar-EG', dateFormaterOptions);
+    %>
+    <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
+      <caption class="mx-4 fs-5">
+        <span>العدد: <%=data.length%></span>
+        <button class="btn btn-secondary toggle-button" type="button" data-bs-toggle="modal" data-bs-target="#add-user-modal">
+          إضافة مشرف
+        </button>
+      </caption>
+      <thead>
+        <tr class="table-dark">
+          <th scope="col">الرقم</th>
+          <th scope="col">إسم المستخدم</th>
+          <th scope="col">الدور الوظيفي</th>
+          <th scope="col">أنشئ بواسطة</th>
+          <th scope="col">آخر تحديث بواسطة</th>
+          <th scope="col">تاريخ الإنشاء</th>
+          <th scope="col">تاريخ آخر تحديث</th>
+          <th scope="col">تحديث</th>
+          <th scope="col">حذف</th>
         </tr>
-      <%})%>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <%data.forEach((user, i)=>{%>
+          <tr>
+            <th class="table-dark" scope="row"><%=i+1%></th>
+            <td>
+              <%=user.username%>
+            </td>
+            <td>
+              <%=(user.role === 'admin')?"مدير":"مشرف"%>
+            </td>
+            <td>
+              <% if(user.updatedBy && user.updatedBy.username){ %>
+                <%= user.updatedBy.username %>
+              <% } else if(user.updatedBy){ %>
+                <%= user.updatedBy %>
+              <% }else{ %>
+                لا يوجد
+              <% } %>
+            </td>
+            <td>
+              <% if(user.updatedBy && user.updatedBy.username){ %>
+                <%= user.updatedBy.username %>
+              <% } else if(user.updatedBy){ %>
+                <%= user.updatedBy %>
+              <% }else{ %>
+                لا يوجد
+              <% } %>
+            </td>
+            <td>
+              <%=dateFormater.format(user.createdAt)%>
+            </td>
+            <td>
+              <%=dateFormater.format(user.updatedAt)%>
+            </td>
+            <td>
+              <button class="btn btn-success">تحديث</button>
+            </td>
+            <td>
+              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal<%=i%>">حذف</button>
+              <div class="modal fade" id="delete-user-modal<%=i%>" tabindex="-1" aria-labelledby="delete-user-modal-label<%=i%>" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="delete-user-modal-label<%=i%>">حذف مستخدم</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5">هل انت متأكد من حذف <strong><%=user.username%></strong>؟</div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                      <button type="button" class="btn btn-danger delete-user" username="<%=user.username%>">حذف</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </div>
 </div>
+<script src="/scripts/users.js"></script>

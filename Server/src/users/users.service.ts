@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   findAll() {
-    return this.usersModel.find();
+    return this.usersModel.find().populate('createdBy', 'username').populate('updatedBy', 'username').sort('-createdAt');
   }
 
   findOne(username: string) {

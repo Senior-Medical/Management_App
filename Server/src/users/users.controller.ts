@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -37,7 +39,7 @@ export class UsersController {
 
   @Get()
   async findAll(@Req() req: Request, @Res() res: Response) {
-    const users = await this.usersService.findAll().sort('-createdAt');
+    const users = await this.usersService.findAll();
     return res.render('dashboard', {
       title: 'المشرفين',
       type: 'users',
@@ -52,6 +54,7 @@ export class UsersController {
   }
 
   @Patch(':username')
+  @HttpCode(HttpStatus.ACCEPTED)
   update(
     @Param('username', UsernameInParamPipe) user: UserDocument,
     @Body(UsernameInBodyPipe) updateUserDto: UpdateUserDto
@@ -60,6 +63,7 @@ export class UsersController {
   }
 
   @Delete(':username')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('username', UsernameInParamPipe) user: UserDocument) {
     return this.usersService.remove(user);
   }

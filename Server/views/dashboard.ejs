@@ -14,7 +14,8 @@
 </head>
 
 <body>
-  <%- include('shared/navbar') %>
+  <%- include('navbar') %>
+
   <%if (type === 'users' ) {%>
   <%- include('components/users') %>
   <%} else if (type === 'workers' ) {%>
@@ -30,6 +31,7 @@
   <%} else {%>
   <%- include('components/main') %>
   <%}%>
+  
   <script src="/scripts/bootstrap.bundle.min.js"></script>
 </body>
 </html>

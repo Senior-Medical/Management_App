@@ -37,6 +37,8 @@ export class LoggerExceptionFilter extends BaseExceptionFilter implements Except
       `${method} ${url} [${statusCode}] Duration: ${duration}ms Error: ${errorMessage}`,
       contextName
     );
-    super.catch(exception, host);
+
+    const response = host.switchToHttp().getResponse();
+    response.render('error');
   }
 }

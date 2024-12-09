@@ -21,18 +21,18 @@
   background: linear-gradient(90deg, #d7dee5 0%, #5e5e5e 100%);
   border: 0;
   display: inline-block;
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  transition: all .5s cubic-bezier(.23, 1, 0.32, 1);
 }
 
 button:hover {
-  box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 10px 20px;
   transform: translateY(-3px);
 }
 
 button:active {
   box-shadow: none;
   transform: translateY(0);
-}
+} 
 
 .searchBox .searchInput {
   width: 100%;
@@ -45,11 +45,11 @@ button:active {
 }
 
 .searchBox .searchInput::placeholder {
-  color: #d7dee5;
+  color: #cfd4da;
 }
 
 /* Create User Form */
-.form-container {
+/* .form-container {
   max-width: 500px;
   background-color: #212529;
   padding: 2rem;
@@ -99,11 +99,11 @@ button:active {
 
 .form-container .form-group input {
   width: 100%;
-  padding: 1rem;
+  padding: .8rem;
   border-radius: 20px;
-  color: #d7dee5;
+  color: #212529;
   font-family: inherit;
-  background-color: transparent;
+  background-color: #d7dee5;
   border: 1px solid #747474;
   transition: all .5s ease-in-out;
 }
@@ -123,10 +123,10 @@ button:active {
   justify-content: center;
   align-self: flex-start;
   font-family: inherit;
-  color: #d7dee5;
+  color: #2c3034;
   font-weight: bold;
   width: 40%;
-  background: #2c3034;
+  background: #d7dee5;
   border: none;
   padding: 1rem;
   font-size: inherit;
@@ -138,32 +138,31 @@ button:active {
 }
 
 .form-container .form-submit-btn:hover {
-  background-color: #2c3034;
-  border-color: #d7dee5;
-}
+  background-color: #d7dee5;
+  border-color: #2c3034;
+} */
 
 /* Toggle Form Button */
-.toggle-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-  font-family: inherit;
-  color: #d7dee5;
+table caption {
+  max-width: 500px;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.toggle-button button {
-  background: #2c3034;
-  width: 100%;
-  margin: 2rem auto;
-  padding: 1rem;
-  font-size: inherit;
-  cursor: pointer;
+.toggle-button {
+  margin-right: 50px;
+  padding: .5rem 1.3rem;
+  font-size: 1rem;
   border-radius: 30px;
   transition: all .5s ease-in-out;
+  background: #212529;
+  color: #f2f2f2;
+  border: none;
+  font-weight: bold;
 }
 
-.toggle-button button:hover {
-  background-color: #2c3034;
+.toggle-button:hover {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 10px 20px;
+  transform: translateY(-3px);
+  background: #212529;
 }
