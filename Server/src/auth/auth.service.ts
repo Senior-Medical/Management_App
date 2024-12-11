@@ -22,7 +22,7 @@ export class AuthService{
    * @throws - "ForbiddenException" if any validation fails.
    */
   async validateUser(username: string, password: string) {
-    const user = await this.usersService.findOne(username);
+    const user = await this.usersService.findByUsername(username);
     if (!user) return null;
     const match = await this.encryptionService.bcryptCompare(password, user.password);
     if (!match) return null;

@@ -16,10 +16,8 @@ export class UsernameInBodyPipe implements PipeTransform {
   
   async transform(body: CreateUserDto, metadata: ArgumentMetadata) {
     let { username } = body;
-    if (username) {
-      const user = await this.usersService.findOne(username);
-      if (user) throw new ConflictException('Email, phone or username are already exist.');
-    }
+    const user = await this.usersService.findByUsername(username);
+    if (user) throw new ConflictException('Username are already exist.');
     return body;
   }
 }

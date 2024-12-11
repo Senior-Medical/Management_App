@@ -8,8 +8,9 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
-  Res
+  Res,
 } from '@nestjs/common';
 import { GetObjectFromRequestDecorator } from 'src/utils/shared/decorators/getObjectFromRequest.decorator';
 import { Roles } from 'src/utils/shared/decorators/roles.decorator';
@@ -19,8 +20,10 @@ import { UserDocument } from './entities/user.entity';
 import { Role } from './enums/roles.enum';
 import { UsersService } from './users.service';
 import { UsernameInBodyPipe } from './pipes/username-in-body.pipe';
-import { UsernameInParamPipe } from './pipes/username-in-param.pipe';
+import { UserIdPipe } from './pipes/user-id.pipe';
 import { Request, Response } from 'express';
+import { ObjectIdPipe } from 'src/utils/shared/pipes/ObjectId.pipe';
+import { QueryParamPipe } from 'src/utils/shared/pipes/queryParam.pipe';
 
 @Controller('users')
 @Roles(Role.ADMIN)
@@ -33,38 +36,40 @@ export class UsersController {
     @GetObjectFromRequestDecorator('user') user: UserDocument,
     @Body(UsernameInBodyPipe) createUserDto: CreateUserDto
   ) {
-    await this.usersService.create(user, createUserDto);
-    return res.redirect('/users');
+    return this.usersService.create(user, createUserDto, res);
   }
 
   @Get()
-  async findAll(@Req() req: Request, @Res() res: Response) {
-    const users = await this.usersService.findAll();
-    return res.render('dashboard', {
-      title: 'المشرفين',
-      type: 'users',
-      user: req.user,
-      data: users,
-    });
+  async findAll(
+    @Query(QueryParamPipe) queryParams: any,
+    @Res() res: Response,
+    @Req() req: Request,
+  ) {
+    return this.usersService.findAll(queryParams, req, res);
   }
 
-  @Get(':username')
-  findOne(@Param('username', UsernameInParamPipe) user: UserDocument) {
+  @Get(':userId')
+  findOne(@Param('userId', ObjectIdPipe, UserIdPipe) user: UserDocument) {
     return user;
   }
 
-  @Patch(':username')
+  @Post('/update/:userId')
   @HttpCode(HttpStatus.ACCEPTED)
   update(
-    @Param('username', UsernameInParamPipe) user: UserDocument,
-    @Body(UsernameInBodyPipe) updateUserDto: UpdateUserDto
+    @Res() res: Response,
+    @GetObjectFromRequestDecorator('user') user: UserDocument,
+    @Param('userId', ObjectIdPipe, UserIdPipe) wantedUser: UserDocument,
+    @Body() updateUserDto: UpdateUserDto
   ) {
-    return this.usersService.update(user, updateUserDto);
+    return this.usersService.update(user, wantedUser, updateUserDto, res);
   }
 
-  @Delete(':username')
+  @Get('/delete/:userId')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('username', UsernameInParamPipe) user: UserDocument) {
-    return this.usersService.remove(user);
+  remove(
+    @Res() res: Response,
+    @Param('userId', ObjectIdPipe, UserIdPipe) user: UserDocument
+  ) {
+    return this.usersService.remove(user, res);
   }
 }

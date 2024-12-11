@@ -32,15 +32,7 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) return true;
     const { user } = context.switchToHttp().getRequest();
     const response = context.switchToHttp().getResponse();
-    // if (!user) throw new UnauthorizedException();
-    if (!user) {
-      // response.render('login', {
-      //   title: 'تسجيل الدخول',
-      //   message: 'يجب تسجيل الدخول للوصول إلى هذه الصفحة',
-      //   alertType: 'danger'
-      // });
-      response.redirect('/auth/login');
-    }
+    if (!user) return response.redirect('/auth/login');
     return requiredRoles.includes(user.role);
   }
 }

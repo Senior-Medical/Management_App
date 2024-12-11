@@ -12,7 +12,6 @@ export class AppController {
    */
   @Get()
   root(@Req() req: Request, @Res() res: Response) {
-    console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
       return res.redirect('/dashboard');
     } else {

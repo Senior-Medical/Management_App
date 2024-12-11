@@ -21,9 +21,6 @@ export class User {
   })
   role?: Role;
 
-  @Prop({ default: new Date() })
-  changePasswordAt?: Date;
-
   @Prop({
     required: true,
     ref: 'User'
@@ -43,7 +40,6 @@ export const createUserSchema = (encryptionService: EncryptionService) => {
   UserSchema.pre('save', async function(next) {
     if (this.isModified('password')) {
       this.password = await encryptionService.bcryptHash(this.password);
-      this.changePasswordAt = new Date();
       next();
     }
   })
