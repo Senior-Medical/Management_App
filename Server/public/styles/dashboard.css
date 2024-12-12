@@ -2,6 +2,36 @@ body{
   background-color: #f2f2f2;
 }
 
+button.btn {
+  transition: all 300ms ease-in-out;
+}
+
+button.btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 10px 20px;
+  transform: translateY(-3px);
+}
+
+button.btn:not(.btn-success):not(.btn-danger):hover {
+  background: #212529;
+}
+
+button.btn:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+#filter-form {
+  padding: 1rem;
+  max-width: 400px;
+}
+
+.input-group-text {
+  background-color: #212529;
+  color: #d7dee5;
+  border: none;
+  font-size: 1.2em;
+}
+
 table{
   text-align: center;
 }
@@ -21,15 +51,8 @@ table caption .create-button {
   padding: .5rem 1.3rem;
   font-size: 1rem;
   border-radius: 30px;
-  transition: all .5s ease-in-out;
   background: #212529;
   color: #f2f2f2;
   border: none;
   font-weight: bold;
-}
-
-table caption .create-button:hover {
-  box-shadow: rgba(0, 0, 0, 0.2) 0 10px 20px;
-  transform: translateY(-3px);
-  background: #212529;
 }

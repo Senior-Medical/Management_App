@@ -7,8 +7,12 @@ export type DashboardRenderVariablesType = {
   data: Array<any> | null,
   user: UserDocument,
   filters: {
-    search?: string,
-    sort?: string,
-    page?: number,
+    search: string,
+    sort: string,
+    pagination: {
+      page: number,
+      pageSize: number,
+      totalPages: number,
+    },
   }
 };

@@ -1,0 +1,11 @@
+<nav class="pagination-nav" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item <%= filters.pagination.page === 1 ? 'disabled' : '' %>">
+      <a class="page-link" page="<%= filters.pagination.page - 1 %>">السابق</a>
+    </li>
+
+    <li class="page-item <%= filters.pagination.page === filters.pagination.totalPages ? 'disabled' : '' %>">
+      <a class="page-link" page="<%= filters.pagination.page + 1 %>">التالي</a>
+    </li>
+  </ul>
+</nav>

@@ -1,88 +1,81 @@
-  <!-- <%- include('search-box') %> -->
-  <%- include('users/create-user-modal') %>
-  <% if(data) { %>
-    <div class="table-responsive">
-      <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
-        <caption class="mx-4 fs-5">
-          <span>العدد: <%=data.length%></span>
-          <button class="btn btn-secondary create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-user-modal">
-            إضافة مشرف
-          </button>
-        </caption>
-        <thead>
-          <tr class="table-dark">
-            <th scope="col">الرقم</th>
-            <th scope="col">إسم المستخدم</th>
-            <th scope="col">الدور الوظيفي</th>
-            <th scope="col">أنشئ بواسطة</th>
-            <th scope="col">آخر تحديث بواسطة</th>
-            <th scope="col">تاريخ الإنشاء</th>
-            <th scope="col">تاريخ آخر تحديث</th>
-            <th scope="col">تحديث</th>
-            <th scope="col">حذف</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%
-            const dateFormaterOptions = {
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric',
-              hour: '2-digit', 
-              minute: '2-digit'
-            };
-            const dateFormater = new Intl.DateTimeFormat('ar-EG', dateFormaterOptions);
-            data.forEach((user, i)=>{
-          %>
-            <tr>
-              <th class="table-dark" scope="row"><%=i+1%></th>
-              <td>
-                <%=user.username%>
-              </td>
-              <td>
-                <%=(user.role === 'admin')?"مدير":"مشرف"%>
-              </td>
-              <td>
-                <% if(user.createdBy && user.createdBy.username){ %>
-                  <%= user.createdBy.username %>
-                <% } else if(user.createdBy){ %>
-                  <%= user.createdBy %>
-                <% }else{ %>
-                  لا يوجد
-                <% } %>
-              </td>
-              <td>
-                <% if(user.updatedBy && user.updatedBy.username){ %>
-                  <%= user.updatedBy.username %>
-                <% } else if(user.updatedBy){ %>
-                  <%= user.updatedBy %>
-                <% }else{ %>
-                  لا يوجد
-                <% } %>
-              </td>
-              <td>
-                <%=dateFormater.format(user.createdAt)%>
-              </td>
-              <td>
-                <%=dateFormater.format(user.updatedAt)%>
-              </td>
-              <td>
-                <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-user-modal<%=i%>">تحديث</button>
-                <%- include('users/update-user-modal', {i, user}) %>
-              </td>
-              <td>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal<%=i%>">حذف</button>
-                <%- include('users/delete-user-modal', {i, user}) %>
-              </td>
-            </tr>
-          <%})%>
-        </tbody>
-      </table>
-    </div>
-  <% } else { %>
-    <div class="alert alert-warning" role="alert">
-      لا يوجد مستخدمين
-    </div>
-  <% } %>
-<script src="/scripts/users.js"></script>
+<%- include('users/create-user-modal') %>
+
+<div class="table-responsive">
+  <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
+    <caption class="mx-4 fs-5">
+      <span>العدد: <%=data.length%></span>
+      <button class="btn btn-secondary create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-user-modal">
+        إضافة مشرف
+      </button>
+    </caption>
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">الرقم</th>
+        <th scope="col">إسم المستخدم</th>
+        <th scope="col">الدور الوظيفي</th>
+        <th scope="col">أنشئ بواسطة</th>
+        <th scope="col">آخر تحديث بواسطة</th>
+        <th scope="col">تاريخ الإنشاء</th>
+        <th scope="col">تاريخ آخر تحديث</th>
+        <th scope="col">تحديث</th>
+        <th scope="col">حذف</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%
+        const dateFormaterOptions = {
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          hour: '2-digit', 
+          minute: '2-digit'
+        };
+        const dateFormater = new Intl.DateTimeFormat('ar-EG', dateFormaterOptions);
+        data.forEach((user, i)=>{
+      %>
+        <tr>
+          <th class="table-dark" scope="row"><%=i+1%></th>
+          <td>
+            <%=user.username%>
+          </td>
+          <td>
+            <%=(user.role === 'admin')?"مدير":"مشرف"%>
+          </td>
+          <td>
+            <% if(user.createdBy && user.createdBy.username){ %>
+              <%= user.createdBy.username %>
+            <% } else if(user.createdBy){ %>
+              <%= user.createdBy %>
+            <% }else{ %>
+              لا يوجد
+            <% } %>
+          </td>
+          <td>
+            <% if(user.updatedBy && user.updatedBy.username){ %>
+              <%= user.updatedBy.username %>
+            <% } else if(user.updatedBy){ %>
+              <%= user.updatedBy %>
+            <% }else{ %>
+              لا يوجد
+            <% } %>
+          </td>
+          <td>
+            <%=dateFormater.format(user.createdAt)%>
+          </td>
+          <td>
+            <%=dateFormater.format(user.updatedAt)%>
+          </td>
+          <td>
+            <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-user-modal<%=i%>">تحديث</button>
+            <%- include('users/update-user-modal', {i, user}) %>
+          </td>
+          <td>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal<%=i%>">حذف</button>
+            <%- include('users/delete-user-modal', {i, user}) %>
+          </td>
+        </tr>
+      <%})%>
+    </tbody>
+  </table>
+</div>

@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/styles/bootstrap.rtl.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles/navbar.css" />
+  <link rel="stylesheet" href="/styles/pagination.css" />
   <link rel="stylesheet" href="/styles/dashboard.css" />
-  <link rel="stylesheet" href="/styles/search-box.css" />
-  <link rel="stylesheet" href="/styles/filter-form.css" />
-  <link rel="stylesheet" href="/styles/users.css" />
   <title>
     <%=title%>
   </title>
@@ -17,13 +15,33 @@
 <body>
   <%- include('navbar') %>
   <div class="container-xl">
-    <%- include('filter-form') %>
+    <% if(data) { %>
+      <%- include('filter-form') %>
 
-    <%if (type === 'users' ) {%>
-    <%- include('components/users') %>
-    <%}%>
+      <!-- ---------------------------------------------------- -->
+      <!-- ------------------ Components ---------------------- -->
+      <!-- ---------------------------------------------------- -->
+      <%if (type==='users' ) {%>
+      <%- include('components/users') %>
+      <%}%>
+
+      <!-- ---------------------------------------------------- -->
+      <!-- ---------------------------------------------------- -->
+      <!-- ---------------------------------------------------- -->
+
+      <%- include('pagination') %>
+    <% } else { %>
+      <div class="alert alert-warning" role="alert">
+        لا يوجد مستخدمين
+      </div>
+    <% } %>
+
+
+
   </div>
 
   <script src="/scripts/bootstrap.bundle.min.js"></script>
+  <script src="/scripts/users.js"></script>
+  <script src="/scripts/table.js"></script>
 </body>
 </html>

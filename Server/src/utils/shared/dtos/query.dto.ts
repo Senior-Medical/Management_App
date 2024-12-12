@@ -30,11 +30,6 @@ export class QueryDto {
 
   @IsOptional()
   @IsString()
-  @Matches(/^[\w\s]+$/) // Space-separated field names
-  fields?: string;
-
-  @IsOptional()
-  @IsString()
   search?: string;
 
   [key: string]: any;

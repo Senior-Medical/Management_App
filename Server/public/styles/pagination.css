@@ -1,0 +1,27 @@
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination-nav .pagination .page-item {
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.pagination-nav .pagination .page-item .page-link {
+  color: #fff;
+  background-color: #212529;
+  border: none;
+  transition: all 100ms ease-in-out;
+}
+
+.pagination-nav .pagination .page-item.active .page-link, .pagination-nav .pagination .page-item .page-link:hover {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 20px 8px;
+  transform: translateY(-5px);
+}
+
+.pagination-nav .pagination .page-item.disabled .page-link {
+  color: #fff;
+  background-color: #3d4144;
+}

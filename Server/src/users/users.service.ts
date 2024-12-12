@@ -1,33 +1,24 @@
 import { ConflictException, Injectable, Req, Res } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Query } from 'mongoose';
+import { Request, Response } from 'express';
+import { Model } from 'mongoose';
+import { pagesTitles, PagesTypes } from 'src/dashboard/enums/pagesTypes.enum';
+import { FindQueryBuilderService } from 'src/utils/shared/builders/find-query-builder.service';
+import { QueryDto } from 'src/utils/shared/dtos/query.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
-import { Request, Response } from 'express';
-import { FindQueryBuilder } from 'src/utils/shared/builders/findQuery.builder';
 import { DashboardRenderVariablesType } from './types/render-variables.type';
-import { pagesTitles, PagesTypes } from 'src/dashboard/enums/pagesTypes.enum';
 
 /**
  * Service for user operations.
  */
 @Injectable()
 export class UsersService {
-  private queryBuilder: FindQueryBuilder | null = null;
+  private queryBuilder: FindQueryBuilderService | null = null;
   private searchableKeys: string[] = ["username"];
 
   constructor(@InjectModel(User.name) private usersModel: Model<User>) {}
-
-  /**
-   * Get query builder to use it in find method
-   * @returns - The query builder instance
-   */
-  private getQueryBuilder() {
-    if (!this.queryBuilder) this.queryBuilder = new FindQueryBuilder(this.usersModel.find());
-    else this.queryBuilder.setQuery(this.usersModel.find());
-    return this.queryBuilder;
-  }
 
   /**
    * Creates a new user.
@@ -45,6 +36,16 @@ export class UsersService {
     return res.redirect('/users');
   }
 
+    /**
+   * Get query builder to use it in find method
+   * @returns - The query builder instance
+   */
+  private getQueryBuilder(queryParams: QueryDto) {
+    if (!this.queryBuilder) this.queryBuilder = new FindQueryBuilderService(this.usersModel.find(), queryParams);
+    else this.queryBuilder.resetParameters(queryParams, this.usersModel.find());
+    return this.queryBuilder;
+  }
+
   /**
    * Find all users.
    * @param queryParams The query parameters.
@@ -52,34 +53,34 @@ export class UsersService {
    * @param res The response.
    * @returns The users.
    */
-  async findAll(queryParams: any, @Req() req: Request, @Res() res: Response) {
-    const queryBuilder = this.getQueryBuilder();
-    const filters = { page: queryParams.page || 1 };
-    queryBuilder.filter(queryParams);
-    queryBuilder.paginate(queryParams.page, queryParams.pageSize);
-    if (queryParams.fields) queryBuilder.selectFields(queryParams.fields);
-    if (queryParams.sort) {
-      queryBuilder.sort(queryParams.sort);
-      filters['sort'] = queryParams.sort;
-    }
-    else {
-      queryBuilder.sort('-createdAt');
-      filters['sort'] = '-createdAt';
-    }
-    if (queryParams.search) {
-      queryBuilder.search(this.searchableKeys, queryParams.search);
-      filters['search'] = queryParams.search;
-    }
-    
-    const users = await queryBuilder.build().populate('createdBy', 'username').populate('updatedBy', 'username');
+  async findAll(queryParams: QueryDto, @Req() req: Request, @Res() res: Response) {
+    const queryBuilder = this.getQueryBuilder(queryParams);
+    console.log(queryParams);
+    const users = await queryBuilder
+      .filter()
+      .search(this.searchableKeys)
+      .sort()
+      .paginate()
+      .build()
+      .populate('createdBy', 'username')
+      .populate('updatedBy', 'username');
 
     const renderVariables: DashboardRenderVariablesType = {
       title: pagesTitles[PagesTypes.USERS],
       type: PagesTypes.USERS,
       data: users,
       user: req.user as UserDocument,
-      filters: filters
+      filters: {
+        search: queryBuilder.getSearchKey(),
+        sort: queryBuilder.getSortKey(),
+        pagination: {
+          page: queryBuilder.getPage(),
+          totalPages: await queryBuilder.getTotalPages(),
+          pageSize: queryBuilder.getPageSize()
+        }
+      }
     };
+    console.log(renderVariables);
     return res.render(`dashboard`, renderVariables);
   }
 
@@ -103,7 +104,7 @@ export class UsersService {
     }
 
     await wantedUser.set(inputData).save();
-    return res.redirect('/users');
+    return res.redirect('/users?sort=-updatedAt');
   }
 
   async remove(user: UserDocument, res: Response) {

@@ -1,23 +1,28 @@
-<form action="users" id="filter-form" method="get">
+<form action="users" id="filter-form" style="max-width: 500px;" method="get">
   <div class="input-group mb-3">
     <label class="input-group-text" for="search">بحث</label>
     <input id="search" name="search" type="text" class="form-control" aria-label="search" aria-describedby="search" placeholder="إبحث بإسم المستخدم" value="<%=filters.search%>">
   </div>
   <div class="input-group mb-3">
-    <span class="input-group-text" id="search">ترتيب</span>
+    <label for="sort" class="input-group-text" id="search">ترتيب</label>
     <select class="form-select" id="sort" name="sort">
       <option value="createdAt" <%=(filters.sort.replace('-', '') === "createdAt") ? 'selected' : '' %>>تاريخ الإنشاء</option>
       <option value="username" <%=(filters.sort.replace('-', '') === "username") ? 'selected' : '' %>>إسم المستخدم</option>
       <option value="updatedAt" <%=(filters.sort.replace('-', '') === "updatedAt") ? 'selected' : '' %>>تاريخ آخر تحديث</option>
       <option value="role" <%=(filters.sort.replace('-', '') === "role") ? 'selected' : '' %>>الدور الوظيفي</option>
     </select>
-    <span class="input-group-text" id="search">إختر للترتيب التنازلي</span>
+    <label class="input-group-text" id="search" for="sort-type">إختر للترتيب التنازلي</label>
     <div class="input-group-text">
-      <input class="form-check-input mt-0" name="sortType" type="checkbox" aria-label="Checkbox for following text input" <%=(filters.sort.startsWith('-')) ? 'checked' : '' %>>
+      <input id="sort-type" class="form-check-input mt-0" name="sortType" type="checkbox" aria-label="Checkbox for following text input" <%=(filters.sort.startsWith('-')) ? 'checked' : '' %>>
     </div>
   </div>
+  <div class="input-group mb-3" style="max-width: 50%;">
+    <label class="input-group-text" for="page-size">عرض </label>
+    <input id="page-size" name="pageSize" type="number" class="form-control" aria-label="page-size"
+      aria-describedby="page-size" value="<%=(filters.pagination.pageSize) ? filters.pagination.pageSize : 10 %>">
+    <label class="input-group-text" for="page-size"> صف</label>
+  </div>
   <div class="input-group mb-3">
-    <input type="submit" class="btn btn-dark" value="تطبيق">
+    <button type="submit" class="btn btn-dark">تطبيق</button>
   </div>
 </form>
-<script src="/scripts/filter-form.js"></script>
