@@ -55,7 +55,6 @@ export class UsersService {
    */
   async findAll(queryParams: QueryDto, @Req() req: Request, @Res() res: Response) {
     const queryBuilder = this.getQueryBuilder(queryParams);
-    console.log(queryParams);
     const users = await queryBuilder
       .filter()
       .search(this.searchableKeys)
@@ -80,7 +79,6 @@ export class UsersService {
         }
       }
     };
-    console.log(renderVariables);
     return res.render(`dashboard`, renderVariables);
   }
 

@@ -118,7 +118,6 @@ export class FindQueryBuilderService {
       let searchObject = searchableFields.map(field => ({ [field]: searchRegex }));
       this.query = this.query.find({ $or: searchObject });
     }
-    console.log(this.searchKey);
     return this;
   }
 

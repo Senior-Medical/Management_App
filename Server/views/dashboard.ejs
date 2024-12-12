@@ -13,10 +13,10 @@
 </head>
 
 <body>
-  <%- include('navbar') %>
+  <%- include('components/header') %>
   <div class="container-xl">
     <% if(data) { %>
-      <%- include('filter-form') %>
+      <%- include('components/filter-form') %>
 
       <!-- ---------------------------------------------------- -->
       <!-- ------------------ Components ---------------------- -->
@@ -29,19 +29,18 @@
       <!-- ---------------------------------------------------- -->
       <!-- ---------------------------------------------------- -->
 
-      <%- include('pagination') %>
+      <% if(filters.pagination.totalPages > 1) { %>
+        <%- include('components/pagination') %>
+      <% } %>
     <% } else { %>
       <div class="alert alert-warning" role="alert">
         لا يوجد مستخدمين
       </div>
     <% } %>
-
-
-
   </div>
 
   <script src="/scripts/bootstrap.bundle.min.js"></script>
   <script src="/scripts/users.js"></script>
-  <script src="/scripts/table.js"></script>
+  <script src="/scripts/dashboard.js"></script>
 </body>
 </html>
