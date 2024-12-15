@@ -32,7 +32,7 @@ export class FindQueryBuilderService {
    * @param queryParams - The new query parameters object.
    * @param query - The new Mongoose query object.
    */
-  resetParameters(queryParams: QueryDto, query: Query<any, any>) {
+  resetParameters(query: Query<any, any>, queryParams: QueryDto) {
     this.page = FindQueryBuilderService.defaultPage;
     this.pageSize = FindQueryBuilderService.defaultPageSize;
     this.sortKey = FindQueryBuilderService.defaultSortKey;
@@ -53,6 +53,8 @@ export class FindQueryBuilderService {
     delete filterObj.sort;
     delete filterObj.fields;
     delete filterObj.search;
+
+    if (Object.keys(filterObj).length === 0) return this;
 
     for (const e of Object.entries(filterObj)) {
       if (e[1].startsWith("objectid:")) e[1] = new Types.ObjectId(e[1].replace("objectid:", "") as string);

@@ -6,6 +6,7 @@ export type DashboardRenderVariablesType = {
   type: PagesTypes,
   data: Array<any> | null,
   user: UserDocument,
+  admins: Array<UserDocument>,
   filters: {
     search: string,
     sort: string,
@@ -14,5 +15,6 @@ export type DashboardRenderVariablesType = {
       pageSize: number,
       totalPages: number,
     },
+    filter: object[]
   }
 };

@@ -1,7 +1,7 @@
 import { ConflictException, Injectable, Req, Res } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Request, Response } from 'express';
-import { Model } from 'mongoose';
+import { Model, RootFilterQuery } from 'mongoose';
 import { pagesTitles, PagesTypes } from 'src/dashboard/enums/pagesTypes.enum';
 import { FindQueryBuilderService } from 'src/utils/shared/builders/find-query-builder.service';
 import { QueryDto } from 'src/utils/shared/dtos/query.dto';
@@ -16,7 +16,12 @@ import { DashboardRenderVariablesType } from './types/render-variables.type';
 @Injectable()
 export class UsersService {
   private queryBuilder: FindQueryBuilderService | null = null;
-  private searchableKeys: string[] = ["username"];
+  private searchableKeys: string[] = [
+    "username",
+    "role",
+    "createdAtArabic",
+    "updatedAtArabic"
+  ];
 
   constructor(@InjectModel(User.name) private usersModel: Model<User>) {}
 
@@ -24,6 +29,7 @@ export class UsersService {
    * Creates a new user.
    * @param user The user who is creating the new user.
    * @param createUserDto The data for the new user.
+   * @param res The response object.
    * @returns The new user.
    */
   async create(user: UserDocument, createUserDto: CreateUserDto, res: Response) {
@@ -40,9 +46,10 @@ export class UsersService {
    * Get query builder to use it in find method
    * @returns - The query builder instance
    */
-  private getQueryBuilder(queryParams: QueryDto) {
-    if (!this.queryBuilder) this.queryBuilder = new FindQueryBuilderService(this.usersModel.find(), queryParams);
-    else this.queryBuilder.resetParameters(queryParams, this.usersModel.find());
+  private getQueryBuilder(queryParams: QueryDto, filter: RootFilterQuery<User> = {}) {
+    const query = this.usersModel.find(filter);
+    if (!this.queryBuilder) this.queryBuilder = new FindQueryBuilderService(query, queryParams);
+    else this.queryBuilder.resetParameters(query, queryParams);
     return this.queryBuilder;
   }
 
@@ -64,11 +71,13 @@ export class UsersService {
       .populate('createdBy', 'username')
       .populate('updatedBy', 'username');
 
+    const { page, pageSize, sort, search, ...filter } = queryParams;
     const renderVariables: DashboardRenderVariablesType = {
       title: pagesTitles[PagesTypes.USERS],
       type: PagesTypes.USERS,
       data: users,
       user: req.user as UserDocument,
+      admins: await this.usersModel.find({ role: 'مدير' }),
       filters: {
         search: queryBuilder.getSearchKey(),
         sort: queryBuilder.getSortKey(),
@@ -76,20 +85,41 @@ export class UsersService {
           page: queryBuilder.getPage(),
           totalPages: await queryBuilder.getTotalPages(),
           pageSize: queryBuilder.getPageSize()
-        }
+        },
+        filter: Object.entries(filter).map(([key, value]) => ({ key, value }))
       }
     };
+    console.log(renderVariables.filters);
     return res.render(`dashboard`, renderVariables);
   }
 
+  /**
+   * Find user by id.
+   * @param id The user id.
+   * @returns The user.
+   */
   findById(id: string) {
     return this.usersModel.findById(id);
   }
 
+  /**
+   * Find user by username.
+   * @param username The username.
+   * @returns The user.
+   */
   findByUsername(username: string) {
     return this.usersModel.findOne({ username });
   }
 
+  /**
+   * Update user.
+   * @param user The user who is updating the user.
+   * @param wantedUser The user who is wanted to be updated.
+   * @param updateUserDto The data to update the user.
+   * @param res The response object.
+   * @returns The updated user.
+   * @throws ConflictException if the username is already exist.
+   */
   async update(user: UserDocument, wantedUser: UserDocument, updateUserDto: UpdateUserDto, res: Response) {
     if (updateUserDto.username) {
       const user = await this.findByUsername(updateUserDto.username);
@@ -105,6 +135,12 @@ export class UsersService {
     return res.redirect('/users?sort=-updatedAt');
   }
 
+  /**
+   * Remove user.
+   * @param user The user who is removing the user.
+   * @param res The response object.
+   * @returns The removed user.
+   */
   async remove(user: UserDocument, res: Response) {
     await user.deleteOne();
     return res.redirect('/users');

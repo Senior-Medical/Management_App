@@ -14,7 +14,7 @@
           <li class="nav-item">
             <a class="nav-link <%if(type === 'main'){%>active<%}%>" aria-current="page" href="/dashboard">الرئيسية</a>
           </li>
-          <%if(user.role === 'admin'){%>
+          <%if(user.role === 'مدير'){%>
             <li class="nav-item">
               <a class="nav-link <%if(type === 'users'){%>active<%}%>" href="/users">المشرفين</a>
             </li>

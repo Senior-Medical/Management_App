@@ -4,6 +4,10 @@
       <a class="page-link" page="<%= filters.pagination.page - 1 %>">السابق</a>
     </li>
 
+    <li class="page-item <%= filters.pagination.page === 1 ? 'disabled' : '' %>">
+      <span><%=filters.pagination.page%></span>
+    </li>
+
     <li class="page-item <%= filters.pagination.page === filters.pagination.totalPages ? 'disabled' : '' %>">
       <a class="page-link" page="<%= filters.pagination.page + 1 %>">التالي</a>
     </li>

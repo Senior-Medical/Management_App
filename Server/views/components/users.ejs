@@ -23,15 +23,6 @@
     </thead>
     <tbody>
       <%
-        const dateFormaterOptions = {
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric',
-          hour: '2-digit', 
-          minute: '2-digit'
-        };
-        const dateFormater = new Intl.DateTimeFormat('ar-EG', dateFormaterOptions);
         data.forEach((user, i)=>{
       %>
         <tr>
@@ -40,7 +31,7 @@
             <%=user.username%>
           </td>
           <td>
-            <%=(user.role === 'admin')?"مدير":"مشرف"%>
+            <%=(user.role)?user.role:"لا يوجد"%>
           </td>
           <td>
             <% if(user.createdBy && user.createdBy.username){ %>
@@ -61,10 +52,10 @@
             <% } %>
           </td>
           <td>
-            <%=dateFormater.format(user.createdAt)%>
+            <%=(user.createdAtArabic)?user.createdAtArabic:"لا يوجد"%>
           </td>
           <td>
-            <%=dateFormater.format(user.updatedAt)%>
+            <%=(user.updatedAtArabic)?user.updatedAtArabic:"لا يوجد"%>
           </td>
           <td>
             <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-user-modal<%=i%>">تحديث</button>

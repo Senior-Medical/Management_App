@@ -9,11 +9,15 @@
   margin: 0 0.25rem;
 }
 
-.pagination-nav .pagination .page-item .page-link {
+.pagination-nav .pagination .page-item .page-link, .pagination-nav .pagination .page-item span {
   color: #fff;
   background-color: #212529;
   border: none;
-  transition: all 100ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.pagination-nav .pagination .page-item span {
+  padding: .5rem;
 }
 
 .pagination-nav .pagination .page-item.active .page-link, .pagination-nav .pagination .page-item .page-link:hover {
