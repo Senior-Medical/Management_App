@@ -4,9 +4,9 @@
  * And apply some modifications to the data before sending it to the server
  * 
  * @param {Element} filterForm The filter form element
- * @returns {FormData} The filter form data
+ * @returns {string} The filter form url
  */
-const getFilterFormData = (filterForm) => {
+const getFilterUrl = (filterForm) => {
   const filterFormData = new FormData(filterForm);
   if (filterFormData.get('sort-type')) filterFormData.set('sort', `-${filterFormData.get('sort')}`);
   filterFormData.delete('sort-type');
@@ -21,7 +21,9 @@ const getFilterFormData = (filterForm) => {
     filterFormData.delete('custom-filter-key');
     filterFormData.delete('custom-filter-value');
   }
-  return filterFormData;
+
+  const action = filterForm.getAttribute('action');
+  return `${action}?${new URLSearchParams(filterFormData).toString()}`;
 }
 
 /**
@@ -30,11 +32,7 @@ const getFilterFormData = (filterForm) => {
  */
 document.querySelector('#filter-form').addEventListener('submit', function (e) {
   e.preventDefault();
-  const filterForm = e.target;
-  const filterFormData = getFilterFormData(filterForm);
-
-  const url = `/users?${new URLSearchParams(filterFormData).toString()}`;
-  window.location.href = url;
+  window.location.href = getFilterUrl(e.target);
 });
 
 /**
@@ -42,11 +40,7 @@ document.querySelector('#filter-form').addEventListener('submit', function (e) {
  * Used to filter users when changing pages using pagination and other filters in filter form
  */
 document.querySelectorAll('.page-link').forEach(link => {
-  const filterForm = document.querySelector('#filter-form');
-  const filterFormData = getFilterFormData(filterForm);
-  const page = link.getAttribute('page');
-  const url = `/users?page=${page}&${new URLSearchParams(filterFormData).toString()}`;
-  link.setAttribute('href', url);
+  link.setAttribute('href', `${getFilterUrl(document.querySelector('#filter-form'))}&page=${link.getAttribute('page')}`);
 });
 
 /**

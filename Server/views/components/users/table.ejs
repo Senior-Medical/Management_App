@@ -2,7 +2,6 @@
   <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
     <caption class="mx-4 fs-5">
       <span>العدد: <%= data.length %></span>
-      <button class="btn btn-secondary create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-user-modal">إضافة مشرف</button>
     </caption>
     <thead>
       <tr class="table-dark">
@@ -52,11 +51,11 @@
             <%= (user.updatedAtArabic)?user.updatedAtArabic:"لا يوجد" %>
           </td>
           <td>
-            <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-user-modal<%=index%>">تحديث</button>
+            <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-user-modal-<%=index %>">تحديث</button>
             <%- include('update-modal', {index, user}) %>
           </td>
           <td>
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal<%=index%>">حذف</button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal-<%= index %>">حذف</button>
             <%- include('delete-modal', {index, user}) %>
           </td>
         </tr>

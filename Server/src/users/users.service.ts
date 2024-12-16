@@ -1,10 +1,9 @@
-import { ConflictException, Injectable, Req, Res } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Request, Response } from 'express';
 import { Model, RootFilterQuery } from 'mongoose';
-import { pagesTitles, PagesTypes } from 'src/dashboard/enums/pagesTypes.enum';
-import { FindQueryBuilderService } from 'src/utils/shared/builders/find-query-builder.service';
-import { QueryDto } from 'src/utils/shared/dtos/query.dto';
+import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
+import { QueryDto } from 'src/utils/dtos/query.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
@@ -30,11 +29,11 @@ export class UsersService {
    * @param user The user who is creating the new user.
    * @param createUserDto The data for the new user.
    * @param res The response object.
-   * @returns The new user.
+   * @redirect To the users page.
    */
   async create(user: UserDocument, createUserDto: CreateUserDto, res: Response) {
     let { username } = createUserDto;
-    const existUser = await this.findByUsername(username);
+    const existUser = await this.findByName(username);
     if (existUser) throw new ConflictException('إسم المستخدم موجود بالفعل');
 
     const inputData: User = {
@@ -44,6 +43,15 @@ export class UsersService {
     };
     await this.usersModel.create(inputData);
     return res.redirect('/users');
+  }
+
+  /**
+   * Find all users depend on some filters.
+   * @param filters The filters to find the users.
+   * @returns The users.
+   */
+  find(filters: RootFilterQuery<User> = {}) {
+    return this.usersModel.find(filters);
   }
 
   /**
@@ -62,9 +70,9 @@ export class UsersService {
    * @param queryParams The query parameters.
    * @param req The request.
    * @param res The response.
-   * @returns The users.
+   * @render The users page.
    */
-  async findAll(queryParams: QueryDto, @Req() req: Request, @Res() res: Response) {
+  async findAll(queryParams: QueryDto, req: Request, res: Response) {
     const queryBuilder = this.getQueryBuilder(queryParams);
     const users = await queryBuilder
       .filter()
@@ -75,14 +83,12 @@ export class UsersService {
       .populate('createdBy', 'username')
       .populate('updatedBy', 'username');
 
-    const { page, pageSize, sort, search, ...filter } = queryParams;
+    const { page, pageSize, sort, search, error, ...filter } = queryParams;
     const renderVariables: DashboardRenderVariablesType = {
       error: queryParams.error || null,
-      title: pagesTitles[PagesTypes.USERS],
-      type: PagesTypes.USERS,
       data: users,
       user: req.user as UserDocument,
-      admins: await this.usersModel.find({ role: 'مدير' }),
+      users: await this.usersModel.find({ role: 'مدير' }),
       filters: {
         search: queryBuilder.getSearchKey(),
         sort: queryBuilder.getSortKey(),
@@ -111,7 +117,7 @@ export class UsersService {
    * @param username The username.
    * @returns The user.
    */
-  findByUsername(username: string) {
+  findByName(username: string) {
     return this.usersModel.findOne({ username });
   }
 
@@ -121,13 +127,13 @@ export class UsersService {
    * @param wantedUser The user who is wanted to be updated.
    * @param updateUserDto The data to update the user.
    * @param res The response object.
-   * @returns The updated user.
+   * @redirect To the users page.
    * @throws ConflictException if the username is already exist.
    */
   async update(user: UserDocument, wantedUser: UserDocument, updateUserDto: UpdateUserDto, res: Response) {
     if (updateUserDto.username) {
-      const user = await this.findByUsername(updateUserDto.username);
-      if (user && user._id.toString() !== wantedUser._id.toString()) throw new ConflictException('إسم المستخدم موجود بالفعل');
+      const existUser = await this.findByName(updateUserDto.username);
+      if (existUser && existUser._id.toString() !== wantedUser._id.toString()) throw new ConflictException('إسم المستخدم موجود بالفعل');
     } else delete updateUserDto.username;
     if (!updateUserDto.password) delete updateUserDto.password;
     const inputData: Partial<User> = {

@@ -1,9 +1,9 @@
-<div class="modal fade" id="update-user-modal<%= index %>" tabindex="-1" aria-labelledby="update-user-modal-label"
+<div class="modal fade" id="update-user-modal-<%= index %>" tabindex="-1" aria-labelledby="update-user-modal-label-<%= index %>"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="update-user-modal-label">إضافة مستخدم</h1>
+        <h1 class="modal-title fs-5" id="update-user-modal-label-<%= index %>">تحديث مستخدم</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -13,10 +13,12 @@
             <input type="text" class="form-control" name="username" id="username-<%= user._id %>" value="<%= user.username %>">
             <div class="text-danger mt-1" id="username-error-<%= user._id %>" style="display: none;"></div>
           </div>
-          <div class="mb-3 position-relative">
+          <div class="mb-3">
             <label for="password" class="col-form-label fs-4">كلمة المرور:</label>
-            <input type="password" class="form-control" id="password-<%= user._id %>" name="password" />
-            <i class="fa-solid fa-eye-slash position-absolute toggle-password"></i>
+            <div class="position-relative">
+              <input type="password" class="form-control" id="password-<%= user._id %>" name="password" />
+              <i class="fa-solid fa-eye-slash position-absolute toggle-password"></i>
+            </div>
             <div class="text-danger mt-1" id="password-error-<%= user._id %>" style="display: none;"></div>
           </div>
         </form>

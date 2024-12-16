@@ -1,0 +1,23 @@
+<div class="modal fade" id="update-worker-modal-<%= index %>" tabindex="-1" aria-labelledby="update-worker-modal-label-<%= index %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="update-worker-modal-label-<%= index %>">تحديث عامل</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/workers/update/<%= worker._id %>" method="post" id="update-worker-form-<%= worker._id %>">
+          <div class="mb-3">
+            <label for="name" class="col-form-label fs-4">إسم العامل:</label>
+            <input type="text" class="form-control" name="name" id="name-<%= worker._id %>" value="<%= worker.name %>">
+            <div class="text-danger mt-1" id="name-error-<%= worker._id %>" style="display: none;"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-success update-worker" workerId="<%= worker._id %>">حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,19 +4,21 @@ import {
   Module,
   ValidationPipe
 } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { envVariablesValidationSchema } from './utils/shared/config/envValidation.schema';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { MongooseModule } from '@nestjs/mongoose';
-import { LoggerModule } from './utils/logger/logger.module';
 import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
-import { RolesGuard } from './auth/guards/roles.guard';
-import { LoggerExceptionFilter } from './utils/logger/filters/loggerException.filter';
-import { RequestTimingMiddleware } from './utils/shared/middlewares/requestTiming.middleware';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
+import { RolesGuard } from './auth/guards/roles.guard';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { UsersModule } from './users/users.module';
+import { envVariablesValidationSchema } from './utils/config/envValidation.schema';
+import { LoggerExceptionFilter } from './utils/logger/filters/loggerException.filter';
+import { LoggerModule } from './utils/logger/logger.module';
+import { RequestTimingMiddleware } from './utils/middlewares/requestTiming.middleware';
+import { WorkersModule } from './workers/workers.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AuthModule,
     UsersModule,
     DashboardModule,
+    WorkersModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [

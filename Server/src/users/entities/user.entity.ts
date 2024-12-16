@@ -2,16 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Role } from '../enums/roles.enum';
 import { EncryptionService } from 'src/utils/encryption/encryption.service';
-
-const dateFormaterOptions: Intl.DateTimeFormatOptions = {
-  weekday: 'long', 
-  year: 'numeric', 
-  month: 'long', 
-  day: 'numeric',
-  hour: '2-digit', 
-  minute: '2-digit'
-};
-const arabicDateFormater = new Intl.DateTimeFormat('ar-EG', dateFormaterOptions);
+import { arabicDateFormater } from 'src/utils/arabic-date-formater';
 
 @Schema({ timestamps: true })
 export class User {

@@ -20,6 +20,16 @@ button.btn:active {
   transform: translateY(0);
 }
 
+.create-button {
+  padding: .5rem 1.3rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  background: #212529;
+  color: #f2f2f2;
+  border: none;
+  font-weight: bold;
+}
+
 .form-control:focus,
 .form-select:focus {
   border: none;
@@ -31,7 +41,7 @@ button.btn:active {
 }
 
 .toggle-password {
-  top: 70%;
+  top: 30%;
   left: 10px;
   cursor: pointer;
 }
@@ -71,19 +81,7 @@ table form{
 }
 
 table caption {
-  max-width: 500px;
   font-size: 1.5rem;
-  font-weight: bold;
-}
-
-table caption .create-button {
-  margin-right: 50px;
-  padding: .5rem 1.3rem;
-  font-size: 1rem;
-  border-radius: 30px;
-  background: #212529;
-  color: #f2f2f2;
-  border: none;
   font-weight: bold;
 }
 

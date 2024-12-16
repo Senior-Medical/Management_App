@@ -1,0 +1,18 @@
+section {
+  background-color: #212529;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+section h2 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+}
+
+section p {
+  font-size: 1rem;
+  color: #ddd;
+}

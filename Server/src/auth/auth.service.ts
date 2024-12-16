@@ -21,7 +21,7 @@ export class AuthService{
    * @returns - The user object if validation is successful.
    */
   async validateUser(username: string, password: string) {
-    const user = await this.usersService.findByUsername(username);
+    const user = await this.usersService.findByName(username);
     if (!user) return null;
     const match = await this.encryptionService.bcryptCompare(password, user.password);
     if (!match) return null;

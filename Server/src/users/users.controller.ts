@@ -2,26 +2,23 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
-  HttpStatus,
   Param,
   Post,
   Query,
   Req,
-  Res,
-  UseFilters,
+  Res
 } from '@nestjs/common';
-import { Roles } from 'src/utils/shared/decorators/roles.decorator';
+import { Request, Response } from 'express';
+import { GetUser } from 'src/utils/decorators/get-user.decorator';
+import { Roles } from 'src/utils/decorators/roles.decorator';
+import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
+import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDocument } from './entities/user.entity';
 import { Role } from './enums/roles.enum';
-import { UsersService } from './users.service';
 import { UserIdPipe } from './pipes/user-id.pipe';
-import { Request, Response } from 'express';
-import { ObjectIdPipe } from 'src/utils/shared/pipes/ObjectId.pipe';
-import { QueryParamPipe } from 'src/utils/shared/pipes/queryParam.pipe';
-import { GetUser } from 'src/utils/shared/decorators/get-user.decorator';
+import { UsersService } from './users.service';
 
 @Controller('users')
 @Roles(Role.ADMIN)
@@ -46,13 +43,7 @@ export class UsersController {
     return this.usersService.findAll(queryParams, req, res);
   }
 
-  @Get(':userId')
-  findOne(@Param('userId', ObjectIdPipe, UserIdPipe) user: UserDocument) {
-    return user;
-  }
-
-  @Post('/update/:userId')
-  @HttpCode(HttpStatus.ACCEPTED)
+  @Post('update/:userId')
   update(
     @Res() res: Response,
     @GetUser() user: UserDocument,
@@ -62,8 +53,7 @@ export class UsersController {
     return this.usersService.update(user, wantedUser, updateUserDto, res);
   }
 
-  @Get('/delete/:userId')
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @Get('delete/:userId')
   remove(
     @Res() res: Response,
     @Param('userId', ObjectIdPipe, UserIdPipe) user: UserDocument
