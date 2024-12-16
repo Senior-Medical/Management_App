@@ -1,0 +1,23 @@
+<div class="modal fade" id="update-product-modal-<%= index %>" tabindex="-1" aria-labelledby="update-product-modal-label-<%= index %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="update-product-modal-label-<%= index %>">تحديث منتج</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/products/update/<%= product._id %>" method="post" id="update-product-form-<%= product._id %>">
+          <div class="mb-3">
+            <label for="name" class="col-form-label fs-4">إسم المنتج:</label>
+            <input type="text" class="form-control" name="name" id="name-<%= product._id %>" value="<%= product.name %>">
+            <div class="text-danger mt-1" id="name-error-<%= product._id %>" style="display: none;"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-success update-product" productId="<%= product._id %>">حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>

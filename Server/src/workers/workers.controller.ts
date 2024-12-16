@@ -6,13 +6,12 @@ import {
   Param,
   Res,
   Query,
-  Req,
 } from '@nestjs/common';
 import { WorkersService } from './workers.service';
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { UserDocument } from 'src/users/entities/user.entity';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
 import { WorkerDocument } from './entities/worker.entity';
@@ -35,9 +34,9 @@ export class WorkersController {
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @Res() res: Response,
-    @Req() req: Request,
+    @GetUser() user: UserDocument,
   ) {
-    return this.workersService.findAll(queryParams, req, res);
+    return this.workersService.findAll(queryParams, user, res);
   }
 
   @Post('update/:workerId')

@@ -34,8 +34,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   login(@Req() req: Request, @Res() res: Response) {
     req.login(req.user, (err) => {
-      if (err) res.redirect('/auth/login?error=خطأ في تسجيل الدخول');
-      else res.redirect('/dashboard');
+      if (err) return res.redirect('/auth/login?error=خطأ في تسجيل الدخول');
+      else return res.redirect('/dashboard');
     });
   }
 

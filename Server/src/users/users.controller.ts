@@ -5,10 +5,9 @@ import {
   Param,
   Post,
   Query,
-  Req,
   Res
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { Roles } from 'src/utils/decorators/roles.decorator';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
@@ -38,9 +37,9 @@ export class UsersController {
   async findAll(
     @Query(QueryParamPipe) queryParams: any,
     @Res() res: Response,
-    @Req() req: Request,
+    @GetUser() user: UserDocument,
   ) {
-    return this.usersService.findAll(queryParams, req, res);
+    return this.usersService.findAll(queryParams, user, res);
   }
 
   @Post('update/:userId')

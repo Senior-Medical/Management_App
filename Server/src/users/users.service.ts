@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { Model, RootFilterQuery } from 'mongoose';
 import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
 import { QueryDto } from 'src/utils/dtos/query.dto';
@@ -68,11 +68,11 @@ export class UsersService {
   /**
    * Find all users.
    * @param queryParams The query parameters.
-   * @param req The request.
+   * @param user The user who is get users.
    * @param res The response.
    * @render The users page.
    */
-  async findAll(queryParams: QueryDto, req: Request, res: Response) {
+  async findAll(queryParams: QueryDto, user: UserDocument, res: Response) {
     const queryBuilder = this.getQueryBuilder(queryParams);
     const users = await queryBuilder
       .filter()
@@ -87,7 +87,7 @@ export class UsersService {
     const renderVariables: DashboardRenderVariablesType = {
       error: queryParams.error || null,
       data: users,
-      user: req.user as UserDocument,
+      user,
       users: await this.usersModel.find({ role: 'مدير' }),
       filters: {
         search: queryBuilder.getSearchKey(),

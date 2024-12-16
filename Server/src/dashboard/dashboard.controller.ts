@@ -11,9 +11,7 @@ export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) { }
   
   @Get()
-  main(
-    @GetUser() user: UserDocument, @Res() res: Response) {
-    // return res.redirect('/users');
+  main(@GetUser() user: UserDocument, @Res() res: Response) {
     return res.render('main', {user});
   }
 }

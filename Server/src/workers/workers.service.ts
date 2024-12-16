@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UserDocument } from 'src/users/entities/user.entity';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { Worker, WorkerDocument } from './entities/worker.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, RootFilterQuery } from 'mongoose';
@@ -59,11 +59,11 @@ export class WorkersService {
   /**
    * Find all workers.
    * @param queryParams The query parameters.
-   * @param req The request.
+   * @param user The user who is get workers.
    * @param res The response.
    * @render The workers page.
    */
-  async findAll(queryParams: QueryDto, req: Request, res: Response) {
+  async findAll(queryParams: QueryDto, user: UserDocument, res: Response) {
     const queryBuilder = this.getQueryBuilder(queryParams);
     const workers = await queryBuilder
       .filter()
@@ -78,7 +78,7 @@ export class WorkersService {
     const renderVariables: DashboardRenderVariablesType = {
       error: queryParams.error || null,
       data: workers,
-      user: req.user as UserDocument,
+      user,
       users: await this.usersService.find(),
       filters: {
         search: queryBuilder.getSearchKey(),

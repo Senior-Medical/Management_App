@@ -18,9 +18,7 @@
 
     <div class="container-xl">
       <%- include('components/filter-form', {...filters, users, type}) %>
-
-      <%- include('components/workers/create-modal') %>
-
+      
       <% if(error) { %>
         <div class="alert alert-danger alert-dismissible" role="alert">
           <div>
@@ -29,7 +27,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       <% } %>
-
+        
+      <%- include('components/workers/create-modal') %>
       <button class="btn btn-secondary mb-4 create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-worker-modal">إضافة عامل</button>
 
       <% if(data.length !==0) { %>
