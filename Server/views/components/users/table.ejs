@@ -1,12 +1,8 @@
-<%- include('users/create-user-modal') %>
-
 <div class="table-responsive">
   <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
     <caption class="mx-4 fs-5">
-      <span>العدد: <%=data.length%></span>
-      <button class="btn btn-secondary create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-user-modal">
-        إضافة مشرف
-      </button>
+      <span>العدد: <%= data.length %></span>
+      <button class="btn btn-secondary create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-user-modal">إضافة مشرف</button>
     </caption>
     <thead>
       <tr class="table-dark">
@@ -22,16 +18,14 @@
       </tr>
     </thead>
     <tbody>
-      <%
-        data.forEach((user, i)=>{
-      %>
+      <% data.forEach((user, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%=i+1%></th>
+          <th class="table-dark" scope="row"><%= index+1 %></th>
           <td>
-            <%=user.username%>
+            <%= user.username %>
           </td>
           <td>
-            <%=(user.role)?user.role:"لا يوجد"%>
+            <%= (user.role)?user.role:"لا يوجد" %>
           </td>
           <td>
             <% if(user.createdBy && user.createdBy.username){ %>
@@ -52,21 +46,21 @@
             <% } %>
           </td>
           <td>
-            <%=(user.createdAtArabic)?user.createdAtArabic:"لا يوجد"%>
+            <%= (user.createdAtArabic)?user.createdAtArabic:"لا يوجد" %>
           </td>
           <td>
-            <%=(user.updatedAtArabic)?user.updatedAtArabic:"لا يوجد"%>
+            <%= (user.updatedAtArabic)?user.updatedAtArabic:"لا يوجد" %>
           </td>
           <td>
-            <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-user-modal<%=i%>">تحديث</button>
-            <%- include('users/update-user-modal', {i, user}) %>
+            <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-user-modal<%=index%>">تحديث</button>
+            <%- include('update-modal', {index, user}) %>
           </td>
           <td>
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal<%=i%>">حذف</button>
-            <%- include('users/delete-user-modal', {i, user}) %>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal<%=index%>">حذف</button>
+            <%- include('delete-modal', {index, user}) %>
           </td>
         </tr>
-      <%})%>
+      <% }) %>
     </tbody>
   </table>
 </div>

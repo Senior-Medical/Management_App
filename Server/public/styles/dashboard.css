@@ -26,6 +26,18 @@ button.btn:active {
   box-shadow: 0 0 1rem .1rem rgba(4, 4, 4, 0.25);
 }
 
+.form-control[name="password"] {
+  padding-left: 2.5rem;
+}
+
+.toggle-password {
+  top: 70%;
+  left: 10px;
+  cursor: pointer;
+}
+
+
+/* Filter Styles */
 #filter-form {
   border-radius: 10px;
   border: 1px solid #212529
@@ -38,13 +50,13 @@ button.btn:active {
   font-size: 1.2em;
 }
 
-#filter-form #sort-type {
+#filter-form input[type="checkbox"] {
   border: none;
   background-color: #e8e8e8;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%0, 0, 0, 0.25%29'/%3e%3c/svg%3e");
 }
 
-#filter-form #sort-type:checked{
+#filter-form input[type="checkbox"]:checked{
   background-image: url("data: image/svg+xml, %3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' %3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6' /%3e%3c/svg%3e");
 }
 
@@ -73,4 +85,40 @@ table caption .create-button {
   color: #f2f2f2;
   border: none;
   font-weight: bold;
+}
+
+
+/* Pagination Styles */
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination-nav .pagination .page-item {
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.pagination-nav .pagination .page-item .page-link,
+.pagination-nav .pagination .page-item span {
+  color: #fff;
+  background-color: #212529;
+  border: none;
+  transition: all 300ms ease-in-out;
+}
+
+.pagination-nav .pagination .page-item span {
+  padding: .5rem;
+}
+
+.pagination-nav .pagination .page-item.active .page-link,
+.pagination-nav .pagination .page-item .page-link:hover {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 20px 8px;
+  transform: translateY(-5px);
+}
+
+.pagination-nav .pagination .page-item.disabled .page-link {
+  color: #fff;
+  background-color: #3d4144;
 }

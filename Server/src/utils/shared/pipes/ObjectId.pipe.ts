@@ -15,7 +15,7 @@ import { Types } from "mongoose";
 @Injectable()
 export class ObjectIdPipe implements PipeTransform {
   transform(objectId: string, metadata: ArgumentMetadata) {
-    if (!Types.ObjectId.isValid(objectId)) throw new NotAcceptableException("Invalid Mongo Id");
+    if (!Types.ObjectId.isValid(objectId)) throw new NotAcceptableException("معرف غير صحيح");
     return objectId;
   }
 }

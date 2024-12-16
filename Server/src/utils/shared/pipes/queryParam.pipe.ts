@@ -20,7 +20,7 @@ export class QueryParamPipe implements PipeTransform {
         const x = Object.values(error.constraints);
         errorsMessages.push(...x);
       });
-      throw new NotAcceptableException(errorsMessages);
+      throw new NotAcceptableException(errorsMessages.join(", "));
     }
     return query;
   }

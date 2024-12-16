@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { createUserSchema, User } from './entities/user.entity';
 import { EncryptionModule } from 'src/utils/encryption/encryption.module';
 import { EncryptionService } from 'src/utils/encryption/encryption.service';
+import { LoggerModule } from 'src/utils/logger/logger.module';
 
 @Module({
   imports: [

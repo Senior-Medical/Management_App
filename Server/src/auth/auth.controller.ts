@@ -5,26 +5,23 @@ import {
   Req,
   Res,
   Get,
+  Query,
+  UseFilters,
 } from "@nestjs/common";
 import { LocalAuthGuard } from "./guards/localAuth.guard";
 import { Request, Response } from "express";
-import { CustomLoggerService } from "src/utils/logger/logger.service";
 
 @Controller("auth")
 export class AuthController {
-  constructor(private readonly loggerService: CustomLoggerService) { }
-
   /**
    * Renders the login page.
    * @param res - Response object.
    * @returns - The login page.
    */
   @Get('login')
-  loginPage(@Res() res: Response) {
-    res.render('login', {
-      alertType: null,
-      message: null,
-    });
+  loginPage(@Query('error') error: string, @Res() res: Response) {
+    if (error) return res.render('login', { error });
+    return res.render('login', { error: null });
   }
 
   /**
@@ -37,12 +34,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   login(@Req() req: Request, @Res() res: Response) {
     req.login(req.user, (err) => {
-      if (err) {
-        this.loggerService.error(err, "Login");
-        res.redirect('/auth/login');
-      } else {
-        res.redirect('/dashboard');
-      }
+      if (err) res.redirect('/auth/login?error=خطأ في تسجيل الدخول');
+      else res.redirect('/dashboard');
     });
   }
 

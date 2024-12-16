@@ -8,7 +8,7 @@ import { QueryDto } from "../dtos/query.dto";
  */
 @Injectable()
 export class FindQueryBuilderService {
-  private static defaultPageSize: number = 3;
+  private static defaultPageSize: number = 10;
   private static defaultSortKey: string = '-createdAt';
   private static defaultSearchKey: string = "";
   private static defaultPage: number = 1;
@@ -53,6 +53,7 @@ export class FindQueryBuilderService {
     delete filterObj.sort;
     delete filterObj.fields;
     delete filterObj.search;
+    delete filterObj.error;
 
     if (Object.keys(filterObj).length === 0) return this;
 

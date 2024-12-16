@@ -42,7 +42,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LoggerModule,
     AuthModule,
     UsersModule,
-    DashboardModule
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [

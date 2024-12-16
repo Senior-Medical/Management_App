@@ -16,7 +16,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
   /**
    * Verifies the user's username and password.
-   * Throws `NotFoundException` if the user is not found.
+   * Throws `ForbiddenException` if the user is not found.
    * 
    * @param username user's username
    * @param password user's password
@@ -24,7 +24,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
    */
   async validate(username: string, password: string) {
     const user = await this.authService.validateUser(username, password);
-    if (!user) throw new ForbiddenException("Incorrect username or password.")
+    if (!user) throw new ForbiddenException("خطأ في إسم المستخدم أو كلمة المرور");
     return user;
   }
 }

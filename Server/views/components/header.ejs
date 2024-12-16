@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
       <div class="navbar-brand">لوحة التحكم</div>
-
+type
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
         aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,32 +12,32 @@
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link <%if(type === 'main'){%>active<%}%>" aria-current="page" href="/dashboard">الرئيسية</a>
+            <a class="nav-link <%if(type === 'main'){%>active<%}%>" aria-current="page" href="/dashboard"><i class="fa-solid fa-house"></i> الرئيسية</a>
           </li>
           <%if(user.role === 'مدير'){%>
             <li class="nav-item">
-              <a class="nav-link <%if(type === 'users'){%>active<%}%>" href="/users">المشرفين</a>
+              <a class="nav-link <%if(type === 'users'){%>active<%}%>" href="/users"><i class="fa-solid fa-users-gear"></i> المشرفين</a>
             </li>
           <%}%>
           <li class="nav-item">
-            <a class="nav-link <%if(type === 'workers'){%>active<%}%>" href="/dashboard/workers">العمال</a>
+            <a class="nav-link <%if(type === 'workers'){%>active<%}%>" href="/dashboard/workers"><i class="fa-solid fa-users"></i> العمال</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <%if(type === 'departments'){%>active<%}%>" href="/dashboard/departments">الأقسام</a>
+            <a class="nav-link <%if(type === 'departments'){%>active<%}%>" href="/dashboard/departments"><i class="fa-solid fa-building"></i> الأقسام</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <%if(type === 'products'){%>active<%}%>" href="/dashboard/products">المنتجات</a>
+            <a class="nav-link <%if(type === 'products'){%>active<%}%>" href="/dashboard/products"><i class="fa-brands fa-product-hunt"></i> المنتجات</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <%if(type === 'bonus'){%>active<%}%>" href="/dashboard/bonus">الحوافز</a>
+            <a class="nav-link <%if(type === 'bonus'){%>active<%}%>" href="/dashboard/bonus"><i class="fa-solid fa-money-bill-trend-up"></i> الحوافز</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <%if(type === 'production'){%>active<%}%>" href="/dashboard/production">الإنتاج</a>
+            <a class="nav-link <%if(type === 'production'){%>active<%}%>" href="/dashboard/production"><i class="fa-solid fa-circle-dollar-to-slot"></i> الإنتاج</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/auth/logout">خروج</a>
+            <a class="nav-link" href="/auth/logout">خروج <i class="fa-solid fa-arrow-right-from-bracket logout"></i></a>
           </li>
         </ul>
       </div>

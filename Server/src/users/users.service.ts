@@ -33,16 +33,20 @@ export class UsersService {
    * @returns The new user.
    */
   async create(user: UserDocument, createUserDto: CreateUserDto, res: Response) {
+    let { username } = createUserDto;
+    const existUser = await this.findByUsername(username);
+    if (existUser) throw new ConflictException('إسم المستخدم موجود بالفعل');
+
     const inputData: User = {
       ...createUserDto,
       createdBy: user._id,
       updatedBy: user._id
-    }
+    };
     await this.usersModel.create(inputData);
     return res.redirect('/users');
   }
 
-    /**
+  /**
    * Get query builder to use it in find method
    * @returns - The query builder instance
    */
@@ -73,6 +77,7 @@ export class UsersService {
 
     const { page, pageSize, sort, search, ...filter } = queryParams;
     const renderVariables: DashboardRenderVariablesType = {
+      error: queryParams.error || null,
       title: pagesTitles[PagesTypes.USERS],
       type: PagesTypes.USERS,
       data: users,
@@ -89,8 +94,7 @@ export class UsersService {
         filter: Object.entries(filter).map(([key, value]) => ({ key, value }))
       }
     };
-    console.log(renderVariables.filters);
-    return res.render(`dashboard`, renderVariables);
+    return res.render(`users`, renderVariables);
   }
 
   /**
@@ -123,7 +127,7 @@ export class UsersService {
   async update(user: UserDocument, wantedUser: UserDocument, updateUserDto: UpdateUserDto, res: Response) {
     if (updateUserDto.username) {
       const user = await this.findByUsername(updateUserDto.username);
-      if (user && user._id.toString() !== wantedUser._id.toString()) throw new ConflictException('Username are already exist.');
+      if (user && user._id.toString() !== wantedUser._id.toString()) throw new ConflictException('إسم المستخدم موجود بالفعل');
     } else delete updateUserDto.username;
     if (!updateUserDto.password) delete updateUserDto.password;
     const inputData: Partial<User> = {

@@ -19,7 +19,6 @@ export class AuthService{
    * @param username - The username used for login.
    * @param password - The plain-text password to compare.
    * @returns - The user object if validation is successful.
-   * @throws - "ForbiddenException" if any validation fails.
    */
   async validateUser(username: string, password: string) {
     const user = await this.usersService.findByUsername(username);

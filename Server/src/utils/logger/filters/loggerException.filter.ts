@@ -39,6 +39,8 @@ export class LoggerExceptionFilter extends BaseExceptionFilter implements Except
     );
 
     const response = host.switchToHttp().getResponse();
-    response.render('error');
+    if(url.startsWith("/auth")) response.redirect(`/auth/login?error=${errorMessage}`);
+    else if (url.startsWith("/users")) response.redirect(`/users?error=${errorMessage}`);
+    // else response.redirect(`/dashboard?error=${errorMessage}`);
   }
 }

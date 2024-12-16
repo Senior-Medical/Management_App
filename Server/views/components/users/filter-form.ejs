@@ -1,0 +1,73 @@
+<form action="users" id="filter-form" method="get" class="row my-5 py-4">
+  <div class="container overflow-hidden text-center">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-12">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="search">بحث</label>
+          <input id="search" name="search" type="text" class="form-control" aria-label="search" aria-describedby="search" placeholder="إبحث بإسم المستخدم" value="<%=search%>">
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-12">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="page-size">عدد الصفوف</label>
+          <input id="page-size" name="pageSize" type="number" class="form-control" aria-label="page-size" aria-describedby="page-size" value="<%=(pagination.pageSize) ? pagination.pageSize : 10 %>">
+        </div>
+      </div>
+    
+      <div class="col-lg-3 col-md-7 col-12">
+        <div class="input-group mb-3">
+          <label for="sort" class="input-group-text">ترتيب</label>
+          <select class="form-select" id="sort" name="sort">
+            <option value="createdAt" <%=(sort.replace('-', '') === "createdAt") ? 'selected' : '' %>>تاريخ الإنشاء</option>
+            <option value="username" <%=(sort.replace('-', '') === "username") ? 'selected' : '' %>>إسم المستخدم</option>
+            <option value="updatedAt" <%=(sort.replace('-', '') === "updatedAt") ? 'selected' : '' %>>تاريخ آخر تحديث</option>
+            <option value="role" <%=(sort.replace('-', '') === "role") ? 'selected' : '' %>>الدور الوظيفي</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-5 col-11">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="sort-type">ترتيب تنازلي</label>
+          <div class="input-group-text">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" name="sort-type" id="sort-type" <%=(sort.startsWith("-"))?"checked":""%>>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-6 col-md-8 col-12">
+          <div class="input-group mb-3">
+            <label for="enable-custom-filter" class="input-group-text">بحث معدل</label>
+            <div class="input-group-text">
+              <div class="form-check form-switch">
+                <input id="enable-custom-filter" class="form-check-input" type="checkbox" role="switch" name="enable-custom-filter" <%=(filter.length !== 0)?"checked":""%>>
+              </div>
+            </div>
+            <select class="form-select" id="custom-filter-key" name="custom-filter-key" <%=(filter.length !== 0)?"":"disabled"%>>
+              <option disabled selected>إختر</option>
+              <option value="createdBy" <%=(filter[0] && filter[0].key === 'createdBy')?"selected":""%>>أضيف بواسطة</option>
+              <option value="updatedBy" <%=(filter[0] && filter[0].key === 'updatedBy')?"selected":""%>>آخر تحديث بواسطة</option>
+            </select>
+            <select class="form-select" id="custom-filter-value" name="custom-filter-value" <%=(filter.length !== 0)?"":"disabled"%>>
+              <option disabled selected>إختر مدير</option>
+              <% admins.forEach(admin => { %>
+                <option value="objectid:<%=admin._id%>" <%=(filter[0] && filter[0].value === 'objectid:'+admin._id)?"selected":""%>><%=admin.username%></option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="input-group mb-3">
+        <button type="submit" class="btn btn-dark w-4">تطبيق</button>
+      </div>
+    </div>
+  </div>
+
+</form>

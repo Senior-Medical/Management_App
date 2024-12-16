@@ -18,7 +18,6 @@ export class RolesGuard implements CanActivate {
   /**
    * - Checks if the required roles are set on the route handler.
    * - Verifies if the user's role matches the required roles.
-   * - Throws `UnauthorizedException` if the user does not have the required role.
    * 
    * @param context - ExecutionContext
    * @returns - `true` if the user has the required role, `false` otherwise.

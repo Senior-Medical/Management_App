@@ -11,7 +11,6 @@ import { LoggerModule } from "src/utils/logger/logger.module";
 @Module({
   imports: [
     PassportModule.register({ session: true }),
-    LoggerModule,
     EncryptionModule,
     UsersModule
   ],

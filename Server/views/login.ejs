@@ -12,11 +12,11 @@
 <body>
   <div class="login-container">
     <h1>أهلا بعودتك</h1>
-    <%if(alertType){%>
-      <div class="alert alert-<%= alertType %>" role="alert">
-        <%= (message)? message : "Unknown Error." %>
+    <% if(error) { %>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
       </div>
-    <%}%>
+    <% } %>
     <form action="/auth/login" method="POST">
       <input type="text" name="username" placeholder="إسم المستخدم" required>
       <input type="password" name="password" placeholder="كلمة المرور" required>

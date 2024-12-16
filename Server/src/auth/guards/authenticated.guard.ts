@@ -14,14 +14,11 @@ export class AuthenticatedGuard implements CanActivate {
    * 
    * @param context - ExecutionContext
    * @returns - `true` if the user is authenticated, `false` otherwise.
-   * @throws - "UnauthorizedException" if the user is not authenticated.
    */
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const response = context.switchToHttp().getResponse();
-    if (!request.isAuthenticated()) {
-      return response.redirect('/auth/login');
-    }
+    if (!request.isAuthenticated()) return response.redirect('/auth/login');
     return request.isAuthenticated();
   }
 }

@@ -2,6 +2,7 @@ import { PagesTypes } from "src/dashboard/enums/pagesTypes.enum";
 import { UserDocument } from "../entities/user.entity";
 
 export type DashboardRenderVariablesType = {
+  error: string | null,
   title: string,
   type: PagesTypes,
   data: Array<any> | null,

@@ -3,7 +3,7 @@ header {
 }
 
 .navbar-nav .nav-item {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   padding-right: .5em;
   padding-left: .5em;
 }
@@ -16,10 +16,20 @@ header {
 
 .navbar-nav .nav-item .nav-link {
   color: #cfd4da;
+  transition: all .3s ease-in-out;
 }
 
 .navbar-nav .nav-item .nav-link.active,
 .navbar-nav .nav-item .nav-link:hover {
-  color: #eff7ff;
+  color: #fff;
   transform: scale(1.1);
+}
+
+.navbar-nav .nav-item .nav-link i{
+  margin-right: .5em;
+  margin-left: .3em;
+}
+
+.navbar-nav .nav-item .nav-link .logout{
+  transform: rotateY(180deg);
 }
