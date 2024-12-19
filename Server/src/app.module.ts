@@ -19,6 +19,7 @@ import { LoggerModule } from './utils/logger/logger.module';
 import { RequestTimingMiddleware } from './utils/middlewares/requestTiming.middleware';
 import { WorkersModule } from './workers/workers.module';
 import { ProductsModule } from './products/products.module';
+import { DepartmentsModule } from './departments/departments.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ProductsModule } from './products/products.module';
     DashboardModule,
     WorkersModule,
     ProductsModule,
+    DepartmentsModule
   ],
   controllers: [AppController],
   providers: [

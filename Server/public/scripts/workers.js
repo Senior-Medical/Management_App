@@ -32,7 +32,7 @@ document.querySelectorAll('.update-worker').forEach(button => {
     
     const nameRegex = /^[\s\S]{3,}$/;
     if (!name || !nameRegex.test(name)) {
-      nameError.textContent = 'إسم المستخدم يجب أن يحتوي على 3 أحرف على الأقل';
+      nameError.textContent = 'إسم العامل يجب أن يحتوي على 3 أحرف على الأقل';
       nameError.style.display = 'block';
       isValid = false;
     } else form.submit();
