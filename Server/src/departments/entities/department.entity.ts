@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
-import { arabicDateFormater } from "src/utils/arabic-date-formater";
+import { arabicDateFormatter } from "src/utils/arabic-date-formatter";
 
 @Schema({ timestamps: true })
 export class Department {
@@ -32,10 +32,10 @@ export class Department {
 const DepartmentSchema = SchemaFactory.createForClass(Department);
 DepartmentSchema.pre('save', async function (next) {
   if (this.isNew) {
-    this.createdAtArabic = arabicDateFormater.format(new Date());
-    this.updatedAtArabic = arabicDateFormater.format(new Date());
+    this.createdAtArabic = arabicDateFormatter.format(new Date());
+    this.updatedAtArabic = arabicDateFormatter.format(new Date());
   } else if (this.isModified()) {
-    this.updatedAtArabic = arabicDateFormater.format(new Date());
+    this.updatedAtArabic = arabicDateFormatter.format(new Date());
   }
   next();
 });

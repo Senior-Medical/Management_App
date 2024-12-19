@@ -58,3 +58,16 @@ document.querySelector('#enable-custom-filter').addEventListener('change', funct
     customFilterValue.setAttribute('disabled', true);
   }
 });
+
+/**
+ * Update range value
+ * Used to update range value when changing range input value
+ */
+document.querySelectorAll("input[type='range']").forEach(range => {
+  range.nextElementSibling.textContent = range.value + " %";
+  range.addEventListener('input', function (e) {
+    const rangeValue = e.target.value + " %";
+    const rangeValueElement = e.target.nextElementSibling;
+    rangeValueElement.textContent = rangeValue;
+  });
+});

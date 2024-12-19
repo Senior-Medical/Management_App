@@ -1,0 +1,34 @@
+<div class="modal fade" id="update-bonus-modal-<%= index %>" tabindex="-1" aria-labelledby="update-bonus-modal-label-<%= index %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="update-bonus-modal-label-<%= index %>">تحديث حافز</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/bonus/update/<%= bonus._id %>" method="post" id="update-bonus-form-<%= bonus._id %>">
+          <div class="mb-3">
+            <label for="from-<%= bonus._id %>" class="col-form-label fs-4">من:</label>
+            <input type="number" class="form-control" name="from" id="from-<%= bonus._id %>" value="<%= bonus.from %>">
+            <div class="text-danger mt-1" id="from-error-<%= bonus._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="to" class="col-form-label fs-4">إلى:</label>
+            <input type="number" class="form-control" name="to" id="to-<%= bonus._id %>" value="<%= bonus.to %>">
+            <div class="text-danger mt-1" id="to-error-<%= bonus._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="percentage" class="col-form-label fs-4">النسبة:</label>
+            <input type="range" class="form-range" max="100" min="0" step="1" name="percentage" id="percentage-<%= bonus._id %>" value="<%= bonus.percentage %>">
+            <div class="text-primary mt-1"></div>
+            <div class="text-danger mt-1" id="percentage-error-<%= bonus._id %>" style="display: none;"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-success update-bonus" bonusId="<%= bonus._id %>">حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>

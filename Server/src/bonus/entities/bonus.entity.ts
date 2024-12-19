@@ -3,12 +3,19 @@ import { Document, Types } from "mongoose";
 import { arabicDateFormatter } from "src/utils/arabic-date-formatter";
 
 @Schema({ timestamps: true })
-export class Product {
+export class Bonus {
+  @Prop({ required: true })
+  from: string;
+
+  @Prop({ required: true })
+  to: string;
+  
   @Prop({
     required: true,
-    unique: true
+    min: 0,
+    max: 100
   })
-  name: string;
+  percentage: string;
 
   @Prop()
   createdAtArabic?: string;
@@ -29,8 +36,9 @@ export class Product {
   updatedBy: Types.ObjectId;
 }
 
-const ProductSchema = SchemaFactory.createForClass(Product);
-ProductSchema.pre('save', async function (next) {
+const BonusSchema = SchemaFactory.createForClass(Bonus);
+
+BonusSchema.pre('save', async function (next) {
   if (this.isNew) {
     this.createdAtArabic = arabicDateFormatter.format(new Date());
     this.updatedAtArabic = arabicDateFormatter.format(new Date());
@@ -40,6 +48,6 @@ ProductSchema.pre('save', async function (next) {
   next();
 });
 
-export { ProductSchema };
+export { BonusSchema };
 
-export type ProductDocument = Product & Document<Types.ObjectId>;
+export type BonusDocument = Bonus & Document<Types.ObjectId>;

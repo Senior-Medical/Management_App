@@ -20,6 +20,7 @@ import { RequestTimingMiddleware } from './utils/middlewares/requestTiming.middl
 import { WorkersModule } from './workers/workers.module';
 import { ProductsModule } from './products/products.module';
 import { DepartmentsModule } from './departments/departments.module';
+import { BonusModule } from './bonus/bonus.module';
 
 @Module({
   imports: [
@@ -48,7 +49,8 @@ import { DepartmentsModule } from './departments/departments.module';
     DashboardModule,
     WorkersModule,
     ProductsModule,
-    DepartmentsModule
+    DepartmentsModule,
+    BonusModule
   ],
   controllers: [AppController],
   providers: [

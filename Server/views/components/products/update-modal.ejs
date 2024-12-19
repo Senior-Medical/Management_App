@@ -8,7 +8,7 @@
       <div class="modal-body">
         <form action="/products/update/<%= product._id %>" method="post" id="update-product-form-<%= product._id %>">
           <div class="mb-3">
-            <label for="name" class="col-form-label fs-4">إسم المنتج:</label>
+            <label for="name-<%= product._id %>" class="col-form-label fs-4">إسم المنتج:</label>
             <input type="text" class="form-control" name="name" id="name-<%= product._id %>" value="<%= product.name %>">
             <div class="text-danger mt-1" id="name-error-<%= product._id %>" style="display: none;"></div>
           </div>

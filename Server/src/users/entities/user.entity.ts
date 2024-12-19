@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { Role } from '../enums/roles.enum';
+import { arabicDateFormatter } from 'src/utils/arabic-date-formatter';
 import { EncryptionService } from 'src/utils/encryption/encryption.service';
-import { arabicDateFormater } from 'src/utils/arabic-date-formater';
+import { Role } from '../enums/roles.enum';
 
 @Schema({ timestamps: true })
 export class User {
@@ -46,10 +46,10 @@ export const createUserSchema = (encryptionService: EncryptionService) => {
 
   UserSchema.pre('save', async function (next) {
     if (this.isNew) {
-      this.createdAtArabic = arabicDateFormater.format(new Date());
-      this.updatedAtArabic = arabicDateFormater.format(new Date());
+      this.createdAtArabic = arabicDateFormatter.format(new Date());
+      this.updatedAtArabic = arabicDateFormatter.format(new Date());
     }else if (this.isModified()) {
-      this.updatedAtArabic = arabicDateFormater.format(new Date());
+      this.updatedAtArabic = arabicDateFormatter.format(new Date());
     }
     if (this.isModified('password')) {
       this.password = await encryptionService.bcryptHash(this.password);

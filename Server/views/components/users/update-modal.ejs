@@ -9,7 +9,7 @@
       <div class="modal-body">
         <form action="/users/update/<%= user._id %>" method="post" id="update-user-form-<%= user._id %>">
           <div class="mb-3">
-            <label for="username" class="col-form-label fs-4">إسم المستخدم:</label>
+            <label for="username-<%= user._id %>" class="col-form-label fs-4">إسم المستخدم:</label>
             <input type="text" class="form-control" name="username" id="username-<%= user._id %>" value="<%= user.username %>">
             <div class="text-danger mt-1" id="username-error-<%= user._id %>" style="display: none;"></div>
           </div>

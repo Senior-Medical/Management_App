@@ -1,0 +1,51 @@
+<% const type = 'bonus' %>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/styles/all.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
+    <link rel="stylesheet" href="/styles/footer.css" />
+    <link rel="stylesheet" href="/styles/dashboard.css" />
+    <title> الحوافز </title>
+  </head>
+
+  <body>
+    <%- include('components/header', {type , user}) %>
+
+    <div class="container-xl">
+      <%- include('components/filter-form', {...filters, users, type}) %>
+      
+      <% if(error) { %>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <div>
+            <%= error %>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+        
+      <%- include('components/bonus/create-modal') %>
+      <button class="btn btn-secondary mb-4 create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-bonus-modal">إضافة حافز</button>
+
+      <% if(data.length !==0) { %>
+        <%- include('components/bonus/table') %>
+
+        <% if(filters.pagination.totalPages > 1) { %>
+          <%- include('components/pagination', filters.pagination) %>
+        <% } %>
+      <% } else { %>
+        <div class="alert alert-warning" role="alert">لا يوجد حوافز</div>
+      <% } %>
+    </div>
+
+    <!-- <%- include('components/footer') %> -->
+    <script src="/scripts/bootstrap.bundle.min.js"></script>
+    <script src="/scripts/bonus.js"></script>
+    <script src="/scripts/dashboard.js"></script>
+  </body>
+
+</html>

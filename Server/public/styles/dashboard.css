@@ -48,6 +48,25 @@ button.btn:active {
 
 
 /* Filter Styles */
+.accordion-button {
+  background-color: #212529;
+  color: #f2f2f2;
+  border: none;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button::after, .accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23f2f2f2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #212529;
+  color: #f2f2f2;
+}
+
 #filter-form {
   border-radius: 10px;
   border: 1px solid #212529
@@ -57,7 +76,7 @@ button.btn:active {
   background-color: #212529;
   color: #d7dee5;
   border: none;
-  font-size: 1.2em;
+  font-size: .9em;
 }
 
 #filter-form input[type="checkbox"] {

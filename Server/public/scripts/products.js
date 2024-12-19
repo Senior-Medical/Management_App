@@ -13,7 +13,6 @@ document.querySelector('#create-product').addEventListener('click', (e) => {
   if (!name || !nameRegex.test(name)) {
     nameError.textContent = 'إسم المنتج يجب أن يحتوي على 3 أحرف على الأقل';
     nameError.style.display = 'block';
-    isValid = false;
   } else form.submit();
 });
 
@@ -34,7 +33,6 @@ document.querySelectorAll('.update-product').forEach(button => {
     if (!name || !nameRegex.test(name)) {
       nameError.textContent = 'إسم المنتج يجب أن يحتوي على 3 أحرف على الأقل';
       nameError.style.display = 'block';
-      isValid = false;
     } else form.submit();
   });
 });

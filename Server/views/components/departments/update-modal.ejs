@@ -8,7 +8,7 @@
       <div class="modal-body">
         <form action="/departments/update/<%= department._id %>" method="post" id="update-department-form-<%= department._id %>">
           <div class="mb-3">
-            <label for="name" class="col-form-label fs-4">إسم القسم:</label>
+            <label for="name-<%= department._id %>" class="col-form-label fs-4">إسم القسم:</label>
             <input type="text" class="form-control" name="name" id="name-<%= department._id %>" value="<%= department.name %>">
             <div class="text-danger mt-1" id="name-error-<%= department._id %>" style="display: none;"></div>
           </div>
