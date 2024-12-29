@@ -95,6 +95,15 @@ export class ProductsService {
   }
 
   /**
+   * Find all products depend on some filters.
+   * @param filters The filters to find the products.
+   * @returns All products.
+   */
+  find(filters: RootFilterQuery<Product> = {}) {
+    return this.productsModel.find(filters);
+  }
+
+  /**
    * Find product by id.
    * @param id The product id.
    * @returns The product.

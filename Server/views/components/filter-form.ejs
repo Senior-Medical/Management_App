@@ -1,11 +1,11 @@
 <div class="accordion mb-4" id="filters">
   <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filters-form" aria-expanded="true" aria-controls="filters-form">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#filters-form" aria-expanded="true" aria-controls="filters-form">
         <strong>الفلاتر</strong>
       </button>
     </h2>
-    <div id="filters-form" class="accordion-collapse collapse" data-bs-parent="#filters">
+    <div id="filters-form" class="accordion-collapse collapse show" data-bs-parent="#filters">
       <div class="accordion-body">
         <form action="/<%= type %>" id="filter-form" method="get" class="row py-4">
           <div class="container overflow-hidden text-center">
@@ -15,7 +15,7 @@
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="search">بحث</label>
                   <div class="position-relative">
-                    <input id="search" name="search" type="text" class="form-control" aria-label="search" aria-describedby="search" placeholder="إبحث بإسم المستخدم" value="<%=search%>">
+                    <input id="search" name="search" type="text" class="form-control" aria-label="search" aria-describedby="search" placeholder="كلمة البحث" value="<%=search%>">
                   </div>
                 </div>
               </div>

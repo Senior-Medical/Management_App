@@ -95,6 +95,15 @@ export class DepartmentsService {
   }
 
   /**
+   * Find all departments depend on some filters.
+   * @param filters The filters to find the departments.
+   * @returns All departments.
+   */
+  find(filters: RootFilterQuery<Department> = {}) {
+    return this.departmentsModel.find(filters);
+  }
+
+  /**
    * Find department by id.
    * @param id The department id.
    * @returns The department.

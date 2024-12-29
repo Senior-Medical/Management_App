@@ -21,6 +21,7 @@ import { WorkersModule } from './workers/workers.module';
 import { ProductsModule } from './products/products.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { BonusModule } from './bonus/bonus.module';
+import { ProductPriceModule } from './product-price/product-price.module';
 
 @Module({
   imports: [
@@ -50,7 +51,8 @@ import { BonusModule } from './bonus/bonus.module';
     WorkersModule,
     ProductsModule,
     DepartmentsModule,
-    BonusModule
+    BonusModule,
+    ProductPriceModule
   ],
   controllers: [AppController],
   providers: [

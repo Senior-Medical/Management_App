@@ -1,0 +1,43 @@
+<div class="modal fade" id="update-product-price-modal-<%= index %>" tabindex="-1" aria-labelledby="update-product-price-modal-label-<%= index %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="update-product-price-modal-label-<%= index %>">تحديث قسم</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/productPrice/update/<%= productPrice._id %>" method="post" id="update-product-price-form-<%= productPrice._id %>">
+          <div class="mb-3">
+            <label for="product" class="col-form-label fs-4">المنتج:</label>
+            <select class="form-select" id="product-<%= productPrice._id %>" name="product">
+              <option value="" selected>اختر المنتج</option>
+              <% products.forEach(product=> { %>
+                <option value="<%= product._id %>" <%= (productPrice.product._id.toString() === product._id.toString())? 'selected' : '' %>><%= product.name %></option>
+              <% }) %>
+            </select>
+            <div class="text-danger mt-1" id="product-error-<%= productPrice._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="department" class="col-form-label fs-4">القسم:</label>
+            <select class="form-select" id="department-<%= productPrice._id %>" name="department">
+              <option value="" selected>اختر القسم</option>
+              <% departments.forEach(department=> { %>
+                <option value="<%= department._id %>" <%= (productPrice.department._id.toString()===department._id.toString())? 'selected' : '' %>><%= department.name %></option>
+              <% }) %>
+            </select>
+            <div class="text-danger mt-1" id="department-error-<%= productPrice._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="col-form-label fs-4">السعر:</label>
+            <input type="number" class="form-control" id="price-<%= productPrice._id %>" name="price" value="<%= productPrice.price %>">
+            <div class="text-danger mt-1" id="price-error-<%= productPrice._id %>" style="display: none;"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-success update-product-price" productPriceId="<%= productPrice._id %>">حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>
