@@ -5,17 +5,17 @@ import { arabicDateFormatter } from "src/utils/arabic-date-formatter";
 @Schema({ timestamps: true })
 export class Bonus {
   @Prop({ required: true })
-  from: string;
+  from: number;
 
   @Prop({ required: true })
-  to: string;
+  to: number;
   
   @Prop({
     required: true,
     min: 0,
     max: 100
   })
-  percentage: string;
+  percentage: number;
 
   @Prop()
   createdAtArabic?: string;

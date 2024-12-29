@@ -17,6 +17,8 @@ import { WorkersService } from 'src/workers/workers.service';
 import { WorkerDocument } from 'src/workers/entities/worker.entity';
 import { ProductDocument } from 'src/products/entities/product.entity';
 import { DepartmentDocument } from 'src/departments/entities/department.entity';
+import { GetSalaryDto } from './dto/get-salary.dto';
+import { BonusService } from '../bonus/bonus.service';
 
 @Injectable()
 export class ProductionService {
@@ -33,7 +35,8 @@ export class ProductionService {
     private readonly productsService: ProductsService,
     private readonly workersService: WorkersService,
     private readonly departmentsService: DepartmentsService,
-    private readonly productPriceService: ProductPriceService
+    private readonly productPriceService: ProductPriceService,
+    private readonly bonusService: BonusService
   ) { }
 
   /**
@@ -114,6 +117,51 @@ export class ProductionService {
       }
     };
     return res.render(`production`, renderVariables);
+  }
+
+  /**
+   * Get salary for all workers.
+   * 
+   */
+  async getSalary(getSalaryDto: GetSalaryDto, queryParams: QueryDto, user: UserDocument, res: Response) {
+    const productions = await this.productionModel.find({
+      date: {
+        $gte: getSalaryDto.from,
+        $lte: getSalaryDto.to
+      }
+    }).populate('worker', 'name')
+      .populate('product', 'name')
+      .populate('department', 'name');
+    
+    const workerSalaries = new Map();
+
+    productions.forEach((production) => {
+      const workerId = production.worker._id.toString();
+      const cost = production.cost;
+
+      if (!workerSalaries.has(workerId)) {
+        workerSalaries.set(workerId, { name: (production.worker as any).name, salary: 0 });
+      }
+
+      const workerData = workerSalaries.get(workerId);
+      workerData.salary += cost;
+    });
+    const salaries = Array.from(workerSalaries.values())
+
+    if(getSalaryDto.withBonus) {
+      salaries.forEach(async (salary) => {
+        const bonusPresent = await this.bonusService.find({
+          from: {
+            $lte: salary.salary
+          },
+          to: {
+            $gte: salary.salary
+          }
+        })[0];
+        salary.salary += bonusPresent ? (bonusPresent.percentage / 100) * salary.salary : 0;
+      });
+    }
+    return res.render('salary', { data: salaries, user, error: queryParams.error || null });
   }
 
   /**

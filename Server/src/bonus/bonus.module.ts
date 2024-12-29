@@ -17,5 +17,6 @@ import { UsersModule } from 'src/users/users.module';
   ],
   controllers: [BonusController],
   providers: [BonusService],
+  exports: [BonusService]
 })
 export class BonusModule {}

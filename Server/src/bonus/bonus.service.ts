@@ -24,7 +24,7 @@ export class BonusService {
   ];
 
   constructor(
-    @InjectModel(Bonus.name) private BonusModel: Model<Bonus>,
+    @InjectModel(Bonus.name) private bonusModel: Model<Bonus>,
     private readonly usersService: UsersService
   ) { }
 
@@ -37,13 +37,13 @@ export class BonusService {
    */
   async create(user: UserDocument, createBonusDto: CreateBonusDto, res: Response) {
     const inputDate: Bonus = {
-      from: createBonusDto.from.toString(),
-      to: createBonusDto.to.toString(),
-      percentage: createBonusDto.percentage.toString(),
+      from: createBonusDto.from,
+      to: createBonusDto.to,
+      percentage: createBonusDto.percentage,
       createdBy: user._id,
       updatedBy: user._id,
     }
-    await this.BonusModel.create(inputDate);
+    await this.bonusModel.create(inputDate);
     return res.redirect('/bonus');
   }
 
@@ -52,7 +52,7 @@ export class BonusService {
    * @returns - The query builder instance
    */
   private getQueryBuilder(queryParams: QueryDto, filter: RootFilterQuery<Bonus> = {}) {
-    const query = this.BonusModel.find(filter);
+    const query = this.bonusModel.find(filter);
     if (!this.queryBuilder) this.queryBuilder = new FindQueryBuilderService(query, queryParams);
     else this.queryBuilder.resetParameters(query, queryParams);
     return this.queryBuilder;
@@ -97,12 +97,21 @@ export class BonusService {
   }
 
   /**
+   * Get bonus depend on filters.
+   * @param filters The filters to get the bonus.
+   * @returns The bonus.
+   */
+  find(filters: RootFilterQuery<Bonus>) {
+    return this.bonusModel.find(filters);
+  }
+
+  /**
    * Find Bonus by id.
    * @param id The Bonus id.
    * @returns The Bonus.
    */
   findById(id: string) {
-    return this.BonusModel.findById(id);
+    return this.bonusModel.findById(id);
   }
 
   /**
@@ -116,9 +125,9 @@ export class BonusService {
    */
   async update(user: UserDocument, bonus: BonusDocument, updateBonusDto: UpdateBonusDto, res: Response) {
     const inputData: Partial<Bonus> = {
-      from: updateBonusDto.from.toString() || bonus.from,
-      to: updateBonusDto.to.toString() || bonus.to,
-      percentage: updateBonusDto.percentage.toString() || bonus.percentage,
+      from: updateBonusDto.from || bonus.from,
+      to: updateBonusDto.to || bonus.to,
+      percentage: updateBonusDto.percentage || bonus.percentage,
       updatedBy: user._id
     }
 

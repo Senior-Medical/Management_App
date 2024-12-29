@@ -46,6 +46,7 @@ export class LoggerExceptionFilter extends BaseExceptionFilter implements Except
     else if (url.startsWith("/departments")) response.redirect(`/departments?error=${errorMessage}`);
     else if (url.startsWith("/bonus")) response.redirect(`/bonus?error=${errorMessage}`);
     else if (url.startsWith("/productPrice")) response.redirect(`/productPrice?error=${errorMessage}`);
+    else if (url.startsWith("/production/get-salary")) response.redirect(`/production/get-salary?error=${errorMessage}`);
     else if (url.startsWith("/production")) response.redirect(`/production?error=${errorMessage}`);
 
     // else response.redirect(`/dashboard?error=${errorMessage}`);

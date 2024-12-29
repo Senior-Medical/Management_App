@@ -31,6 +31,9 @@
       <%- include('components/production/create-modal') %>
       <button class="btn btn-secondary mb-4 create-button" type="button" data-bs-toggle="modal" data-bs-target="#create-production-modal">إضافة إنتاج</button>
 
+      <%- include('components/production/salary-modal') %>
+      <button class="btn btn-secondary mb-4 create-button" type="button" data-bs-toggle="modal" data-bs-target="#salary-modal">إظهار المرتبات</button>
+
       <% if(data.length !==0) { %>
         <%- include('components/production/table') %>
 

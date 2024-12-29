@@ -1,0 +1,65 @@
+<% const type='production' %>
+  <!DOCTYPE html>
+  <html lang="ar" dir="rtl">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/styles/all.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
+    <link rel="stylesheet" href="/styles/footer.css" />
+    <link rel="stylesheet" href="/styles/dashboard.css" />
+    <title> المرتبات </title>
+  </head>
+
+  <body>
+    <%- include('components/header', {type , user}) %>
+
+      <div class="container-xl">
+          <% if(error) { %>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <div><%= error %></div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% } %>
+          <% if(data.length !==0) { %>
+            <div class="table-responsive">
+              <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
+                <caption class="mx-4 fs-5">
+                  <span>العدد: <%= data.length %></span>
+                </caption>
+                <thead>
+                  <tr class="table-dark">
+                    <th scope="col">الرقم</th>
+                    <th scope="col">إسم العامل</th>
+                    <th scope="col">المرتب</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% data.forEach((worker, index)=>{ %>
+                    <tr>
+                      <th class="table-dark" scope="row">
+                        <%= index+1 %>
+                      </th>
+                      <td>
+                        <%= worker.name %>
+                      </td>
+                      <td>
+                        <%= worker.salary %>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } else { %>
+            <div class="alert alert-warning" role="alert">لا يوجد بيانات</div>
+          <% } %>
+      </div>
+
+      <!-- <%- include('components/footer') %> -->
+      <script src="/scripts/bootstrap.bundle.min.js"></script>
+  </body>
+
+  </html>

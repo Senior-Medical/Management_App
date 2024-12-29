@@ -10,6 +10,7 @@ import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
 import { ProductionDocument } from './entities/production.entity';
 import { ProductionIdPipe } from './pipes/production-id.pipe';
 import { CreateProductionPipe } from './pipes/create-production-price.pipe';
+import { GetSalaryDto } from './dto/get-salary.dto';
 
 @Controller('production')
 export class ProductionController {
@@ -31,6 +32,16 @@ export class ProductionController {
     @GetUser() user: UserDocument,
   ) {
     return this.productionService.findAll(queryParams, user, res);
+  }
+
+  @Post('get-salary')
+  getSalary(
+    @Query(QueryParamPipe) queryParams: any,
+    @Body() getSalaryDto: GetSalaryDto,
+    @Res() res: Response,
+    @GetUser() user: UserDocument,
+  ) {
+    return this.productionService.getSalary(getSalaryDto, queryParams, user, res);
   }
 
   @Post('update/:productionId')

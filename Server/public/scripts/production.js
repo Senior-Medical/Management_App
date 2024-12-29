@@ -124,3 +124,36 @@ document.querySelectorAll('.update-production').forEach(button => {
   });
 });
 
+
+/**
+ * Get Salary
+ * Used to get salary when submitting salary form
+ * Validate the form data before sending it to the server
+ */
+document.querySelector('#salary').addEventListener('click', (e) => {
+  const form = document.querySelector('#salary-form');
+
+  const from = form.querySelector('#from').value;
+  const fromError = form.querySelector('#from-error');
+  fromError.style.display = 'none';
+
+  const to = form.querySelector('#to').value;
+  const toError = form.querySelector('#to-error');
+  toError.style.display = 'none';
+
+  let isValid = true;
+
+  if (!from) {
+    fromError.textContent = 'يجب إدخال تاريخ البداية';
+    fromError.style.display = 'block';
+    isValid = false;
+  }
+
+  if (!to) {
+    toError.textContent = 'يجب إدخال تاريخ النهاية';
+    toError.style.display = 'block';
+    isValid = false;
+  }
+
+  if (isValid) form.submit();
+});
