@@ -95,6 +95,14 @@ export class WorkersService {
   }
 
   /**
+   * Find all workers.
+   * @returns The workers.
+   */
+  find() {
+    return this.workersModel.find();
+  }
+
+  /**
    * Find worker by id.
    * @param id The worker id.
    * @returns The worker.

@@ -21,5 +21,6 @@ import { DepartmentsModule } from 'src/departments/departments.module';
   ],
   controllers: [ProductPriceController],
   providers: [ProductPriceService],
+  exports: [ProductPriceService]
 })
 export class ProductPriceModule {}

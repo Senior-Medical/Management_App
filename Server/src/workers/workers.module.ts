@@ -17,5 +17,6 @@ import { UsersModule } from 'src/users/users.module';
   ],
   controllers: [WorkersController],
   providers: [WorkersService],
+  exports: [WorkersService]
 })
 export class WorkersModule {}

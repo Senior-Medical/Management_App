@@ -1,0 +1,61 @@
+<div class="modal fade" id="update-production-modal-<%= index %>" tabindex="-1" aria-labelledby="update-production-modal-label-<%= index %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="update-production-modal-label-<%= index %>">تحديث قسم</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/production/update/<%= production._id %>" method="post" id="update-production-form-<%= production._id %>">
+          <div class="mb-3">
+            <label for="product" class="col-form-label fs-4">المنتج:</label>
+            <select class="form-select" id="product-<%= production._id %>" name="product">
+              <option value="" selected>اختر المنتج</option>
+              <% products.forEach(product=> { %>
+                <option value="<%= product._id %>" <%= (production.product._id.toString() === product._id.toString())? 'selected' : '' %>><%= product.name %></option>
+              <% }) %>
+            </select>
+            <div class="text-danger mt-1" id="product-error-<%= production._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="department" class="col-form-label fs-4">القسم:</label>
+            <select class="form-select" id="department-<%= production._id %>" name="department">
+              <option value="" selected>اختر القسم</option>
+              <% departments.forEach(department=> { %>
+                <option value="<%= department._id %>" <%= (production.department._id.toString()===department._id.toString())? 'selected' : '' %>><%= department.name %></option>
+              <% }) %>
+            </select>
+            <div class="text-danger mt-1" id="department-error-<%= production._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="worker" class="col-form-label fs-4">القسم:</label>
+            <select class="form-select" id="worker-<%= production._id %>" name="worker">
+              <option value="" selected>اختر القسم</option>
+              <% workers.forEach(worker=> { %>
+                <option value="<%= worker._id %>"
+                  <%=(production.worker._id.toString()===worker._id.toString())? 'selected' : '' %>><%= worker.name %>
+                </option>
+                <% }) %>
+            </select>
+            <div class="text-danger mt-1" id="department-error-<%= production._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="date" class="col-form-label fs-4">التاريخ:</label>
+            <input type="date" class="form-control" id="date-<%= production._id %>" name="date" value="<%= production.date.toISOString().split('T')[0] %>">
+            <div class="text-danger mt-1" id="date-error-<%= production._id %>" style="display: none;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="quantity" class="col-form-label fs-4">كمية الإنتاج:</label>
+            <input type="number" class="form-control" id="quantity-<%= production._id %>" name="quantity"
+              value="<%= production.quantity %>">
+            <div class="text-danger mt-1" id="quantity-error-<%= production._id %>" style="display: none;"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-success update-production" productionId="<%= production._id %>">حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>

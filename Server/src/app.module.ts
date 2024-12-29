@@ -22,6 +22,7 @@ import { ProductsModule } from './products/products.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { BonusModule } from './bonus/bonus.module';
 import { ProductPriceModule } from './product-price/product-price.module';
+import { ProductionModule } from './production/production.module';
 
 @Module({
   imports: [
@@ -52,7 +53,8 @@ import { ProductPriceModule } from './product-price/product-price.module';
     ProductsModule,
     DepartmentsModule,
     BonusModule,
-    ProductPriceModule
+    ProductPriceModule,
+    ProductionModule
   ],
   controllers: [AppController],
   providers: [
