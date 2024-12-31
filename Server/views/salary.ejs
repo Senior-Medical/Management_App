@@ -16,50 +16,52 @@
   <body>
     <%- include('components/header', {type , user}) %>
 
-      <div class="container-xl">
-          <% if(error) { %>
-            <div class="alert alert-danger alert-dismissible" role="alert">
-              <div><%= error %></div>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          <% } %>
-          <% if(data.length !==0) { %>
-            <div class="table-responsive">
-              <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
-                <caption class="mx-4 fs-5">
-                  <span>العدد: <%= data.length %></span>
-                </caption>
-                <thead>
-                  <tr class="table-dark">
-                    <th scope="col">الرقم</th>
-                    <th scope="col">إسم العامل</th>
-                    <th scope="col">المرتب</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% data.forEach((worker, index)=>{ %>
-                    <tr>
-                      <th class="table-dark" scope="row">
-                        <%= index+1 %>
-                      </th>
-                      <td>
-                        <%= worker.name %>
-                      </td>
-                      <td>
-                        <%= worker.salary %>
-                      </td>
-                    </tr>
-                    <% }) %>
-                </tbody>
-              </table>
-            </div>
-          <% } else { %>
-            <div class="alert alert-warning" role="alert">لا يوجد بيانات</div>
-          <% } %>
-      </div>
+    
+    
+    <div class="container-xl">
+      <button class="btn btn-secondary mb-4 create-button"><a style="text-decoration: none; color: aliceblue;" href="/production">رجوع لصفحة الإنتاج</a></button>
+      <% if(error) { %>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <div><%= error %></div>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+      <% if(data.length !==0) { %>
+        <div class="table-responsive">
+          <table class="table table-hover table-striped-columns table-bordered border-dark align-middle caption-top">
+            <caption class="mx-4 fs-5">
+              <span>العدد: <%= data.length %></span>
+            </caption>
+            <thead>
+              <tr class="table-dark">
+                <th scope="col">الرقم</th>
+                <th scope="col">إسم العامل</th>
+                <th scope="col">المرتب</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((worker, index)=>{ %>
+                <tr>
+                  <th class="table-dark" scope="row">
+                    <%= index+1 %>
+                  </th>
+                  <td>
+                    <%= worker.name %>
+                  </td>
+                  <td>
+                    <%= worker.salary %>
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <div class="alert alert-warning" role="alert">لا يوجد بيانات</div>
+      <% } %>
+    </div>
 
-      <!-- <%- include('components/footer') %> -->
-      <script src="/scripts/bootstrap.bundle.min.js"></script>
+    <!-- <%- include('components/footer') %> -->
+    <script src="/scripts/bootstrap.bundle.min.js"></script>
   </body>
-
-  </html>
+</html>

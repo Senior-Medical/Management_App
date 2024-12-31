@@ -12,7 +12,7 @@
             <select class="form-select" id="worker" name="worker">
               <option value="" selected>اختر العامل</option>
               <% workers.forEach(worker=> { %>
-                <option value="<%= worker._id %>">
+                <option value="<%= worker._id %>" <%=(worker.name==='فاطمة')? "selected" :""%>>
                   <%= worker.name %>
                 </option>
                 <% }) %>
@@ -24,7 +24,7 @@
             <select class="form-select" id="product" name="product">
               <option value="" selected>اختر المنتج</option>
               <% products.forEach(product => { %>
-                <option value="<%= product._id %>"><%= product.name %></option>
+                <option value="<%= product._id %>" <%=(product.name==='جاون طبيب')? "selected" :""%>><%= product.name %></option>
               <% }) %>
             </select>
             <div class="text-danger mt-1" id="product-error" style="display: none;"></div>
@@ -34,7 +34,7 @@
             <select class="form-select" id="department" name="department">
               <option value="" selected>اختر القسم</option>
               <% departments.forEach(department => { %>
-                <option value="<%= department._id %>"><%= department.name %></option>
+                <option value="<%= department._id %>" <%=(department.name==='الطي')? "selected" :""%>><%= department.name %></option>
               <% }) %>
             </select>
             <div class="text-danger mt-1" id="department-error" style="display: none;"></div>
@@ -46,7 +46,7 @@
           </div>
           <div class="mb-3">
             <label for="quantity" class="col-form-label fs-4">كمية الإنتاج:</label>
-            <input type="number" class="form-control" id="quantity" name="quantity">
+            <input type="number" class="form-control" id="quantity" name="quantity" value="200">
             <div class="text-danger mt-1" id="quantity-error" style="display: none;"></div>
           </div>
         </form>

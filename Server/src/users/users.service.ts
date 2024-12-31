@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { Model, RootFilterQuery } from 'mongoose';
-import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
+import { FindQueryBuilderService } from 'src/utils/classes/find-query-builder.service';
 import { QueryDto } from 'src/utils/dtos/query.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';

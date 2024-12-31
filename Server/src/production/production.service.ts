@@ -1,24 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Response } from 'express';
+import { Model, RootFilterQuery, Types } from 'mongoose';
+import { DepartmentsService } from 'src/departments/departments.service';
+import { DepartmentDocument } from 'src/departments/entities/department.entity';
+import { ProductDocument } from 'src/products/entities/product.entity';
+import { ProductsService } from 'src/products/products.service';
+import { UserDocument } from 'src/users/entities/user.entity';
+import { DashboardRenderVariablesType } from 'src/users/types/render-variables.type';
+import { UsersService } from 'src/users/users.service';
+import { FindQueryBuilderService } from 'src/utils/classes/find-query-builder.service';
+import { QueryDto } from 'src/utils/dtos/query.dto';
+import { WorkerDocument } from 'src/workers/entities/worker.entity';
+import { WorkersService } from 'src/workers/workers.service';
+import { BonusService } from '../bonus/bonus.service';
+import { ProductPriceService } from '../product-price/product-price.service';
 import { CreateProductionDto } from './dto/create-production.dto';
+import { GetSalaryDto } from './dto/get-salary.dto';
 import { UpdateProductionDto } from './dto/update-production.dto';
 import { Production, ProductionDocument } from './entities/production.entity';
-import { Model, RootFilterQuery, Types } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
-import { UsersService } from 'src/users/users.service';
-import { UserDocument } from 'src/users/entities/user.entity';
-import { Response } from 'express';
-import { ProductPriceService } from '../product-price/product-price.service';
-import { QueryDto } from 'src/utils/dtos/query.dto';
-import { DashboardRenderVariablesType } from 'src/users/types/render-variables.type';
-import { ProductsService } from 'src/products/products.service';
-import { DepartmentsService } from 'src/departments/departments.service';
-import { WorkersService } from 'src/workers/workers.service';
-import { WorkerDocument } from 'src/workers/entities/worker.entity';
-import { ProductDocument } from 'src/products/entities/product.entity';
-import { DepartmentDocument } from 'src/departments/entities/department.entity';
-import { GetSalaryDto } from './dto/get-salary.dto';
-import { BonusService } from '../bonus/bonus.service';
 
 @Injectable()
 export class ProductionService {

@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductPriceDto } from './dto/create-product-price.dto';
-import { UpdateProductPriceDto } from './dto/update-product-price.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { ProductPrice, ProductPriceDocument } from './entities/product-price.entity';
-import { Model, RootFilterQuery, Types } from 'mongoose';
-import { UserDocument } from 'src/users/entities/user.entity';
 import { Response } from 'express';
-import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
-import { QueryDto } from 'src/utils/dtos/query.dto';
+import { Model, RootFilterQuery, Types } from 'mongoose';
+import { DepartmentDocument } from 'src/departments/entities/department.entity';
+import { ProductDocument } from 'src/products/entities/product.entity';
+import { UserDocument } from 'src/users/entities/user.entity';
 import { DashboardRenderVariablesType } from 'src/users/types/render-variables.type';
 import { UsersService } from 'src/users/users.service';
-import { ProductsService } from '../products/products.service';
+import { FindQueryBuilderService } from 'src/utils/classes/find-query-builder.service';
+import { QueryDto } from 'src/utils/dtos/query.dto';
 import { DepartmentsService } from '../departments/departments.service';
-import { ProductDocument } from 'src/products/entities/product.entity';
-import { DepartmentDocument } from 'src/departments/entities/department.entity';
+import { ProductsService } from '../products/products.service';
+import { CreateProductPriceDto } from './dto/create-product-price.dto';
+import { UpdateProductPriceDto } from './dto/update-product-price.dto';
+import { ProductPrice, ProductPriceDocument } from './entities/product-price.entity';
 
 @Injectable()
 export class ProductPriceService {
@@ -46,7 +46,6 @@ export class ProductPriceService {
       updatedBy: user._id,
     };
     const productPrice = await this.productPriceModel.create(inputData);
-    console.log('ProductPrice created successfully');
     return res.redirect('/productPrice');
   }
 
@@ -137,7 +136,6 @@ export class ProductPriceService {
     }
 
     await productPrice.set(inputData).save();
-    console.log('ProductPrice updated successfully');
     return res.redirect('/productPrice?sort=-updatedAt');
   }
 
@@ -149,7 +147,6 @@ export class ProductPriceService {
    */
   async remove(productPrice: ProductPriceDocument, res: Response) {
     await productPrice.deleteOne();
-    console.log('ProductPrice removed successfully');
     return res.redirect('/productPrice');
   }
 }

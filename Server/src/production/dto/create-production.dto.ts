@@ -5,7 +5,6 @@ import { Types } from "mongoose";
 export class CreateProductionDto {
   @Transform(({ value }) => {
     const date = new Date(value);
-    date.setTime(new Date().getTime())
     return date;
   })
   @IsDate()

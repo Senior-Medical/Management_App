@@ -5,7 +5,7 @@ import { Model, RootFilterQuery } from 'mongoose';
 import { UserDocument } from 'src/users/entities/user.entity';
 import { DashboardRenderVariablesType } from 'src/users/types/render-variables.type';
 import { UsersService } from 'src/users/users.service';
-import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
+import { FindQueryBuilderService } from 'src/utils/classes/find-query-builder.service';
 import { QueryDto } from 'src/utils/dtos/query.dto';
 import { CreateDepartmentDto } from './dto/create-department.dto';
 import { Department, DepartmentDocument } from './entities/department.entity';

@@ -1,14 +1,14 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { CreateWorkerDto } from './dto/create-worker.dto';
-import { UserDocument } from 'src/users/entities/user.entity';
-import { Response } from 'express';
-import { Worker, WorkerDocument } from './entities/worker.entity';
 import { InjectModel } from '@nestjs/mongoose';
+import { Response } from 'express';
 import { Model, RootFilterQuery } from 'mongoose';
-import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
-import { QueryDto } from 'src/utils/dtos/query.dto';
+import { UserDocument } from 'src/users/entities/user.entity';
 import { DashboardRenderVariablesType } from 'src/users/types/render-variables.type';
 import { UsersService } from 'src/users/users.service';
+import { FindQueryBuilderService } from 'src/utils/classes/find-query-builder.service';
+import { QueryDto } from 'src/utils/dtos/query.dto';
+import { CreateWorkerDto } from './dto/create-worker.dto';
+import { Worker, WorkerDocument } from './entities/worker.entity';
 
 @Injectable()
 export class WorkersService {

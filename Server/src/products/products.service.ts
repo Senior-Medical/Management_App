@@ -1,14 +1,14 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { FindQueryBuilderService } from 'src/utils/builders/find-query-builder.service';
 import { InjectModel } from '@nestjs/mongoose';
-import { UsersService } from 'src/users/users.service';
-import { Model, RootFilterQuery } from 'mongoose';
-import { Product, ProductDocument } from './entities/product.entity';
-import { UserDocument } from 'src/users/entities/user.entity';
 import { Response } from 'express';
-import { QueryDto } from 'src/utils/dtos/query.dto';
+import { Model, RootFilterQuery } from 'mongoose';
+import { UserDocument } from 'src/users/entities/user.entity';
 import { DashboardRenderVariablesType } from 'src/users/types/render-variables.type';
+import { UsersService } from 'src/users/users.service';
+import { FindQueryBuilderService } from 'src/utils/classes/find-query-builder.service';
+import { QueryDto } from 'src/utils/dtos/query.dto';
+import { CreateProductDto } from './dto/create-product.dto';
+import { Product, ProductDocument } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
