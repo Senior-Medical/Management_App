@@ -8,11 +8,11 @@ export class CreateProductPriceDto {
   @IsNumber()
   readonly price: number;
 
-  @IsMongoId()
   @IsNotEmpty()
-  readonly product: Types.ObjectId;
-
   @IsMongoId()
+  product: Types.ObjectId;
+  
   @IsNotEmpty()
-  readonly department: Types.ObjectId;
+  @IsMongoId()
+  department: Types.ObjectId;
 }

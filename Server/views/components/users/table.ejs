@@ -19,7 +19,9 @@
     <tbody>
       <% data.forEach((user, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%= index+1 %></th>
+          <th class="table-dark" scope="row">
+            <%= index+1 %>
+          </th>
           <td>
             <%= user.username %>
           </td>
@@ -27,22 +29,10 @@
             <%= (user.role)?user.role:"لا يوجد" %>
           </td>
           <td>
-            <% if(user.createdBy && user.createdBy.username){ %>
-              <%= user.createdBy.username %>
-            <% } else if(user.createdBy){ %>
-              <%= user.createdBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (user.createdBy && user.createdBy.username) ? user.createdBy.username : 'لا يوجد' %>
           </td>
           <td>
-            <% if(user.updatedBy && user.updatedBy.username){ %>
-              <%= user.updatedBy.username %>
-            <% } else if(user.updatedBy){ %>
-              <%= user.updatedBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (user.updatedBy && user.updatedBy.username) ? user.updatedBy.username : 'لا يوجد' %>
           </td>
           <td>
             <%= (user.createdAtArabic)?user.createdAtArabic:"لا يوجد" %>

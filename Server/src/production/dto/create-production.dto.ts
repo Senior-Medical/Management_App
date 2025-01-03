@@ -3,10 +3,7 @@ import { IsDate, IsInt, IsMongoId, IsNotEmpty } from "class-validator";
 import { Types } from "mongoose";
 
 export class CreateProductionDto {
-  @Transform(({ value }) => {
-    const date = new Date(value);
-    return date;
-  })
+  @Transform(({ value }) => new Date(value))
   @IsDate()
   @IsNotEmpty()
   date: Date;

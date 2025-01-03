@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
+import { ProductPrice } from "src/product-price/entities/product-price.entity";
 import { arabicDateFormatter } from "src/utils/arabic-date-formatter";
 
 @Schema({ timestamps: true })
@@ -36,6 +37,13 @@ ProductSchema.pre('save', async function (next) {
     this.updatedAtArabic = arabicDateFormatter.format(new Date());
   } else if (this.isModified()) {
     this.updatedAtArabic = arabicDateFormatter.format(new Date());
+  }
+  next();
+});
+
+ProductSchema.post('findOneAndDelete', async function (doc, next) {
+  if (doc) {
+    await doc.model(ProductPrice.name).deleteMany({ product: doc._id });
   }
   next();
 });

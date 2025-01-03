@@ -30,7 +30,7 @@ export class CreateProductPricePipe {
     const departmentExists = this.departmentsService.findById(department.toString());
     if (!departmentExists) throw new NotAcceptableException('خطأ في معرف القسم.');
 
-    const productPriceExists = this.productPriceService.findByProductAndDepartment(product, department);
+    const productPriceExists = this.productPriceService.findOne({ product, department });
     if (productPriceExists) throw new ConflictException('سعر المنتج موجود بالفعل.');
 
     return data;

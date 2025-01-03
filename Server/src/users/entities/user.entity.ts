@@ -48,14 +48,14 @@ export const createUserSchema = (encryptionService: EncryptionService) => {
     if (this.isNew) {
       this.createdAtArabic = arabicDateFormatter.format(new Date());
       this.updatedAtArabic = arabicDateFormatter.format(new Date());
-    }else if (this.isModified()) {
+    } else if (this.isModified()) {
       this.updatedAtArabic = arabicDateFormatter.format(new Date());
     }
     if (this.isModified('password')) {
       this.password = await encryptionService.bcryptHash(this.password);
       next();
     }
-  })
+  });
 
   return UserSchema;
 }

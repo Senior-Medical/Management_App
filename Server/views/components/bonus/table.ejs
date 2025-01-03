@@ -20,33 +20,23 @@
     <tbody>
       <% data.forEach((bonus, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%= index+1 %></th>
+          <th class="table-dark" scope="row">
+            <%= index+1 %>
+          </th>
           <td>
             <%= bonus.from %>
           </td>
           <td>
-            <%= bonus.to %>
+            <%= (bonus.to === Infinity) ? "لا نهاية" : bonus.to %>
           </td>
           <td>
             <%= bonus.percentage %>
           </td>
           <td>
-            <% if(bonus.createdBy && bonus.createdBy.username){ %>
-              <%= bonus.createdBy.username %>
-            <% } else if(bonus.createdBy){ %>
-              <%= bonus.createdBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (bonus.createdBy && bonus.createdBy.username) ? bonus.createdBy.username : 'لا يوجد' %>
           </td>
           <td>
-            <% if(bonus.updatedBy && bonus.updatedBy.username){ %>
-              <%= bonus.updatedBy.username %>
-            <% } else if(bonus.updatedBy){ %>
-              <%= bonus.updatedBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (bonus.updatedBy && bonus.updatedBy.username) ? bonus.updatedBy.username : 'لا يوجد' %>
           </td>
           <td>
             <%= (bonus.createdAtArabic)?bonus.createdAtArabic:"لا يوجد" %>

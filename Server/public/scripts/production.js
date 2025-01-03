@@ -1,4 +1,4 @@
-const inputDates = document.querySelectorAll('input[type="date"]');
+const inputDates = document.querySelectorAll('input[type="date"]:not(.update)');
 inputDates.forEach(inputDate => {
   const today = new Date().toISOString().split('T')[0];
   inputDate.value = today;
@@ -109,13 +109,13 @@ document.querySelectorAll('.update-production').forEach(button => {
     }
 
     if (!worker) {
-      workerError.textContent = 'يجب إختيار القسم';
+      workerError.textContent = 'يجب إختيار العامل';
       workerError.style.display = 'block';
       isValid = false;
     }
 
     if (!quantity || isNaN(quantity)) {
-      quantityError.textContent = 'يجب إدخال السعر';
+      quantityError.textContent = 'يجب إدخال كمية الإنتاج';
       quantityError.style.display = 'block';
       isValid = false;
     }

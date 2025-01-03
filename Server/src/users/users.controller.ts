@@ -5,9 +5,9 @@ import {
   Param,
   Post,
   Query,
-  Res
+  Redirect,
+  Render,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { Roles } from 'src/utils/decorators/roles.decorator';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
@@ -25,38 +25,38 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @Redirect('/users')
   async create(
-    @Res() res: Response,
     @GetUser() user: UserDocument,
     @Body() createUserDto: CreateUserDto
   ) {
-    return this.usersService.create(user, createUserDto, res);
+    return this.usersService.create(createUserDto, user);
   }
 
   @Get()
+  @Render('users')
   async findAll(
     @Query(QueryParamPipe) queryParams: any,
-    @Res() res: Response,
     @GetUser() user: UserDocument,
   ) {
-    return this.usersService.findAll(queryParams, user, res);
+    return this.usersService.findAll(queryParams, user);
   }
 
   @Post('update/:userId')
+  @Redirect('/users?sort=-updatedAt')
   update(
-    @Res() res: Response,
     @GetUser() user: UserDocument,
     @Param('userId', ObjectIdPipe, UserIdPipe) wantedUser: UserDocument,
     @Body() updateUserDto: UpdateUserDto
   ) {
-    return this.usersService.update(user, wantedUser, updateUserDto, res);
+    return this.usersService.update(wantedUser, updateUserDto, user);
   }
 
   @Get('delete/:userId')
+  @Redirect('/users')
   remove(
-    @Res() res: Response,
     @Param('userId', ObjectIdPipe, UserIdPipe) user: UserDocument
   ) {
-    return this.usersService.remove(user, res);
+    return this.usersService.remove(user);
   }
 }

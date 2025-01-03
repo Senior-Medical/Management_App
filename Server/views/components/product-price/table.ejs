@@ -20,33 +20,23 @@
     <tbody>
       <% data.forEach((productPrice, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%= index+1 %></th>
+          <th class="table-dark" scope="row">
+            <%= index+1 %>
+          </th>
           <td>
-            <%= productPrice.product.name %>
+            <%= (productPrice.product && productPrice.product.name) ? productPrice.product.name : 'لا يوجد' %>
           </td>
           <td>
-            <%= productPrice.department.name %>
+            <%= (productPrice.department && productPrice.department.name) ? productPrice.department.name : 'لا يوجد' %>
           </td>
           <td>
             <%= productPrice.price %>
           </td>
           <td>
-            <% if(productPrice.createdBy && productPrice.createdBy.username){ %>
-              <%= productPrice.createdBy.username %>
-            <% } else if(productPrice.createdBy){ %>
-              <%= productPrice.createdBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (productPrice.createdBy && productPrice.createdBy.username) ? productPrice.createdBy.username : 'لا يوجد' %>
           </td>
           <td>
-            <% if(productPrice.updatedBy && productPrice.updatedBy.username){ %>
-              <%= productPrice.updatedBy.username %>
-            <% } else if(productPrice.updatedBy){ %>
-              <%= productPrice.updatedBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (productPrice.updatedBy && productPrice.updatedBy.username) ? productPrice.updatedBy.username : 'لا يوجد' %>
           </td>
           <td>
             <%= (productPrice.createdAtArabic)?productPrice.createdAtArabic:"لا يوجد" %>

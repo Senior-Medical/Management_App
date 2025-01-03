@@ -4,8 +4,9 @@ import {
   Post,
   Body,
   Param,
-  Res,
-  Query
+  Query,
+  Redirect,
+  Render
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -15,45 +16,44 @@ import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
 import { ProductDocument } from './entities/product.entity';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
 import { ProductIdPipe } from './pipes/product-id.pipe';
-import { Response } from 'express';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
+  @Redirect('/products')
   create(
-    @Res() res: Response,
     @GetUser() user: UserDocument,
     @Body() createProductDto: CreateProductDto
   ) {
-    return this.productsService.create(user, createProductDto, res);
+    return this.productsService.create(createProductDto, user);
   }
 
   @Get()
+  @Render('products')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
-    @Res() res: Response,
     @GetUser() user: UserDocument,
   ) {
-    return this.productsService.findAll(queryParams, user, res);
+    return this.productsService.findAll(queryParams, user);
   }
 
   @Post('update/:productId')
+  @Redirect('/products?sort=-updatedAt')
   update(
     @Param('productId', ObjectIdPipe, ProductIdPipe) product: ProductDocument,
     @Body() updateProductDto: CreateProductDto,
     @GetUser() user: UserDocument,
-    @Res() res: Response,
   ) {
-    return this.productsService.update(user, product, updateProductDto, res);
+    return this.productsService.update(product, updateProductDto, user);
   }
 
   @Get('delete/:productId')
+  @Redirect('/products')
   remove(
     @Param('productId', ObjectIdPipe, ProductIdPipe) product: ProductDocument,
-    @Res() res: Response
   ) {
-    return this.productsService.remove(product, res);
+    return this.productsService.remove(product);
   }
 }

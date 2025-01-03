@@ -4,10 +4,16 @@ import { arabicDateFormatter } from "src/utils/arabic-date-formatter";
 
 @Schema({ timestamps: true })
 export class Bonus {
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+    unique: true
+  })
   from: number;
 
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+    unique: true
+  })
   to: number;
   
   @Prop({

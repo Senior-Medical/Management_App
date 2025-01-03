@@ -1,10 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  Redirect,
+  Render
+} from '@nestjs/common';
 import { ProductionService } from './production.service';
 import { CreateProductionDto } from './dto/create-production.dto';
 import { UpdateProductionDto } from './dto/update-production.dto';
 import { UserDocument } from 'src/users/entities/user.entity';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
-import { Response } from 'express';
 import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
 import { ProductionDocument } from './entities/production.entity';
@@ -17,48 +25,48 @@ export class ProductionController {
   constructor(private readonly productionService: ProductionService) {}
 
   @Post()
+  @Redirect('/production')
   create(
     @Body(CreateProductionPipe) createProductionDto: CreateProductionDto,
     @GetUser() user: UserDocument,
-    @Res() res: Response
   ) {
-    return this.productionService.create(user, createProductionDto, res);
+    return this.productionService.create(createProductionDto, user);
   }
 
   @Get()
+  @Render('production')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
-    @Res() res: Response,
     @GetUser() user: UserDocument,
   ) {
-    return this.productionService.findAll(queryParams, user, res);
+    return this.productionService.findAll(queryParams, user);
   }
 
   @Post('get-salary')
+  @Render('salary')
   getSalary(
     @Query(QueryParamPipe) queryParams: any,
     @Body() getSalaryDto: GetSalaryDto,
-    @Res() res: Response,
     @GetUser() user: UserDocument,
   ) {
-    return this.productionService.getSalary(getSalaryDto, queryParams, user, res);
+    return this.productionService.getSalary(getSalaryDto, queryParams, user);
   }
 
   @Post('update/:productionId')
+  @Redirect('/production')
   update(
     @Param('productionId', ObjectIdPipe, ProductionIdPipe) production: ProductionDocument,
     @Body() updateProductionDto: UpdateProductionDto,
     @GetUser() user: UserDocument,
-    @Res() res: Response,
   ) {
-    return this.productionService.update(user, production, updateProductionDto, res);
+    return this.productionService.update(production, updateProductionDto, user);
   }
 
   @Get('delete/:productionId')
+  @Redirect('/production')
   remove(
-    @Param('productionId', ObjectIdPipe, ProductionIdPipe) production: ProductionDocument,
-    @Res() res: Response
+    @Param('productionId', ObjectIdPipe, ProductionIdPipe) production: ProductionDocument
   ) {
-    return this.productionService.remove(production, res);
+    return this.productionService.remove(production);
   }
 }

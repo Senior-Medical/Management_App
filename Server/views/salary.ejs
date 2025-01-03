@@ -36,7 +36,9 @@
               <tr class="table-dark">
                 <th scope="col">الرقم</th>
                 <th scope="col">إسم العامل</th>
-                <th scope="col">المرتب</th>
+                <th scope="col">المرتب بدون الحافز</th>
+                <th scope="col">قيمة الحافز</th>
+                <th scope="col">المجموع</th>
               </tr>
             </thead>
             <tbody>
@@ -50,6 +52,12 @@
                   </td>
                   <td>
                     <%= worker.salary %>
+                  </td>
+                  <td>
+                    <%= worker.bonus %>
+                  </td>
+                  <td>
+                    <%= worker.total %>
                   </td>
                 </tr>
                 <% }) %>

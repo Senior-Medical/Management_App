@@ -18,27 +18,17 @@
     <tbody>
       <% data.forEach((product, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%= index+1 %></th>
+          <th class="table-dark" scope="row">
+            <%= index+1 %>
+          </th>
           <td>
             <%= product.name %>
           </td>
           <td>
-            <% if(product.createdBy && product.createdBy.username){ %>
-              <%= product.createdBy.username %>
-            <% } else if(product.createdBy){ %>
-              <%= product.createdBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (product.createdBy && product.createdBy.username) ? product.createdBy.username : 'لا يوجد' %>
           </td>
           <td>
-            <% if(product.updatedBy && product.updatedBy.username){ %>
-              <%= product.updatedBy.username %>
-            <% } else if(product.updatedBy){ %>
-              <%= product.updatedBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (product.updatedBy && product.updatedBy.username) ? product.updatedBy.username : "لا يوجد" %>
           </td>
           <td>
             <%= (product.createdAtArabic)?product.createdAtArabic:"لا يوجد" %>

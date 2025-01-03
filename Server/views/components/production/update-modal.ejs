@@ -37,11 +37,11 @@
                 </option>
                 <% }) %>
             </select>
-            <div class="text-danger mt-1" id="department-error-<%= production._id %>" style="display: none;"></div>
+            <div class="text-danger mt-1" id="worker-error-<%= production._id %>" style="display: none;"></div>
           </div>
           <div class="mb-3">
             <label for="date" class="col-form-label fs-4">التاريخ:</label>
-            <input type="date" class="form-control" id="date-<%= production._id %>" name="date" value="<%= production.date.toISOString().split('T')[0] %>">
+            <input type="date" class="form-control update" id="date-<%= production._id %>" name="date" value="<%= production.date.toISOString().split('T')[0] %>">
             <div class="text-danger mt-1" id="date-error-<%= production._id %>" style="display: none;"></div>
           </div>
           <div class="mb-3">

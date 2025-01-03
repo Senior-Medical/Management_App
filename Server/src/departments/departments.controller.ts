@@ -5,9 +5,9 @@ import {
   Param,
   Post,
   Query,
-  Res
+  Redirect,
+  Render,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { UserDocument } from 'src/users/entities/user.entity';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
@@ -22,38 +22,38 @@ export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}
 
   @Post()
+  @Redirect('/departments')
   create(
-    @Res() res: Response,
     @GetUser() user: UserDocument,
     @Body() createDepartmentDto: CreateDepartmentDto
   ) {
-    return this.departmentsService.create(user, createDepartmentDto, res);
+    return this.departmentsService.create(createDepartmentDto, user);
   }
 
   @Get()
+  @Render('departments')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
-    @Res() res: Response,
     @GetUser() user: UserDocument,
   ) {
-    return this.departmentsService.findAll(queryParams, user, res);
+    return this.departmentsService.findAll(queryParams, user);
   }
 
   @Post('update/:departmentId')
+  @Redirect('/departments?sort=-updatedAt')
   update(
     @Param('departmentId', ObjectIdPipe, DepartmentIdPipe) department: DepartmentDocument,
     @Body() updateDepartmentDto: CreateDepartmentDto,
     @GetUser() user: UserDocument,
-    @Res() res: Response,
   ) {
-    return this.departmentsService.update(user, department, updateDepartmentDto, res);
+    return this.departmentsService.update(department, updateDepartmentDto, user);
   }
 
   @Get('delete/:departmentId')
+  @Redirect('/departments')
   remove(
     @Param('departmentId', ObjectIdPipe, DepartmentIdPipe) department: DepartmentDocument,
-    @Res() res: Response
   ) {
-    return this.departmentsService.remove(department, res);
+    return this.departmentsService.remove(department);
   }
 }

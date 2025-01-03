@@ -18,27 +18,17 @@
     <tbody>
       <% data.forEach((worker, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%= index+1 %></th>
+          <th class="table-dark" scope="row">
+            <%= index+1 %>
+          </th>
           <td>
             <%= worker.name %>
           </td>
           <td>
-            <% if(worker.createdBy && worker.createdBy.username){ %>
-              <%= worker.createdBy.username %>
-            <% } else if(worker.createdBy){ %>
-              <%= worker.createdBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (worker.createdBy && worker.createdBy.username) ? worker.createdBy.username : 'لا يوجد' %>
           </td>
           <td>
-            <% if(worker.updatedBy && worker.updatedBy.username){ %>
-              <%= worker.updatedBy.username %>
-            <% } else if(worker.updatedBy){ %>
-              <%= worker.updatedBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (worker.updatedBy && worker.updatedBy.username) ? worker.updatedBy.username : 'لا يوجد' %>
           </td>
           <td>
             <%= (worker.createdAtArabic)?worker.createdAtArabic:"لا يوجد" %>

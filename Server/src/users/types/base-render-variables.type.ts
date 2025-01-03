@@ -1,10 +1,9 @@
 import { UserDocument } from "../entities/user.entity";
 
-export type DashboardRenderVariablesType = {
+export type BaseRenderVariablesType = {
   error: string | null,
   data: Array<any> | null,
   user: UserDocument,
-  users: Array<UserDocument>,
   filters: {
     search: string,
     sort: string,

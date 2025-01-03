@@ -10,18 +10,15 @@
           <div class="mb-3">
             <label for="from-<%= bonus._id %>" class="col-form-label fs-4">من:</label>
             <input type="number" class="form-control" name="from" id="from-<%= bonus._id %>" value="<%= bonus.from %>">
-            <div class="text-danger mt-1" id="from-error-<%= bonus._id %>" style="display: none;"></div>
           </div>
           <div class="mb-3">
             <label for="to" class="col-form-label fs-4">إلى:</label>
             <input type="number" class="form-control" name="to" id="to-<%= bonus._id %>" value="<%= bonus.to %>">
-            <div class="text-danger mt-1" id="to-error-<%= bonus._id %>" style="display: none;"></div>
           </div>
           <div class="mb-3">
             <label for="percentage" class="col-form-label fs-4">النسبة:</label>
             <input type="range" class="form-range" max="100" min="0" step="1" name="percentage" id="percentage-<%= bonus._id %>" value="<%= bonus.percentage %>">
             <div class="text-primary mt-1"></div>
-            <div class="text-danger mt-1" id="percentage-error-<%= bonus._id %>" style="display: none;"></div>
           </div>
         </form>
       </div>

@@ -2,12 +2,20 @@ import { IsNotEmpty, IsNumber, Max, Min } from "class-validator";
 import { Transform } from 'class-transformer';
 
 export class CreateBonusDto {
-  @Transform(({ value }) => parseFloat(value))
+  @Transform(({ value }) => {
+    const numValue = parseFloat(value);
+    if (isNaN(numValue)) return 0;
+    else return numValue;
+  })
   @IsNumber()
   @IsNotEmpty()
   from: number;
 
-  @Transform(({ value }) => parseFloat(value))
+  @Transform(({ value }) => {
+    const numValue = parseFloat(value);
+    if (isNaN(numValue)) return 0;
+    else return numValue;
+  })
   @IsNumber()
   @IsNotEmpty()
   to: number;

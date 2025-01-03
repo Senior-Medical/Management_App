@@ -18,27 +18,17 @@
     <tbody>
       <% data.forEach((department, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%= index+1 %></th>
+          <th class="table-dark" scope="row">
+            <%= index+1 %>
+          </th>
           <td>
             <%= department.name %>
           </td>
           <td>
-            <% if(department.createdBy && department.createdBy.username){ %>
-              <%= department.createdBy.username %>
-            <% } else if(department.createdBy){ %>
-              <%= department.createdBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (department.createdBy && department.createdBy.username) ? department.createdBy.username : 'لا يوجد' %>
           </td>
           <td>
-            <% if(department.updatedBy && department.updatedBy.username){ %>
-              <%= department.updatedBy.username %>
-            <% } else if(department.updatedBy){ %>
-              <%= department.updatedBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (department.updatedBy && department.updatedBy.username) ? department.updatedBy.username : 'لا يوجد' %>
           </td>
           <td>
             <%= (department.createdAtArabic)?department.createdAtArabic:"لا يوجد" %>

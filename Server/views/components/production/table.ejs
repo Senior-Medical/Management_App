@@ -23,15 +23,17 @@
     <tbody>
       <% data.forEach((production, index)=>{ %>
         <tr>
-          <th class="table-dark" scope="row"><%= index+1 %></th>
+          <th class="table-dark" scope="row">
+            <%= index+1 %>
+          </th>
           <td>
-            <%= production.worker.name %>
+            <%= (production.worker && production.worker.name) ? production.worker.name : "لا يوجد" %>
           </td>
           <td>
-            <%= production.product.name %>
+            <%= (production.product && production.product.name)? production.product.name : 'لا يوجد' %>
           </td>
           <td>
-            <%= production.department.name %>
+            <%= (production.department && production.department.name)? production.department.name : 'لا يوجد' %>
           </td>
           <td>
             <%= production.quantity %>
@@ -43,22 +45,10 @@
             <%= production.cost %>
           </td>
           <td>
-            <% if(production.createdBy && production.createdBy.username){ %>
-              <%= production.createdBy.username %>
-            <% } else if(production.createdBy){ %>
-              <%= production.createdBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (production.createdBy && production.createdBy.username) ? production.createdBy.username : 'لا يوجد' %>
           </td>
           <td>
-            <% if(production.updatedBy && production.updatedBy.username){ %>
-              <%= production.updatedBy.username %>
-            <% } else if(production.updatedBy){ %>
-              <%= production.updatedBy %>
-            <% }else{ %>
-              لا يوجد
-            <% } %>
+            <%= (production.updatedBy && production.updatedBy.username) ? production.updatedBy.username : 'لا يوجد' %>
           </td>
           <td>
             <%= (production.createdAtArabic)?production.createdAtArabic:"لا يوجد" %>
