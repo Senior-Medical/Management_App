@@ -1,15 +1,3 @@
-document.querySelector('#enable-custom-filter').addEventListener('change', function (e) {
-  const customFilterKey = document.querySelector('#custom-filter-key');
-  const customFilterValue = document.querySelector('#custom-filter-value');
-  if (e.target.checked) {
-    customFilterKey.removeAttribute('disabled');
-    customFilterValue.removeAttribute('disabled');
-  } else {
-    customFilterKey.setAttribute('disabled', true);
-    customFilterValue.setAttribute('disabled', true);
-  }
-});
-
 /**
  * Get filter form data
  * Used to get filter form data and convert it to a FormData object
@@ -19,20 +7,21 @@ document.querySelector('#enable-custom-filter').addEventListener('change', funct
  * @returns {string} The filter form url
  */
 const getFilterUrl = (filterForm) => {
+  for (const element of filterForm.elements) {
+    if (element.value) {
+      if (element.getAttribute('type') === 'text') element.value = `search:` + element.value;
+      if ((element.getAttribute('type') === 'number' && element.getAttribute('name') !== 'pageSize') || element.getAttribute('type') === 'range') {
+        element.setAttribute('type', 'text');
+        element.value = `${element.previousElementSibling.value}${element.value}`;
+      }
+    } else {
+      element.removeAttribute("name");
+    }
+  }
+
   const filterFormData = new FormData(filterForm);
   if (filterFormData.get('sort-type')) filterFormData.set('sort', `-${filterFormData.get('sort')}`);
   filterFormData.delete('sort-type');
-  if (filterFormData.get('enable-custom-filter')) {
-    if (filterFormData.get('custom-filter-key') && filterFormData.get('custom-filter-value')) {
-      filterFormData.set(filterFormData.get('custom-filter-key'), filterFormData.get('custom-filter-value'));
-      filterFormData.delete('custom-filter-key');
-      filterFormData.delete('custom-filter-value');
-    }
-    filterFormData.delete('enable-custom-filter');
-  } else {
-    filterFormData.delete('custom-filter-key');
-    filterFormData.delete('custom-filter-value');
-  }
 
   const action = filterForm.getAttribute('action');
   return `${action}?${new URLSearchParams(filterFormData).toString()}`;

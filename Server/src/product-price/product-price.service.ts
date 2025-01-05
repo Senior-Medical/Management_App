@@ -90,7 +90,6 @@ export class ProductPriceService extends BaseService {
       .populate('department', 'name')
       .populate('product', 'name');
 
-    const { page, pageSize, sort, search, error, ...filter } = queryParams;
     const renderVariables: BaseRenderVariablesType = {
       error: queryParams.error || null,
       data: productsPrices,
@@ -103,7 +102,7 @@ export class ProductPriceService extends BaseService {
           totalPages: await queryBuilder.getTotalPages(),
           pageSize: queryBuilder.getPageSize()
         },
-        filter: Object.entries(filter).map(([key, value]) => ({ key, value }))
+        ...queryBuilder.getCustomFilters()
       }
     };
     return { ...renderVariables, ...(await this.getAdditionalRenderVariables()) };

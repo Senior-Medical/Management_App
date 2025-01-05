@@ -3,99 +3,10 @@
     <caption class="mx-4 fs-5">
       <span>العدد: <%= data.length %></span>
     </caption>
-    <thead>
-      <tr class="table-dark">
-        <th scope="col">الرقم</th>
-
-        <!-- 
-          The following code is a conditional statement that checks the type of the data and renders the appropriate table headers.
-          The type of the data is passed as a parameter to the table component.
-        -->
-        <% if (type === `users`){ %>
-          <th scope="col">إسم المستخدم</th>
-          <th scope="col">الدور الوظيفي</th>
-        <% } else if (type === 'bonus'){ %>
-          <th scope="col">من</th>
-          <th scope="col">إلى</th>
-          <th scope="col">النسبة (%)</th>
-        <% } else if (type === 'production'){ %>
-          <th scope="col">العامل</th>
-          <th scope="col">المنتج</th>
-          <th scope="col">القسم</th>
-          <th scope="col">كمية الإنتاج</th>
-          <th scope="col">تاريخ الإنتاج</th>
-          <th scope="col">سعر الإنتاج</th>
-        <% } else if (type === 'productPrice'){ %>
-          <th scope="col">المنتج</th>
-          <th scope="col">القسم</th>
-          <th scope="col">السعر</th>
-        <% } else { %>
-          <th scope="col">الإسم</th>
-        <% } %>
-
-        <th scope="col">أنشئ بواسطة</th>
-        <th scope="col">آخر تحديث بواسطة</th>
-        <th scope="col">تاريخ الإنشاء</th>
-        <th scope="col">تاريخ آخر تحديث</th>
-        <th scope="col">تحديث</th>
-        <th scope="col">حذف</th>
-      </tr>
-    </thead>
+    <thead><%- include('table-components/header') %></thead>
     <tbody>
-      <% data.forEach((dataItem, index)=>{ %>
-        <tr>
-          <th class="table-dark" scope="row">
-            <%= index+1 %>
-          </th>
-          
-          <!-- 
-            The following code is a conditional statement that checks the type of the data and renders the appropriate table data.
-            The type of the data is passed as a parameter to the table component.
-          -->
-          <% if (type===`users`){ %>
-            <td scope="col"><%= dataItem.username %></td>
-            <td scope="col"><%= dataItem.role %></td>
-          <% } else if (type==='bonus' ){ %>
-            <td scope="col"><%= dataItem.from %></td>
-            <td scope="col"><%= (dataItem.to === Infinity) ? 'ما لا نهاية' : dataItem.to %></td>
-            <td scope="col"><%= dataItem.percentage %></td>
-          <% } else if (type==='production' ){ %>
-            <td><%= (dataItem.worker && dataItem.worker.name) ? dataItem.worker.name : "لا يوجد" %></td>
-            <td><%= (dataItem.product && dataItem.product.name)? dataItem.product.name : 'لا يوجد' %></td>
-            <td><%= (dataItem.department && dataItem.department.name)? dataItem.department.name : 'لا يوجد' %></td>
-            <td><%= dataItem.quantity %></td>
-            <td><%= dataItem.arabicDate %></td>
-            <td><%= dataItem.cost %></td>
-          <% } else if (type==='productPrice' ){ %>
-            <td><%= (dataItem.product && dataItem.product.name) ? dataItem.product.name : 'لا يوجد' %></td>
-            <td><%= (dataItem.department && dataItem.department.name) ? dataItem.department.name : 'لا يوجد' %></td>
-            <td><%= dataItem.price %></td>
-          <% } else { %>
-            <td scope="col"><%= dataItem.name %></td>
-          <% } %>
-
-          <td>
-            <%= (dataItem.createdBy && dataItem.createdBy.username) ? dataItem.createdBy.username : 'لا يوجد' %>
-          </td>
-          <td>
-            <%= (dataItem.updatedBy && dataItem.updatedBy.username) ? dataItem.updatedBy.username : 'لا يوجد' %>
-          </td>
-          <td>
-            <%= (dataItem.createdAtArabic)?dataItem.createdAtArabic:"لا يوجد" %>
-          </td>
-          <td>
-            <%= (dataItem.updatedAtArabic)?dataItem.updatedAtArabic:"لا يوجد" %>
-          </td>
-          <td>
-            <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#update-<%= type %>-modal-<%=index %>">تحديث</button>
-            <%- include('update-modal', {index, dataItem}) %>
-          </td>
-          <td>
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-<%= type %>-modal-<%= index %>">حذف</button>
-            <%- include('delete-modal', {index, dataItem}) %>
-          </td>
-        </tr>
-      <% }) %>
+      <%- include('table-components/filters') %>
+      <%- include('table-components/data') %>
     </tbody>
   </table>
 </div>

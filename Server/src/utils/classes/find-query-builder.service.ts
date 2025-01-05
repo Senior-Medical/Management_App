@@ -19,6 +19,25 @@ export class FindQueryBuilderService {
   private pageSize: number = FindQueryBuilderService.defaultPageSize;
   private sortKey: string = FindQueryBuilderService.defaultSortKey;
   private searchKey: string = FindQueryBuilderService.defaultSearchKey;
+  private customFilters = {
+    username: "",
+    role: "",
+    from: "",
+    to: "",
+    percentage: "",
+    worker: "",
+    product: "",
+    department: "",
+    quantity: "",
+    arabicDate: "",
+    cost: "",
+    price: "",
+    name: "",
+    createdBy: "",
+    updatedBy: "",
+    createdAtArabic: "",
+    updatedAtArabic: "",
+  };
 
   constructor(query: Query<any, any>, queryParams: QueryDto) {
     this.query = query;
@@ -39,6 +58,7 @@ export class FindQueryBuilderService {
     this.searchKey = FindQueryBuilderService.defaultSearchKey;
     this.query = query;
     this.queryParams = queryParams;
+    for (const key in this.customFilters) this.customFilters[key] = "";
   }
 
   /**
@@ -58,13 +78,27 @@ export class FindQueryBuilderService {
     if (Object.keys(filterObj).length === 0) return this;
 
     for (const e of Object.entries(filterObj)) {
-      if (e[1].startsWith("objectid:")) e[1] = new Types.ObjectId(e[1].replace("objectid:", "") as string);
-      else if (e[1].startsWith("gt:")) e[1] = { $gt: e[1].replace("gt:", "") };
-      else if(e[1].startsWith("gte:")) e[1] = { $gte: e[1].replace("gte:", "") };
-      else if(e[1].startsWith("lt:")) e[1] = { $lt: e[1].replace("lt:", "") };
-      else if(e[1].startsWith("lte:")) e[1] = { $lte: e[1].replace("lte:", "") };
-      else if(e[1].startsWith("in:")) e[1] = { $in: e[1].replace("in:", "").split(",") };
+      let value: string = e[1];
+      if (e[1].startsWith("objectid:")) {
+        value = e[1].replace("objectid:", "");
+        e[1] = new Types.ObjectId(value);
+      } else if (e[1].startsWith("gt:")) {
+        e[1] = { $gt: e[1].replace("gt:", "") };
+      } else if (e[1].startsWith("gte:")) {
+        e[1] = { $gte: e[1].replace("gte:", "") };
+      } else if(e[1].startsWith("lt:")) {
+        e[1] = { $lt: e[1].replace("lt:", "") };
+      } else if(e[1].startsWith("lte:")) {
+        e[1] = { $lte: e[1].replace("lte:", "") };
+      } else if (e[1].startsWith("in:")) {
+        value = e[1].replace("in:", "").split(",")
+        e[1] = { $in: value };
+      } else if (e[1].startsWith("search:")) {
+        value = e[1].replace("search:", "");
+        e[1] = new RegExp(value, 'i')
+      }
       filterObj[e[0]] = e[1];
+      this.customFilters[e[0]] = value;
     }
     this.query = this.query.find(filterObj);
     return this;
@@ -165,5 +199,9 @@ export class FindQueryBuilderService {
    */
   getSearchKey() {
     return this.searchKey;
+  }
+
+  getCustomFilters() {
+    return this.customFilters;
   }
 }

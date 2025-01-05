@@ -26,7 +26,7 @@ export class UsersController {
 
   @Post()
   @Redirect('/users')
-  async create(
+  create(
     @GetUser() user: UserDocument,
     @Body() createUserDto: CreateUserDto
   ) {
@@ -35,7 +35,7 @@ export class UsersController {
 
   @Get()
   @Render('dashboard')
-  async findAll(
+  findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,
   ) {

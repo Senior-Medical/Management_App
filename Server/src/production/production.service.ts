@@ -101,7 +101,6 @@ export class ProductionService extends BaseService {
       .populate('createdBy', 'username')
       .populate('updatedBy', 'username');
 
-    const { page, pageSize, sort, search, error, ...filter } = queryParams;
     const renderVariables: BaseRenderVariablesType = {
       error: queryParams.error || null,
       data: production,
@@ -114,7 +113,7 @@ export class ProductionService extends BaseService {
           totalPages: await queryBuilder.getTotalPages(),
           pageSize: queryBuilder.getPageSize()
         },
-        filter: Object.entries(filter).map(([key, value]) => ({ key, value }))
+        ...queryBuilder.getCustomFilters()
       }
     };
     return {...renderVariables, ...(await this.getAdditionalRenderVariables())};

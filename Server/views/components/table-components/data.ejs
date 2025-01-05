@@ -1,0 +1,86 @@
+<% data.forEach((dataItem, index)=>{ %>
+  <tr>
+    <th class="table-dark" scope="row">
+      <%= index+1 %>
+    </th>
+
+    <!-- 
+      The following code is a conditional statement that checks the type of the data and renders the appropriate table data.
+      The type of the data is passed as a parameter to the table component.
+    -->
+    <% if (type===`users`){ %>
+      <td scope="col">
+        <%= dataItem.username %>
+      </td>
+      <td scope="col">
+        <%= dataItem.role %>
+      </td>
+    <% } else if (type==='bonus' ){ %>
+      <td scope="col">
+        <%= dataItem.from %>
+      </td>
+      <td scope="col">
+        <%= (dataItem.to===Infinity) ? 'ما لا نهاية' : dataItem.to %>
+      </td>
+      <td scope="col">
+        <%= dataItem.percentage %>
+      </td>
+    <% } else if (type==='production' ){ %>
+      <td>
+        <%= (dataItem.worker && dataItem.worker.name) ? dataItem.worker.name : "لا يوجد" %>
+      </td>
+      <td>
+        <%= (dataItem.product && dataItem.product.name)? dataItem.product.name : 'لا يوجد' %>
+      </td>
+      <td>
+        <%= (dataItem.department && dataItem.department.name)? dataItem.department.name : 'لا يوجد' %>
+      </td>
+      <td>
+        <%= dataItem.quantity %>
+      </td>
+      <td>
+        <%= dataItem.arabicDate %>
+      </td>
+      <td>
+        <%= dataItem.cost %>
+      </td>
+    <% } else if (type==='productPrice' ){ %>
+      <td>
+        <%= (dataItem.product && dataItem.product.name) ? dataItem.product.name : 'لا يوجد' %>
+      </td>
+      <td>
+        <%= (dataItem.department && dataItem.department.name) ? dataItem.department.name : 'لا يوجد' %>
+      </td>
+      <td>
+        <%= dataItem.price %>
+      </td>
+    <% } else { %>
+      <td scope="col">
+        <%= dataItem.name %>
+      </td>
+    <% } %>
+
+    <td>
+      <%= (dataItem.createdBy && dataItem.createdBy.username) ? dataItem.createdBy.username : 'لا يوجد' %>
+    </td>
+    <td>
+      <%= (dataItem.updatedBy && dataItem.updatedBy.username) ? dataItem.updatedBy.username : 'لا يوجد' %>
+    </td>
+    <td>
+      <%= (dataItem.createdAtArabic)?dataItem.createdAtArabic:"لا يوجد" %>
+    </td>
+    <td>
+      <%= (dataItem.updatedAtArabic)?dataItem.updatedAtArabic:"لا يوجد" %>
+    </td>
+    <td>
+      <button class="btn btn-success" data-bs-toggle="modal"
+        data-bs-target="#update-<%= type %>-modal-<%=index %>">تحديث</button>
+      <%- include('../update-modal', {index, dataItem}) %>
+    </td>
+    <td>
+      <button class="btn btn-danger" data-bs-toggle="modal"
+        data-bs-target="#delete-<%= type %>-modal-<%= index %>">حذف</button>
+      <%- include('../delete-modal', {index, dataItem}) %>
+    </td>
+  </tr>
+<% }) %>

@@ -29,7 +29,6 @@ export abstract class BaseService {
       .populate('createdBy', 'username')
       .populate('updatedBy', 'username');
 
-    const { page, pageSize, sort, search, error, ...filter } = queryParams;
     const baseRenderVariables: BaseRenderVariablesType = {
       error: queryParams.error || null,
       data,
@@ -42,10 +41,11 @@ export abstract class BaseService {
           totalPages: await queryBuilder.getTotalPages(),
           pageSize: queryBuilder.getPageSize()
         },
-        filter: Object.entries(filter).map(([key, value]) => ({ key, value }))
+        ...queryBuilder.getCustomFilters()
       }
     };
-    return { ...baseRenderVariables, ...(await this.getAdditionalRenderVariables()) };
+    const renderVariables = { ...baseRenderVariables, ...(await this.getAdditionalRenderVariables()) };
+    return renderVariables;
   }
 
   findById(id: string): Promise<any> {
@@ -67,7 +67,7 @@ export abstract class BaseService {
   async remove(entity: Document): Promise<void> {
     await this.getModuleModel().findByIdAndDelete(entity._id);
   }
-  
+
   abstract searchableKeys: string[];
   abstract getModuleModel(): Model<any>;
   abstract getAdditionalRenderVariables(): Promise<object>;

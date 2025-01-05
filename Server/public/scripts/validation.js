@@ -76,10 +76,6 @@ const bonusValidation = (formSelector) => {
   const to = form.querySelector('input[name="to"]').value;
   const error = form.querySelector('.text-danger');
   error.style.display = 'none';
-
-  console.log(from, to);
-  console.log(parseInt(from), parseInt(to));
-  console.log(parseInt(from) >= parseInt(to));
   if (parseInt(from) >= parseInt(to)) {
     error.innerText = 'الحد الأدنى يجب أن يكون أقل من الحد الأعلى';
     error.style.display = 'block';
