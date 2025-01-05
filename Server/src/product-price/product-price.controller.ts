@@ -32,7 +32,7 @@ export class ProductPriceController {
   }
 
   @Get()
-  @Render('product-price')
+  @Render('dashboard')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

@@ -34,7 +34,9 @@ export class WorkersService extends BaseService {
    */
   async getAdditionalRenderVariables() {
     return {
-      users: await this.usersService.find()
+      users: await this.usersService.find(),
+      type: 'workers',
+      title: 'العمال'
     }
   }
 
@@ -64,8 +66,13 @@ export class WorkersService extends BaseService {
    * @throws ConflictException if the name is already exist.
    */
   async update(worker: WorkerDocument, updateWorkerDto: CreateWorkerDto, user: UserDocument) {
-    const existWorker = await this.findOne({ name: updateWorkerDto.name });
-    if (existWorker && existWorker._id.toString() !== worker._id.toString()) throw new ConflictException('إسم العامل موجود بالفعل');
+    const existWorker = await this.findOne({
+      $and: [
+        { name: updateWorkerDto.name },
+        { _id: { $ne: worker._id } }
+      ]
+    });
+    if (existWorker) throw new ConflictException('إسم العامل موجود بالفعل');
     
     const inputData: Partial<Worker> = {
       ...updateWorkerDto,

@@ -37,7 +37,9 @@ export class UsersService extends BaseService {
    */
   async getAdditionalRenderVariables() {
     return {
-      users: await this.usersModel.find({ role: 'مدير' })
+      users: await this.usersModel.find({ role: 'مدير' }),
+      type: 'users',
+      title: 'المشرفين'
     }
   }
 
@@ -68,8 +70,13 @@ export class UsersService extends BaseService {
    */
   async update(wantedUser: UserDocument, updateDto: UpdateUserDto, user: UserDocument) {
     if (updateDto.username) {
-      const existUser = await this.findOne({ username: updateDto.username });
-      if (existUser && existUser._id.toString() !== wantedUser._id.toString()) throw new ConflictException('إسم المستخدم موجود بالفعل');
+      const existUser = await this.findOne({
+        $and: [
+          { username: updateDto.username },
+          { _id: { $ne: wantedUser._id } }
+        ]
+      });
+      if (existUser) throw new ConflictException('إسم المستخدم موجود بالفعل');
     } else delete updateDto.username;
     if (!updateDto.password) delete updateDto.password;
     const inputData: Partial<User> = {

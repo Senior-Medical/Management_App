@@ -31,7 +31,7 @@ export class ProductsController {
   }
 
   @Get()
-  @Render('products')
+  @Render('dashboard')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

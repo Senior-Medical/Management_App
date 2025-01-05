@@ -34,7 +34,9 @@ export class ProductsService extends BaseService {
    */
   async getAdditionalRenderVariables() {
     return {
-      users: await this.usersService.find()
+      users: await this.usersService.find(),
+      type: 'products',
+      title: 'المنتجات'
     }
   }
 
@@ -64,8 +66,13 @@ export class ProductsService extends BaseService {
    * @throws ConflictException if the name is already exist.
    */
   async update(product: ProductDocument, updateProductDto: CreateProductDto, user: UserDocument) {
-    const existProduct = await this.findOne({ name: updateProductDto.name });
-    if (existProduct && existProduct._id.toString() !== product._id.toString()) throw new ConflictException('إسم المنتج موجود بالفعل');
+    const existProduct = await this.findOne({
+      $and: [
+        { name: updateProductDto.name },
+        { _id: { $ne: product._id } }
+      ]
+    });
+    if (existProduct) throw new ConflictException('إسم المنتج موجود بالفعل');
     
     const inputData: Partial<Product> = {
       ...updateProductDto,

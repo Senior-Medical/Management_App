@@ -31,7 +31,7 @@ export class DepartmentsController {
   }
 
   @Get()
-  @Render('departments')
+  @Render('dashboard')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

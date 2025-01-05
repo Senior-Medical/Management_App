@@ -1,0 +1,10 @@
+<div class="mb-3">
+  <label for="product<%= id %>" class="col-form-label fs-4">المنتج:</label>
+  <select class="form-select" id="product<%= id %>" name="product">
+    <option value="" selected>اختر المنتج</option>
+    <% products.forEach(product=> { %>
+      <option value="<%= product._id %>" <%= (value === product._id.toString())? 'selected' : '' %>><%= product.name %></option>
+    <% }) %>
+  </select>
+  <div class="text-danger text-danger-product mt-1" style="display: none;"></div>
+</div>

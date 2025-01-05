@@ -34,7 +34,7 @@ export class UsersController {
   }
 
   @Get()
-  @Render('users')
+  @Render('dashboard')
   async findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

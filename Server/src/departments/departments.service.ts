@@ -34,7 +34,9 @@ export class DepartmentsService extends BaseService {
    */
   async getAdditionalRenderVariables() {
     return {
-      users: await this.usersService.find()
+      users: await this.usersService.find(),
+      type: 'departments',
+      title: 'الأقسام'
     }
   }
 
@@ -64,8 +66,13 @@ export class DepartmentsService extends BaseService {
    * @throws ConflictException if the name is already exist.
    */
   async update(department: DepartmentDocument, updateDepartmentDto: CreateDepartmentDto, user: UserDocument) {
-    const existDepartment = await this.findOne({ name: updateDepartmentDto.name });
-    if (existDepartment && existDepartment._id.toString() !== department._id.toString()) throw new ConflictException('إسم القسم موجود بالفعل');
+    const existDepartment = await this.findOne({
+      $and: [
+        { name: updateDepartmentDto.name },
+        { _id: { $ne: department._id } }
+      ]
+    });
+    if (existDepartment) throw new ConflictException('إسم القسم موجود بالفعل');
     
     const inputData: Partial<Department> = {
       ...updateDepartmentDto,

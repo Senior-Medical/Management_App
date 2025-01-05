@@ -1,0 +1,10 @@
+<div class="mb-3">
+  <label for="worker<%= id %>" class="col-form-label fs-4">العامل:</label>
+  <select class="form-select" id="worker<%= id %>" name="worker">
+    <option value="" selected>اختر العامل</option>
+    <% workers.forEach(worker=> { %>
+      <option value="<%= worker._id %>" <%= (value === worker._id.toString())? 'selected' : '' %>><%= worker.name %></option>
+    <% }) %>
+  </select>
+  <div class="text-danger text-danger-worker mt-1" style="display: none;"></div>
+</div>

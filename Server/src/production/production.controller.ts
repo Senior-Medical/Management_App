@@ -34,7 +34,7 @@ export class ProductionController {
   }
 
   @Get()
-  @Render('production')
+  @Render('dashboard')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

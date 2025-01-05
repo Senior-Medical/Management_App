@@ -31,7 +31,7 @@ export class WorkersController {
   }
 
   @Get()
-  @Render('workers')
+  @Render('dashboard')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

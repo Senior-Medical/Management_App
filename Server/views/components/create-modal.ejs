@@ -1,0 +1,39 @@
+<div class="modal fade" id="create-<%= type %>-modal" tabindex="-1" aria-labelledby="create-<%= type %>-modal-label"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="create-<%= type %>-modal-label">إضافة بيانات</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/<%= type %>" method="post" id="create-<%= type %>-form">
+          <% if (type === 'users'){ %>
+            <%- include('inputs-fields/username', {id: ``, value: ``}) %>
+            <%- include('inputs-fields/password', {id: ``}) %>
+          <% } else if (type === 'bonus') { %>
+            <%- include('inputs-fields/bonus-from', {id: ``, value: ``}) %>
+            <%- include('inputs-fields/bonus-to', {id: ``, value: ``}) %>
+            <%- include('inputs-fields/percentage', {id: ``, value: ``}) %>
+          <% } else if (type === 'productPrice') { %>
+            <%- include('inputs-fields/product', {id: ``, value: ``, products}) %>
+            <%- include('inputs-fields/department', {id: ``, value: ``, departments}) %>
+            <%- include('inputs-fields/price', {id: ``, value: ``}) %>
+          <% } else if (type === 'production') { %>
+            <%- include('inputs-fields/date', {id: ``, value: ``, classes: ``}) %>
+            <%- include('inputs-fields/worker', {id: ``, value: ``, workers}) %>
+            <%- include('inputs-fields/product', {id: ``, value: ``, products}) %>
+            <%- include('inputs-fields/department', {id: ``, value: ``, departments}) %>
+            <%- include('inputs-fields/quantity', {id: ``, value: ``}) %>
+          <% } else { %>
+            <%- include('inputs-fields/name', {id: ``, value: ``}) %>
+          <% } %>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-success" id="create-<%= type %>">حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>

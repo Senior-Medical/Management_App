@@ -45,7 +45,9 @@ export class ProductPriceService extends BaseService {
     return {
       users: await this.usersService.find(),
       products: await this.productsService.find(),
-      departments: await this.departmentsService.find()
+      departments: await this.departmentsService.find(),
+      type: 'productPrice',
+      title: 'أسعار المنتجات'
     };
   }
 
@@ -112,14 +114,21 @@ export class ProductPriceService extends BaseService {
    * @param productPrice The productPrice who is wanted to be updated.
    * @param updateProductPriceDto The data to update the productPrice.
    * @param user The user who is updating the productPrice.
+   * @throws ConflictException if the product price is already exist.
    */
   async update(productPrice: ProductPriceDocument, updateProductPriceDto: UpdateProductPriceDto, user: UserDocument) {
     if (updateProductPriceDto.product) updateProductPriceDto.product = new Types.ObjectId(updateProductPriceDto.product);
     else updateProductPriceDto.product = productPrice.product;
     if (updateProductPriceDto.department) updateProductPriceDto.department = new Types.ObjectId(updateProductPriceDto.department);
     else updateProductPriceDto.department = productPrice.department;
-    const existPrice = await this.productPriceModel.findOne({ department: updateProductPriceDto.department, product: updateProductPriceDto.product });
-    if (existPrice && existPrice._id.toString() !== productPrice._id.toString()) throw new ConflictException('سعر المنتج في هذا القسم موجود بالفعل');
+    const existPrice = await this.productPriceModel.findOne({
+      $and: [
+        { department: updateProductPriceDto.department },
+        { product: updateProductPriceDto.product },
+        { _id: { $ne: productPrice._id } }
+      ]
+    });
+    if (existPrice) throw new ConflictException('سعر المنتج في هذا القسم موجود بالفعل');
 
     const inputData: Partial<ProductPrice> = {
       ...updateProductPriceDto,

@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDocument } from 'src/users/entities/user.entity';
@@ -34,7 +34,9 @@ export class BonusService extends BaseService {
    */
   async getAdditionalRenderVariables() {
     return {
-      users: await this.usersService.find()
+      users: await this.usersService.find(),
+      type: 'bonus',
+      title: 'الحوافز'
     }
   }
 
@@ -44,6 +46,8 @@ export class BonusService extends BaseService {
    * @param user The user who is creating the new bonus.
    */
   async create(createBonusDto: CreateBonusDto, user: UserDocument) {
+    createBonusDto.to = (createBonusDto.to === 0)? Infinity : createBonusDto.to;
+    if(createBonusDto.from >= createBonusDto.to) throw new NotAcceptableException('الحد الأدنى يجب أن يكون أقل من الحد الأعلى');
     const existBonus = await this.bonusModel.findOne({
       $or: [
         { from: createBonusDto.from },
@@ -54,7 +58,7 @@ export class BonusService extends BaseService {
 
     const inputDate: Bonus = {
       from: createBonusDto.from,
-      to: (createBonusDto.to === 0)? Infinity : createBonusDto.to,
+      to: createBonusDto.to,
       percentage: createBonusDto.percentage,
       createdBy: user._id,
       updatedBy: user._id,
@@ -70,9 +74,23 @@ export class BonusService extends BaseService {
    * @throws ConflictException if the name is already exist.
    */
   async update(bonus: BonusDocument, updateBonusDto: UpdateBonusDto, user: UserDocument) {
+    updateBonusDto.to = (updateBonusDto.to === 0)? Infinity : (updateBonusDto.to || bonus.to);
+    if (updateBonusDto.from >= updateBonusDto.to) throw new NotAcceptableException('الحد الأدنى يجب أن يكون أقل من الحد الأعلى');
+    const existBonus = await this.bonusModel.findOne({
+      $and: [
+        { _id: { $ne: bonus._id } },
+        {
+          $or: [
+            { from: updateBonusDto.from },
+            { to: updateBonusDto.to }
+          ]
+        }
+      ]
+    });
+    if (existBonus) throw new ConflictException('أحد أطراف الحافز مكرر');
     const inputData: Partial<Bonus> = {
       from: updateBonusDto.from || bonus.from,
-      to: (updateBonusDto.to === 0)? Infinity : (updateBonusDto.to || bonus.to),
+      to: updateBonusDto.to || bonus.to,
       percentage: updateBonusDto.percentage || bonus.percentage,
       updatedBy: user._id
     }

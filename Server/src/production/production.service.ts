@@ -52,6 +52,8 @@ export class ProductionService extends BaseService {
       workers: await this.workersService.find(),
       products: await this.productsService.find(),
       departments: await this.departmentsService.find(),
+      type: 'production',
+      title: 'الإنتاج'
     };
   }
 

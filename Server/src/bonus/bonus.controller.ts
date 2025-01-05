@@ -32,7 +32,7 @@ export class BonusController {
   }
 
   @Get()
-  @Render('bonus')
+  @Render('dashboard')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,
