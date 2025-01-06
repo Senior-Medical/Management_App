@@ -1,0 +1,46 @@
+<td scope="col">
+  <select class="form-select">
+    <option value="" <%=(filters.from.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
+    <option value="lt:" <%=(filters.from.split(":").length===2 && filters.from.split(":")[0]==='lt' ) ? 'selected' : ''
+      %>>أقل من</option>
+    <option value="lte:" <%=(filters.from.split(":").length===2 && filters.from.split(":")[0]==='lte' ) ? 'selected'
+      : '' %>>أقل من أو يساوي</option>
+    <option value="gt:" <%=(filters.from.split(":").length===2 && filters.from.split(":")[0]==='gt' ) ? 'selected' : ''
+      %>>أكبر من</option>
+    <option value="gte:" <%=(filters.from.split(":").length===2 && filters.from.split(":")[0]==='gte' ) ? 'selected'
+      : '' %>>أكبر من أو يساوي</option>
+  </select>
+  <input type="number" class="form-control" name="from" form="filter-form" placeholder="إبحث يالرقم"
+    value='<%= (filters.from.split(":").length === 2) ? filters.from.split(":")[1] : filters.from.split(":")[0] %>'>
+</td>
+<td scope="col">
+  <select class="form-select">
+    <option value="" <%=(filters.to.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
+    <option value="lt:" <%=(filters.to.split(":").length===2 && filters.to.split(":")[0]==='lt' ) ? 'selected' : '' %>
+      >أقل من</option>
+    <option value="lte:" <%=(filters.to.split(":").length===2 && filters.to.split(":")[0]==='lte' ) ? 'selected' : '' %>
+      >أقل من أو يساوي</option>
+    <option value="gt:" <%=(filters.to.split(":").length===2 && filters.to.split(":")[0]==='gt' ) ? 'selected' : '' %>
+      >أكبر من</option>
+    <option value="gte:" <%=(filters.to.split(":").length===2 && filters.to.split(":")[0]==='gte' ) ? 'selected' : '' %>
+      >أكبر من أو يساوي</option>
+  </select>
+  <input type="number" class="form-control" name="to" form="filter-form" placeholder="إبحث يالرقم"
+    value='<%= (filters.to.split(":").length === 2) ? filters.to.split(":")[1] : filters.to.split(":")[0] %>'>
+</td>
+<td scope="col">
+  <select class="form-select">
+    <option value="" <%=(filters.percentage.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
+    <option value="lt:" <%=(filters.percentage.split(":").length===2 && filters.percentage.split(":")[0]==='lt' )
+      ? 'selected' : '' %>>أقل من</option>
+    <option value="lte:" <%=(filters.percentage.split(":").length===2 && filters.percentage.split(":")[0]==='lte' )
+      ? 'selected' : '' %>>أقل من أو يساوي</option>
+    <option value="gt:" <%=(filters.percentage.split(":").length===2 && filters.percentage.split(":")[0]==='gt' )
+      ? 'selected' : '' %>>أكبر من</option>
+    <option value="gte:" <%=(filters.percentage.split(":").length===2 && filters.percentage.split(":")[0]==='gte' )
+      ? 'selected' : '' %>>أكبر من أو يساوي</option>
+  </select>
+  <input type="range" class="form-range" max="100" min="0" step="1" name="percentage" form="filter-form"
+    value='<%= (filters.percentage.split(":").length === 2) ? filters.percentage.split(":")[1] : filters.percentage.split(":")[0] %>'>
+  <div class="text-primary mt-1"></div>
+</td>

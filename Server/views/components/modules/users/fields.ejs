@@ -1,0 +1,13 @@
+<%
+  let value;
+  let id;
+  try{
+    value = dataItem.username;
+    id = dataItem._id;
+  }catch(error){
+    value = '';
+    id = '';
+  }
+%>
+<%- include('../../inputs-fields/input', {id , value, name: 'username' , type: 'text' , label: 'إسم المستخدم' , classes: '' , placeholder: '' }) %>
+<%- include('../../inputs-fields/password', {id}) %>

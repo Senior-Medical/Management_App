@@ -1,30 +1,9 @@
-
 <tr class="table-dark">
   <th scope="col">الرقم</th>
 
-  <!-- 
-    The following code is a conditional statement that checks the type of the data and renders the appropriate table headers.
-    The type of the data is passed as a parameter to the table component.
-  -->
-  <% if (type===`users`){ %>
-    <th scope="col">إسم المستخدم</th>
-    <th scope="col">الدور الوظيفي</th>
-  <% } else if (type==='bonus' ){ %>
-    <th scope="col">من</th>
-    <th scope="col">إلى</th>
-    <th scope="col">النسبة (%)</th>
-  <% } else if (type==='production' ){ %>
-    <th scope="col">العامل</th>
-    <th scope="col">المنتج</th>
-    <th scope="col">القسم</th>
-    <th scope="col">كمية الإنتاج</th>
-    <th scope="col">تاريخ الإنتاج</th>
-    <th scope="col">سعر الإنتاج</th>
-  <% } else if (type==='productPrice' ){ %>
-    <th scope="col">المنتج</th>
-    <th scope="col">القسم</th>
-    <th scope="col">السعر</th>
-  <% } else { %>
+  <% try { %>
+    <%- include(`../modules/${type}/table-components/header`) %>
+  <% } catch(error) { %>
     <th scope="col">الإسم</th>
   <% } %>
 

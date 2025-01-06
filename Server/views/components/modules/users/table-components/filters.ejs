@@ -1,0 +1,10 @@
+<td scope="col">
+  <input type="text" class="form-control" name="username" form="filter-form" placeholder="إبحث" value='<%= (filters.username) ? filters.username : '' %>'>
+</td>
+<td scope="col">
+  <select class="form-select" name="role" form="filter-form">
+    <option value="" <%= (!filters.role) ? "selected" : "" %>>اختر</option>
+    <option value="مدير" <%= (filters.role === 'مدير') ? "selected" : "" %>>مدير</option>
+    <option value="مشرف" <%= (filters.role === 'مشرف') ? "selected" : "" %>>مشرف</option>
+  </select>
+</td>

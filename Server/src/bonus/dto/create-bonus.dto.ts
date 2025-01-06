@@ -23,7 +23,7 @@ export class CreateBonusDto {
   @Transform(({ value }) => parseFloat(value))
   @IsNumber()
   @IsNotEmpty()
-  @Min(0)
+  @Min(1)
   @Max(100)
   percentage: number;
 }

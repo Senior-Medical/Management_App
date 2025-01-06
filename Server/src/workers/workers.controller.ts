@@ -1,21 +1,21 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Query,
-  Redirect,
-  Render,
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Redirect,
+    Render,
 } from '@nestjs/common';
-import { WorkersService } from './workers.service';
-import { CreateWorkerDto } from './dto/create-worker.dto';
-import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { UserDocument } from 'src/users/entities/user.entity';
-import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
+import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
+import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
+import { CreateWorkerDto } from './dto/create-worker.dto';
 import { WorkerDocument } from './entities/worker.entity';
 import { WorkerIdPipe } from './pipes/worker-id.pipe';
+import { WorkersService } from './workers.service';
 
 @Controller('workers')
 export class WorkersController {
@@ -31,7 +31,7 @@ export class WorkersController {
   }
 
   @Get()
-  @Render('dashboard')
+  @Render('index')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

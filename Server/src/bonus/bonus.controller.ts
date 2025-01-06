@@ -1,22 +1,22 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Query,
-  Redirect,
-  Render
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Redirect,
+    Render
 } from '@nestjs/common';
+import { UserDocument } from 'src/users/entities/user.entity';
+import { GetUser } from 'src/utils/decorators/get-user.decorator';
+import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
+import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
 import { BonusService } from './bonus.service';
 import { CreateBonusDto } from './dto/create-bonus.dto';
 import { UpdateBonusDto } from './dto/update-bonus.dto';
-import { GetUser } from 'src/utils/decorators/get-user.decorator';
-import { UserDocument } from 'src/users/entities/user.entity';
-import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
-import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
-import { BonusIdPipe } from './pipes/bonus-id.pipe';
 import { BonusDocument } from './entities/bonus.entity';
+import { BonusIdPipe } from './pipes/bonus-id.pipe';
 
 @Controller('bonus')
 export class BonusController {
@@ -32,7 +32,7 @@ export class BonusController {
   }
 
   @Get()
-  @Render('dashboard')
+  @Render('index')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

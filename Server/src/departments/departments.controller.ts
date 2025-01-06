@@ -1,21 +1,21 @@
 import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Query,
-  Redirect,
-  Render,
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Redirect,
+    Render,
 } from '@nestjs/common';
 import { UserDocument } from 'src/users/entities/user.entity';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
 import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
+import { DepartmentsService } from './departments.service';
 import { CreateDepartmentDto } from './dto/create-department.dto';
 import { DepartmentDocument } from './entities/department.entity';
 import { DepartmentIdPipe } from './pipes/department-id.pipe';
-import { DepartmentsService } from './departments.service';
 
 @Controller('departments')
 export class DepartmentsController {
@@ -31,7 +31,7 @@ export class DepartmentsController {
   }
 
   @Get()
-  @Render('dashboard')
+  @Render('index')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

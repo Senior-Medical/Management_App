@@ -1,21 +1,21 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Query,
-  Redirect,
-  Render
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Redirect,
+    Render
 } from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { UserDocument } from 'src/users/entities/user.entity';
-import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
-import { ProductDocument } from './entities/product.entity';
+import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
+import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
+import { CreateProductDto } from './dto/create-product.dto';
+import { ProductDocument } from './entities/product.entity';
 import { ProductIdPipe } from './pipes/product-id.pipe';
+import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
@@ -31,7 +31,7 @@ export class ProductsController {
   }
 
   @Get()
-  @Render('dashboard')
+  @Render('index')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

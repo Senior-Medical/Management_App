@@ -1,24 +1,24 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Query,
-  Redirect,
-  Render
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Redirect,
+    Render
 } from '@nestjs/common';
-import { ProductionService } from './production.service';
-import { CreateProductionDto } from './dto/create-production.dto';
-import { UpdateProductionDto } from './dto/update-production.dto';
 import { UserDocument } from 'src/users/entities/user.entity';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
-import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
 import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
-import { ProductionDocument } from './entities/production.entity';
-import { ProductionIdPipe } from './pipes/production-id.pipe';
-import { CreateProductionPipe } from './pipes/create-production-price.pipe';
+import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
+import { CreateProductionDto } from './dto/create-production.dto';
 import { GetSalaryDto } from './dto/get-salary.dto';
+import { UpdateProductionDto } from './dto/update-production.dto';
+import { ProductionDocument } from './entities/production.entity';
+import { CreateProductionPipe } from './pipes/create-production-price.pipe';
+import { ProductionIdPipe } from './pipes/production-id.pipe';
+import { ProductionService } from './production.service';
 
 @Controller('production')
 export class ProductionController {
@@ -34,7 +34,7 @@ export class ProductionController {
   }
 
   @Get()
-  @Render('dashboard')
+  @Render('index')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

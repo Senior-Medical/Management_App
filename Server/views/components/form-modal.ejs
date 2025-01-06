@@ -1,0 +1,63 @@
+<%
+  let modalId;
+  let modalLabelId;
+  let modalLabelHeader;
+  let action;
+  let formId;
+  let dataItemId;
+  let dataItemName;
+  let saveButtonClass;
+  if(operation === 'update'){
+    dataItemId=dataItem._id;
+    dataItemName=dataItem.name;
+    action=`/${type}/update/${dataItemId}`;
+    modalId=`update-${type}-modal-${index}`;
+    modalLabelId=`update-${type}-modal-label-${index}`;
+    modalLabelHeader='تحديث بيانات';
+    formId=`update-${type}-form-${dataItemId}`;
+    saveButtonClass=`update-${type}`;
+  } else if(operation === 'create') {
+    dataItemId='';
+    dataItemName='';
+    action=`/${type}`;
+    modalId=`create-${type}-modal`;
+    modalLabelId=`create-${type}-modal-label`;
+    modalLabelHeader='إضافة بيانات';
+    formId=`create-${type}-form`;
+    saveButtonClass=`create-${type}`;
+  } else if (operation === 'salary') {
+    dataItemId='';
+    dataItemName='';
+    action=`/${type}/get-salary`;
+    type = 'salary';
+    modalId=`salary-modal`;
+    modalLabelId=`salary-modal-label`;
+    modalLabelHeader='حساب المرتبات';
+    formId=`salary-form`;
+    saveButtonClass=`salary`;
+  }
+%>
+
+<div class="modal fade" id="<%= modalId %>" tabindex="-1" aria-labelledby="<%= modalLabelId %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="<%= modalLabelId %>"><%= modalLabelHeader %></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="<%= action %>" method="post" id="<%= formId %>">
+          <% try { %>
+            <%- include(`modules/${type}/fields`) %>
+          <% } catch(error) { console.log(error) %>
+            <%- include('inputs-fields/input', {id: dataItemId, value: dataItemName, name: 'name', type: 'text', label: 'الإسم', classes: '', placeholder: '' }) %>
+          <% } %>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-success <%= saveButtonClass %>" dataItemId="<%= dataItemId %>">حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>

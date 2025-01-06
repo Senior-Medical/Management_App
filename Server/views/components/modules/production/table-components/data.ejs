@@ -1,0 +1,18 @@
+<td>
+  <%= (dataItem.worker && dataItem.worker.name) ? dataItem.worker.name : "لا يوجد" %>
+</td>
+<td>
+  <%= (dataItem.product && dataItem.product.name)? dataItem.product.name : 'لا يوجد' %>
+</td>
+<td>
+  <%= (dataItem.department && dataItem.department.name)? dataItem.department.name : 'لا يوجد' %>
+</td>
+<td>
+  <%= dataItem.quantity %>
+</td>
+<td>
+  <%= dataItem.arabicDate %>
+</td>
+<td>
+  <%= dataItem.cost %>
+</td>

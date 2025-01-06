@@ -1,0 +1,5 @@
+<div class="mb-3">
+  <label for="<%= `${name}-${id}` %>" class="col-form-label fs-4"><%= label %></label>
+  <input type="<%= type %>" class="form-control <%= classes %>" name="<%= name %>" id="<%= `${name}-${id}` %>" value='<%= (value!=Infinity) ? value : '' %>' placeholder='<%= placeholder %>'>
+  <div class="text-danger text-danger-<%= name %> mt-1" style="display: none;"></div>
+</div>

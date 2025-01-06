@@ -126,43 +126,50 @@ export class ProductionService extends BaseService {
    * @param user The user who is getting the salary.
    */
   async getSalary(getSalaryDto: GetSalaryDto, queryParams: QueryDto, user: UserDocument) {
-    const productions = await this.productionModel.find({
-      date: {
-        $gte: getSalaryDto.from,
-        $lte: getSalaryDto.to
-      }
-    }).populate('worker', 'name')
+    try {
+      console.log(1)
+      const productions = await this.productionModel.find({
+        date: {
+          $gte: getSalaryDto.from,
+          $lte: getSalaryDto.to
+        }
+      }).populate('worker', 'name')
       .populate('product', 'name')
       .populate('department', 'name');
-    
-    const workerSalaries = new Map();
-
-    productions.forEach((production) => {
-      const workerId = production.worker._id.toString();
-      const cost = production.cost;
-
-      if (!workerSalaries.has(workerId)) {
-        workerSalaries.set(workerId, { name: (production.worker as any).name, salary: 0, bonus: 0, total: 0 });
-      }
-
-      const workerData = workerSalaries.get(workerId);
-      workerData.salary += cost;
-    });
-    const salaries = Array.from(workerSalaries.values())
-
-    for (const salary of salaries) {
-      const bonusPresent = (await this.bonusService.find({
-        from: {
-          $lte: salary.salary
-        },
-        to: {
-          $gte: salary.salary
+      
+      const workerSalaries = new Map();
+      
+      productions.forEach((production) => {
+        const workerId = production.worker._id.toString();
+        const cost = production.cost;
+        
+        if (!workerSalaries.has(workerId)) {
+          workerSalaries.set(workerId, { name: (production.worker as any).name, salary: 0, bonus: 0, total: 0 });
         }
-      }))[0];
-      salary.bonus = bonusPresent ? (bonusPresent.percentage / 100) * salary.salary : 0;
-      salary.total = salary.salary + salary.bonus;
-    };
-    return { data: salaries, user, error: queryParams.error || null };
+        
+        const workerData = workerSalaries.get(workerId);
+        workerData.salary += cost;
+      });
+      console.log(3)
+      const salaries = Array.from(workerSalaries.values())
+      
+      for (const salary of salaries) {
+        const bonusPresent = (await this.bonusService.find({
+          from: {
+            $lte: salary.salary
+          },
+          to: {
+            $gte: salary.salary
+          }
+        }))[0];
+        salary.bonus = bonusPresent ? (bonusPresent.percentage / 100) * salary.salary : 0;
+        salary.total = salary.salary + salary.bonus;
+      };
+      console.log(4)
+      return { data: salaries, user, error: queryParams.error || null };
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /**

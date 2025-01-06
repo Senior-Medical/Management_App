@@ -1,0 +1,29 @@
+<%
+  let dateValue;
+  let workerValue;
+  let productValue;
+  let departmentValue;
+  let quantityValue;
+  let id;
+  try{
+    dateValue = dataItem.date.toISOString().split('T')[0];
+    workerValue = dataItem.worker._id.toString();
+    productValue = dataItem.product._id.toString();
+    departmentValue = dataItem.department._id.toString();
+    quantityValue = dataItem.quantity;
+    id=dataItem._id;
+  }catch(error){
+    dateValue = '';
+    workerValue = '';
+    productValue = '';
+    departmentValue = '';
+    quantityValue = '';
+    id='' ;
+  }
+%>
+
+<%- include('../../inputs-fields/input', {id, value: dateValue, name: 'date' , type: 'date' , label: 'تاريخ الإنتاج' , classes: '' , placeholder: '' }) %>
+<%- include('../../inputs-fields/select', {id, value: workerValue, name: 'worker' , label: 'العامل' , data: workers}) %>
+<%- include('../../inputs-fields/select', {id, value: productValue, name: 'product' , label: 'المنتج' , data: products}) %>
+<%- include('../../inputs-fields/select', {id, value: departmentValue, name: 'department' , label: 'القسم' , data: departments}) %>
+<%- include('../../inputs-fields/input', {id, value: quantityValue, name: 'quantity' , type: 'number' , label: 'كمية الإنتاج' , classes: '' , placeholder: '' }) %>

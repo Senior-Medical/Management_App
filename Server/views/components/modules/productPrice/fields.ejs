@@ -1,0 +1,21 @@
+<%
+  let productValue;
+  let departmentValue;
+  let priceValue;
+  let id;
+  try{
+    productValue=dataItem.product._id.toString();
+    departmentValue=dataItem.department._id.toString();
+    priceValue=dataItem.price;
+    id=dataItem._id;
+  }catch(error){
+    productValue='' ;
+    departmentValue='' ;
+    priceValue='' ;
+    id='' ;
+  }
+%>
+
+<%- include('../../inputs-fields/select', {id, value: productValue, name: 'product' , label: 'المنتج' , data: products}) %>
+<%- include('../../inputs-fields/select', {id, value: departmentValue, name: 'department' , label: 'القسم' , data: departments}) %>
+<%- include('../../inputs-fields/input', {id, value: priceValue, name: 'price' , type: 'number' , label: 'السعر' , classes: '' , placeholder: '' }) %>

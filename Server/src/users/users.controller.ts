@@ -1,12 +1,12 @@
 import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Query,
-  Redirect,
-  Render,
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Redirect,
+    Render,
 } from '@nestjs/common';
 import { GetUser } from 'src/utils/decorators/get-user.decorator';
 import { Roles } from 'src/utils/decorators/roles.decorator';
@@ -34,7 +34,7 @@ export class UsersController {
   }
 
   @Get()
-  @Render('dashboard')
+  @Render('index')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,

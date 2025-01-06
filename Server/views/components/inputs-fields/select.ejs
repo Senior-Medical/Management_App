@@ -1,0 +1,12 @@
+<div class="mb-3">
+  <label for="<%= `${name}-${id}` %>" class="col-form-label fs-4"><%= label %></label>
+  <select class="form-select" id="<%= `${name}-${id}` %>" name="<%= name %>">
+    <option value="" selected>اختر <%= label %></option>
+    <% data.forEach(dataItem=> { %>
+      <option value="<%= dataItem._id %>" <%=(value===dataItem._id.toString())? 'selected' : '' %>><%=
+          dataItem.name %>
+      </option>
+      <% }) %>
+  </select>
+  <div class="text-danger text-danger-<%= name %> mt-1" style="display: none;"></div>
+</div>

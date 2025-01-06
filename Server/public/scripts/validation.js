@@ -240,7 +240,7 @@ const ValidationMethods = {
 }
 
 // Create entity
-document.querySelector(`#create-${PAGE_TYPE}`).addEventListener('click', (e) => {
+document.querySelector(`.create-${PAGE_TYPE}`).addEventListener('click', (e) => {
   ValidationMethods[PAGE_TYPE](`#create-${PAGE_TYPE}-form`);
 });
 
@@ -254,7 +254,7 @@ document.querySelectorAll(`.update-${PAGE_TYPE}`).forEach(button => {
 
 // Validate get salary form
 if(PAGE_TYPE === 'production') {
-  document.querySelector('#salary').addEventListener('click', (e) => {
+  document.querySelector('.salary').addEventListener('click', (e) => {
     salaryValidation();
   });
 }

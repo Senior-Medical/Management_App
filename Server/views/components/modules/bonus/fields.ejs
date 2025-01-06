@@ -1,0 +1,21 @@
+<%
+  let fromValue;
+  let toValue;
+  let percentageValue;
+  let id;
+  try{
+    fromValue=dataItem.from;
+    toValue=dataItem.to;
+    percentageValue=dataItem.percentage;
+    id=dataItem._id;
+  }catch(error){
+    fromValue='' ;
+    toValue='' ;
+    percentageValue='' ;
+    id='' ;
+  }
+%>
+
+<%- include('../../inputs-fields/input', {id, value: fromValue , name: 'from' , type: 'number' , label: 'الحد الأدنى' , classes: '' , placeholder: '0' }) %>
+<%- include('../../inputs-fields/input', {id, value: toValue , name: 'to' , type: 'number' , label: 'الحد الاعلى' , classes: '' , placeholder: 'ما لا نهاية' }) %>
+<%- include('../../inputs-fields/percentage', {id, value: percentageValue }) %>

@@ -1,22 +1,22 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Query,
-  Redirect,
-  Render
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Redirect,
+    Render
 } from '@nestjs/common';
-import { ProductPriceService } from './product-price.service';
+import { UserDocument } from 'src/users/entities/user.entity';
+import { GetUser } from 'src/utils/decorators/get-user.decorator';
+import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
+import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
 import { CreateProductPriceDto } from './dto/create-product-price.dto';
 import { UpdateProductPriceDto } from './dto/update-product-price.dto';
-import { GetUser } from 'src/utils/decorators/get-user.decorator';
-import { UserDocument } from 'src/users/entities/user.entity';
-import { ObjectIdPipe } from 'src/utils/pipes/ObjectId.pipe';
-import { ProductPriceIdPipe } from './pipes/product-price-id.pipe';
 import { ProductPriceDocument } from './entities/product-price.entity';
-import { QueryParamPipe } from 'src/utils/pipes/queryParam.pipe';
+import { ProductPriceIdPipe } from './pipes/product-price-id.pipe';
+import { ProductPriceService } from './product-price.service';
 
 @Controller('productPrice')
 export class ProductPriceController {
@@ -32,7 +32,7 @@ export class ProductPriceController {
   }
 
   @Get()
-  @Render('dashboard')
+  @Render('index')
   findAll(
     @Query(QueryParamPipe) queryParams: any,
     @GetUser() user: UserDocument,
