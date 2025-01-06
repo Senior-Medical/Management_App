@@ -7,9 +7,11 @@ import {
   Get,
   Query,
   UseFilters,
+  Render,
 } from "@nestjs/common";
 import { LocalAuthGuard } from "./guards/localAuth.guard";
 import { Request, Response } from "express";
+import { UserDocument } from "src/users/entities/user.entity";
 
 @Controller("auth")
 export class AuthController {
@@ -19,9 +21,14 @@ export class AuthController {
    * @returns - The login page.
    */
   @Get('login')
-  loginPage(@Query('error') error: string, @Res() res: Response) {
-    if (error) return res.render('login', { error });
-    return res.render('login', { error: null });
+  @Render('login')
+  loginPage(@Query() query: any, @Res() res: Response) {
+    const { error, username } = query;
+    const renderData = {
+      error: error || null,
+      username: username || '',
+    };
+    return renderData;
   }
 
   /**
@@ -34,7 +41,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   login(@Req() req: Request, @Res() res: Response) {
     req.login(req.user, (err) => {
-      if (err) return res.redirect('/auth/login?error=خطأ في تسجيل الدخول');
+      if (err) return res.redirect('/auth/login?error=خطأ في تسجيل الدخول&username='+(req.user as UserDocument).username);
       else return res.redirect('/dashboard');
     });
   }

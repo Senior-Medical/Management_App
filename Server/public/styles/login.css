@@ -1,50 +1,92 @@
+* {
+  font-family: 'Harmattan', sans-serif;
+  font-size: 1em;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #21292e;
-  color: white;
-  margin: 0;
+  background-color: #000217;
 }
 
-.login-container {
+.form {
   max-width: 400px;
-  margin: 15rem auto;
-  background: rgba(255, 255, 255, 0.6);
-  color: #21292e;
-  padding: 20px;
-  border-radius: 70px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 2em;
+  background-color: #FFF4B7;
+  border-radius: 15%;
+  transition: 0.4s ease-in-out;
+  margin: 10rem auto;
+}
+
+.form h1 {
   text-align: center;
-  overflow: hidden;
+  color: #000217;
+  font-size: 2.5em;
 }
 
-.login-container form {
-  margin-bottom: 1em;
+.form .error{
+  color: rgb(219, 1, 1);
+  text-align: center;
+  font-size: 1.3em;
 }
 
-.login-container input, .login-container button {
-  margin: 1.5em 0;
+.form .field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border-radius: 25px;
   padding: 1em;
-  border-radius: 20px;
-}
-
-.login-container input {
-  width: 90%;
-  border: 3px solid #ddd;
-}
-
-.login-container input:focus {
-  outline: none;
-  border-color: #1e2f38;
-}
-
-.login-container button {
-  width: 100%;
-  background: #21292e;
-  color: white;
   border: none;
+  outline: none;
+  color: #FFF4B7;
+  background-color: #000217;
+  box-shadow: inset 2px 5px 10px #000217;
+}
+
+.form .field .input-icon {
+  height: 1.3em;
+  width: 1.3em;
+  fill: #FFF4B7;
+}
+
+.form .field .input-field {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #FFF4B7;
+  font-size: 1.2em;
+}
+
+.form .submit {
+  display: block;
+  width: 50%;
+  padding: .7em;
+  border-radius: 25px;
+  margin: 2em auto 0;
+  border: none;
+  outline: none;
+  transition: 0.4s ease-in-out;
+  background-color: #000217;
+  color: #FFF4B7;
   cursor: pointer;
 }
 
-.login-container button:hover {
-  background: #1e2f38;
+.form .submit:hover {
+  transform: translateY(-3px);
+}
+
+.form .reset-password {
+  cursor: pointer;
+  text-align: center;
+  color: #000217;
+  text-decoration: none;
+  font-size: large;
+  margin-bottom: 30px;
+}
+
+.form .reset-password:hover {
+  text-decoration: underline;
 }
