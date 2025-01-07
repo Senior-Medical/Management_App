@@ -1,0 +1,1 @@
+{"version":3,"file":"arabic-date-formatter.js","sourceRoot":"","sources":["../../src/utils/arabic-date-formatter.ts"],"names":[],"mappings":";;;AAAA,MAAM,oBAAoB,GAA+B;IACvD,OAAO,EAAE,MAAM;IACf,IAAI,EAAE,SAAS;IACf,KAAK,EAAE,MAAM;IACb,GAAG,EAAE,SAAS;CACf,CAAC;AACW,QAAA,mBAAmB,GAAG,IAAI,IAAI,CAAC,cAAc,CAAC,OAAO,EAAE,oBAAoB,CAAC,CAAC"}
