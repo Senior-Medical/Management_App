@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
+import { Controller, Get, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 @Controller()
@@ -11,6 +11,7 @@ export class AppController {
    */
   @Get()
   root(@Req() req: Request, @Res() res: Response) {
-    return (req.isAuthenticated()) ? res.redirect('/production') : res.redirect('/auth/login');
+    if (req.isAuthenticated()) return res.redirect('/production');
+    else throw new UnauthorizedException();
   }
 }

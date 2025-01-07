@@ -22,7 +22,7 @@ export class AuthController {
    */
   @Get('login')
   @Render('login')
-  loginPage(@Query() query: any, @Res() res: Response) {
+  loginPage(@Query() query: any) {
     const { error, username } = query;
     const renderData = {
       error: error || null,

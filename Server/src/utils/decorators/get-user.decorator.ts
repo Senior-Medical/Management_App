@@ -1,6 +1,7 @@
 import {
   createParamDecorator,
   ExecutionContext,
+  UnauthorizedException,
 } from "@nestjs/common";
 
 /**
@@ -10,8 +11,7 @@ import {
  */
 export const GetUser = createParamDecorator((data: unknown, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest();
-  const response = ctx.switchToHttp().getResponse();
   const user = request.user;
-  if (!user) response.redirect('/auth/login');
+  if (!user) throw new UnauthorizedException();
   return user;
 });
