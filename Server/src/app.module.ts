@@ -11,7 +11,6 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { RolesGuard } from './auth/guards/roles.guard';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { UsersModule } from './users/users.module';
 import { envVariablesValidationSchema } from './utils/config/envValidation.schema';
 import { LoggerExceptionFilter } from './utils/logger/filters/loggerException.filter';
@@ -48,7 +47,6 @@ import { ProductionModule } from './production/production.module';
     LoggerModule,
     AuthModule,
     UsersModule,
-    DashboardModule,
     WorkersModule,
     ProductsModule,
     DepartmentsModule,

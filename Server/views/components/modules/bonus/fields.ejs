@@ -18,4 +18,4 @@
 
 <%- include('../../inputs-fields/input', {id, value: fromValue , name: 'from' , type: 'number' , label: 'الحد الأدنى' , classes: '' , placeholder: '0' }) %>
 <%- include('../../inputs-fields/input', {id, value: toValue , name: 'to' , type: 'number' , label: 'الحد الاعلى' , classes: '' , placeholder: 'ما لا نهاية' }) %>
-<%- include('../../inputs-fields/percentage', {id, value: percentageValue }) %>
+<%- include('../../inputs-fields/input', {id, value: percentageValue , name: 'percentage', type: 'number' , label: 'النسبة المئوية' , classes: 'range' , placeholder: ''  }) %>

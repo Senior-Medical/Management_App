@@ -1,15 +1,7 @@
-
 // Show range value next to range input field
-document.querySelectorAll("input[type='range']").forEach(range => {
+document.querySelectorAll("input.range").forEach(range => {
   range.setAttribute('max', 100);
   range.setAttribute('min', 1);
-  range.setAttribute('step', 1);
-  range.nextElementSibling.textContent = range.value + " %";
-  range.addEventListener('input', function (e) {
-    const rangeValue = e.target.value + " %";
-    const rangeValueElement = e.target.nextElementSibling;
-    rangeValueElement.textContent = rangeValue;
-  });
 });
 
 // Set default date in all date inputs except update date inputs that already have default value

@@ -5,30 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="/styles/all.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;700&display=swap" />
     <link rel="stylesheet" href="/styles/header.css" />
     <link rel="stylesheet" href="/styles/dashboard.css" />
+    <link rel="stylesheet" href="/styles/menu-bar.css" />
+    <link rel="stylesheet" href="/styles/pagination.css" />
+    <link rel="stylesheet" href="/styles/table.css" />
+    <link rel="stylesheet" href="/styles/logo.css" />
     <title> <%= title %> </title>
   </head>
 
   <body data-page-type="<%= type %>">
+    <div class="logo"><%- include("components/logo") %></div>
+    <form action="/<%= type %>" id="filter-form" method="get"></form>
     <%- include('components/header') %>
 
-    <div class="container-xl">
-      <%- include('components/filter-form', {...filters}) %>
+    <div class="container overflow-hidden">
+      <%- include('components/menu-bar', {...filters}) %>
+
+      <div class="row g-4 my-4" style="max-width: 400px;">
+        <%- include(`components/form-modal`, {operation: 'create' }) %>
+        <div class="col-sm-6 col-12">
+          <div class="input-group">
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target='#create-<%= type %>-modal'><i class="fa-solid fa-plus"></i>&nbsp&nbspإضافة بيانات</button>
+          </div>
+        </div>
+          
+        <% if (type==='production' ) { %>
+          <%- include('components/form-modal', {operation: 'salary' }) %>
+          <div class="col-sm-6 col-12">
+            <div class="input-group">
+              <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#salary-modal"><i class="fa-solid fa-list" style="transform: rotate(180deg);"></i>&nbsp&nbspإظهارالمرتبات</button>
+            </div>
+          </div>
+        <% } %>
+      </div>
 
       <% if(error) { %>
         <div class="alert alert-danger alert-dismissible" role="alert">
           <div><%= error %></div>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-      <% } %>
-
-      <%- include(`components/form-modal`, {operation: 'create'}) %>
-      <button class="btn btn-secondary mb-4 create-button" type="button" data-bs-toggle="modal" data-bs-target='#create-<%= type %>-modal'>إضافة</button>
-
-      <% if (type === 'production') { %>
-        <%- include('components/form-modal', {operation: 'salary'}) %>
-        <button class="btn btn-secondary mb-4 create-button" type="button" data-bs-toggle="modal" data-bs-target="#salary-modal">إظهار المرتبات</button>
       <% } %>
 
       <% if(data.length > 0) { %>

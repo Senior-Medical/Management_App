@@ -49,14 +49,14 @@
         <form action="<%= action %>" method="post" id="<%= formId %>">
           <% try { %>
             <%- include(`modules/${type}/fields`) %>
-          <% } catch(error) { console.log(error) %>
+          <% } catch(error) { %>
             <%- include('inputs-fields/input', {id: dataItemId, value: dataItemName, name: 'name', type: 'text', label: 'الإسم', classes: '', placeholder: '' }) %>
           <% } %>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-        <button type="button" class="btn btn-success <%= saveButtonClass %>" dataItemId="<%= dataItemId %>">حفظ</button>
+        <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-dark-golden <%= saveButtonClass %>" dataItemId="<%= dataItemId %>">حفظ</button>
       </div>
     </div>
   </div>

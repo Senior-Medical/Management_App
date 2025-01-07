@@ -18,7 +18,6 @@ export class AuthenticatedGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const response = context.switchToHttp().getResponse();
-    if (!request.isAuthenticated()) return response.redirect('/auth/login');
-    return request.isAuthenticated();
+    return (request.isAuthenticated()) ? true : response.redirect('/auth/login');
   }
 }

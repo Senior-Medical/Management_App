@@ -20,17 +20,19 @@
   </select>
 </td>
 <td scope="col">
-  <select class="form-select">
-    <option value="" <%=(filters.price.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
-    <option value="lt:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='lt' ) ? 'selected'
-      : '' %>>أقل من</option>
-    <option value="lte:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='lte' ) ? 'selected'
-      : '' %>>أقل من أو يساوي</option>
-    <option value="gt:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='gt' ) ? 'selected'
-      : '' %>>أكبر من</option>
-    <option value="gte:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='gte' ) ? 'selected'
-      : '' %>>أكبر من أو يساوي</option>
-  </select>
-  <input type="number" class="form-control" name="price" form="filter-form" placeholder="إبحث يالرقم"
-    value='<%= (filters.price.split(":").length === 2) ? filters.price.split(":")[1] : filters.price.split(":")[0] %>'>
+  <div class="input-group">
+    <select class="form-select">
+      <option value="" <%=(filters.price.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
+      <option value="lt:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='lt' ) ? 'selected'
+        : '' %>>أقل من</option>
+      <option value="lte:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='lte' ) ? 'selected'
+        : '' %>>أقل من أو يساوي</option>
+      <option value="gt:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='gt' ) ? 'selected'
+        : '' %>>أكبر من</option>
+      <option value="gte:" <%=(filters.price.split(":").length===2 && filters.price.split(":")[0]==='gte' ) ? 'selected'
+        : '' %>>أكبر من أو يساوي</option>
+    </select>
+    <input type="number" class="form-control" name="price" form="filter-form" placeholder="الرقم"
+      value='<%= (filters.price.split(":").length === 2) ? filters.price.split(":")[1] : filters.price.split(":")[0] %>'>
+  </div>
 </td>

@@ -1,39 +1,90 @@
-body{
-  background-color: #f2f2f2;
+/* 
+  #5fd3ff #000217 #4ac6ff
+*/
+
+*:not(.toggle-password):not(i) {
+  font-family: 'Harmattan', sans-serif;
+  font-size: 1.03em;
 }
 
-button.btn {
+body {
+  background-color: #000217;
+}
+
+.container {
+  max-width: 1800px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+i {
+  color: inherit;
+  font-size: .9rem;
+}
+
+.btn {
   transition: all 300ms ease-in-out;
 }
 
-button.btn:hover {
-  box-shadow: rgba(0, 0, 0, 0.2) 0 10px 20px;
+.btn:not(.btn-dark-golden):not(.btn-danger):not(.close) {
+  background-color: #5fd3ff;
+  color: #000217;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:not(.btn-dark-golden):not(.btn-danger):not(.close) i {
+  color: #000217;
+}
+
+.btn.btn-dark-golden {
+  background-color: #000217;
+  color: #5fd3ff;
+  border: none;
+}
+
+.btn.close {
+  color: #000217;
+  background-color: #4ac6ff;
+  border: none;
+}
+
+.btn.btn-danger {
+  color: #4ac6ff;
+  background-color: #9b0000;
+  border: none;
+}
+
+.btn:hover {
   transform: translateY(-3px);
 }
 
-button.btn:not(.btn-success):not(.btn-danger):hover {
-  background: #212529;
-}
-
-button.btn:active {
+.btn:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
-.create-button {
-  padding: .5rem 1.3rem;
-  font-size: 1rem;
-  border-radius: 30px;
-  background: #212529;
-  color: #f2f2f2;
+.form-control, .form-select {
+  background-color: #4ac6ff;
+  color: #000217;
   border: none;
-  font-weight: bold;
+}
+
+.form-control[type='number'][form="filter-form"] {
+  max-width: 100px;
 }
 
 .form-control:focus,
 .form-select:focus {
+  background-color: #4ac6ff;
+  color: #000217;
   border: none;
-  box-shadow: 0 0 1rem .1rem rgba(4, 4, 4, 0.25);
+  outline: none;
+  box-shadow: none;
 }
 
 .form-control[name="password"] {
@@ -42,100 +93,26 @@ button.btn:active {
 
 .toggle-password {
   top: 30%;
-  left: 10px;
+  left: 4%;
   cursor: pointer;
 }
 
-
-/* Filter Styles */
-.accordion-button {
-  background-color: #212529;
-  color: #f2f2f2;
-  border: none;
+.modal-header, .modal-footer {
+  border-color: #000217;
 }
 
-.accordion-button:focus {
-  box-shadow: none;
+.modal-content {
+  background-color: #5fd3ff;
+  color: #000217;
 }
 
-.accordion-button::after, .accordion-button:not(.collapsed)::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23f2f2f2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+.modal-content .form-control, .modal-content .form-select {
+  border-radius: 25px;
 }
 
-.accordion-button:not(.collapsed) {
-  background-color: #212529;
-  color: #f2f2f2;
-}
-
-#filter-form {
-  border-radius: 10px;
-  border: 1px solid #212529
-}
-
-#filter-form .input-group-text {
-  background-color: #212529;
-  color: #d7dee5;
-  border: none;
-  font-size: .9em;
-}
-
-#filter-form input[type="checkbox"] {
-  border: none;
-  background-color: #e8e8e8;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%0, 0, 0, 0.25%29'/%3e%3c/svg%3e");
-}
-
-#filter-form input[type="checkbox"]:checked{
-  background-image: url("data: image/svg+xml, %3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' %3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6' /%3e%3c/svg%3e");
-}
-
-
-/* Table Styles */
-table{
+.logo {
+  max-width: 500px;
   text-align: center;
-}
-
-table form{
-  text-align: right;
-}
-
-table caption {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-
-/* Pagination Styles */
-.pagination-nav {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.pagination-nav .pagination .page-item {
-  display: inline-block;
-  margin: 0 0.25rem;
-}
-
-.pagination-nav .pagination .page-item .page-link,
-.pagination-nav .pagination .page-item span {
-  color: #fff;
-  background-color: #212529;
-  border: none;
-  transition: all 300ms ease-in-out;
-}
-
-.pagination-nav .pagination .page-item span {
-  padding: .5rem;
-}
-
-.pagination-nav .pagination .page-item.active .page-link,
-.pagination-nav .pagination .page-item .page-link:hover {
-  box-shadow: rgba(0, 0, 0, 0.2) 0 0 20px 8px;
-  transform: translateY(-5px);
-}
-
-.pagination-nav .pagination .page-item.disabled .page-link {
-  color: #fff;
-  background-color: #3d4144;
+  margin: 0 auto;
+  padding: 20px;
 }

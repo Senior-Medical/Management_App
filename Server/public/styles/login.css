@@ -1,28 +1,20 @@
-* {
-  font-family: 'Harmattan', sans-serif;
-  font-size: 1em;
-}
-
-body {
-  background-color: #000217;
-}
-
 .form {
   max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 25px;
-  padding: 2em;
-  background-color: #FFF4B7;
-  border-radius: 15%;
+  padding: 2em 1em;
+  background-color: #5fd3ff;
+  border-radius: 50px;
   transition: 0.4s ease-in-out;
-  margin: 10rem auto;
+  margin: 4rem auto;
 }
 
 .form h1 {
   text-align: center;
   color: #000217;
   font-size: 2.5em;
+  margin: 10px;
 }
 
 .form .error{
@@ -40,15 +32,23 @@ body {
   padding: 1em;
   border: none;
   outline: none;
-  color: #FFF4B7;
+  color: #5fd3ff;
   background-color: #000217;
   box-shadow: inset 2px 5px 10px #000217;
+  position: relative;
+}
+
+.form .field .toggle-password {
+  position: absolute;
+  left: 4%;
+  top: 38%;
+  cursor: pointer;
 }
 
 .form .field .input-icon {
   height: 1.3em;
   width: 1.3em;
-  fill: #FFF4B7;
+  fill: #5fd3ff;
 }
 
 .form .field .input-field {
@@ -56,8 +56,12 @@ body {
   border: none;
   outline: none;
   width: 100%;
-  color: #FFF4B7;
+  color: #5fd3ff;
   font-size: 1.2em;
+}
+
+.form .field .input-field::placeholder {
+  color: #4ac6ff;
 }
 
 .form .submit {
@@ -70,7 +74,7 @@ body {
   outline: none;
   transition: 0.4s ease-in-out;
   background-color: #000217;
-  color: #FFF4B7;
+  color: #5fd3ff;
   cursor: pointer;
 }
 

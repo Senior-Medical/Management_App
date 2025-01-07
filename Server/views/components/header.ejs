@@ -1,7 +1,6 @@
 <header class="mb-3">
-  <div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar">
+    <div class="container-fluid px-5">
       <div class="navbar-brand">لوحة التحكم</div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
         aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,10 +8,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link <%if(type === 'main'){%>active<%}%>" aria-current="page" href="/dashboard"><i class="fa-solid fa-house"></i> الرئيسية</a>
-          </li>
+        <ul class="nav nav-tabs me-auto mb-2 mb-lg-0">
           <%if(user.role === 'مدير'){%>
             <li class="nav-item">
               <a class="nav-link <%if(type === 'users'){%>active<%}%>" href="/users"><i class="fa-solid fa-users-gear"></i> المشرفين</a>
@@ -37,7 +33,7 @@
             <a class="nav-link <%if(type === 'production'){%>active<%}%>" href="/production"><i class="fa-solid fa-circle-dollar-to-slot"></i> الإنتاج</a>
           </li>
         </ul>
-        <ul class="navbar-nav ms-auto">
+        <ul class="nav nav-tabs ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="/auth/logout">خروج <i class="fa-solid fa-arrow-right-from-bracket logout"></i></a>
           </li>
@@ -45,5 +41,4 @@
       </div>
     </div>
   </nav>
-  </div>
 </header>

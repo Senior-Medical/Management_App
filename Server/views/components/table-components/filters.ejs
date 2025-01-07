@@ -1,5 +1,5 @@
 <tr class="table-dark">
-  <th scope="col">بحث</th>
+  <th scope="col"><i class="fa-solid fa-magnifying-glass"></i></th>
 
   <% try { %>
     <%- include(`../modules/${type}/table-components/filters`) %>
@@ -35,10 +35,7 @@
   <td scope="col">
     <input type="text" class="form-control" name="updatedAtArabic" form="filter-form" placeholder="إبحث" value='<%= (filters.updatedAtArabic) ? filters.updatedAtArabic : '' %>'>
   </td>
-  <td scope="col">
-    <button type="submit" class="btn btn-success w-4" form="filter-form">تطبيق</button>
-  </td>
-  <td scope="col">
-    <button class="btn btn-success w-4"><a href="/<%= type %>">الإفتراضي</a></button>
+  <td scope="col" colspan="2">
+    <button type="submit" class="btn w-4" form="filter-form"><i class="fa-solid fa-magnifying-glass"></i>&nbsp&nbsp&nbspبحث</button>
   </td>
 </tr>

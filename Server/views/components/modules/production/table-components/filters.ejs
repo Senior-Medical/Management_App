@@ -30,36 +30,40 @@
   </select>
 </td>
 <td scope="col">
-  <select class="form-select">
-    <option value="" <%=(filters.quantity.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
-    <option value="lt:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='lt' )
-      ? 'selected' : '' %>>أقل من</option>
-    <option value="lte:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='lte' )
-      ? 'selected' : '' %>>أقل من أو يساوي</option>
-    <option value="gt:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='gt' )
-      ? 'selected' : '' %>>أكبر من</option>
-    <option value="gte:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='gte' )
-      ? 'selected' : '' %>>أكبر من أو يساوي</option>
-  </select>
-  <input type="number" class="form-control" name="quantity" form="filter-form" placeholder="إبحث يالرقم"
-    value='<%= (filters.quantity.split(":").length === 2) ? filters.quantity.split(":")[1] : filters.quantity.split(":")[0] %>'>
+  <div class="input-group">
+    <select class="form-select">
+      <option value="" <%=(filters.quantity.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
+      <option value="lt:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='lt' )
+        ? 'selected' : '' %>>أقل من</option>
+      <option value="lte:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='lte' )
+        ? 'selected' : '' %>>أقل من أو يساوي</option>
+      <option value="gt:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='gt' )
+        ? 'selected' : '' %>>أكبر من</option>
+      <option value="gte:" <%=(filters.quantity.split(":").length===2 && filters.quantity.split(":")[0]==='gte' )
+        ? 'selected' : '' %>>أكبر من أو يساوي</option>
+    </select>
+    <input type="number" class="form-control" name="quantity" form="filter-form" placeholder="الرقم"
+      value='<%= (filters.quantity.split(":").length === 2) ? filters.quantity.split(":")[1] : filters.quantity.split(":")[0] %>'>
+  </div>
 </td>
 <td scope="col">
   <input type="text" class="form-control" name="arabicDate" form="filter-form" placeholder="إبحث"
     value='<%= (filters.arabicDate) ? filters.arabicDate : '' %>'>
 </td>
 <td scope="col">
-  <select class="form-select">
-    <option value="" <%=(filters.cost.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
-    <option value="lt:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='lt' ) ? 'selected' : ''
-      %>>أقل من</option>
-    <option value="lte:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='lte' ) ? 'selected'
-      : '' %>>أقل من أو يساوي</option>
-    <option value="gt:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='gt' ) ? 'selected' : ''
-      %>>أكبر من</option>
-    <option value="gte:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='gte' ) ? 'selected'
-      : '' %>>أكبر من أو يساوي</option>
-  </select>
-  <input type="number" class="form-control" name="cost" form="filter-form" placeholder="إبحث يالرقم"
-    value='<%= (filters.cost.split(":").length === 2) ? filters.cost.split(":")[1] : filters.cost.split(":")[0] %>'>
+  <div class="input-group">
+    <select class="form-select">
+      <option value="" <%=(filters.cost.split(":").length===1) ? 'selected' : '' %>>يساوي</option>
+      <option value="lt:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='lt' ) ? 'selected' : ''
+        %>>أقل من</option>
+      <option value="lte:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='lte' ) ? 'selected'
+        : '' %>>أقل من أو يساوي</option>
+      <option value="gt:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='gt' ) ? 'selected' : ''
+        %>>أكبر من</option>
+      <option value="gte:" <%=(filters.cost.split(":").length===2 && filters.cost.split(":")[0]==='gte' ) ? 'selected'
+        : '' %>>أكبر من أو يساوي</option>
+    </select>
+    <input type="number" class="form-control" name="cost" form="filter-form" placeholder="الرقم"
+      value='<%= (filters.cost.split(":").length === 2) ? filters.cost.split(":")[1] : filters.cost.split(":")[0] %>'>
+  </div>
 </td>

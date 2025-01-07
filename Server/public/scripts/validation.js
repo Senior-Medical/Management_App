@@ -74,13 +74,27 @@ const bonusValidation = (formSelector) => {
   const form = document.querySelector(formSelector);
   const from = form.querySelector('input[name="from"]').value;
   const to = form.querySelector('input[name="to"]').value;
+  const percentage = form.querySelector('input[name="percentage"]').value;
+  const percentageError = form.querySelector('.text-danger-percentage');
   const error = form.querySelector('.text-danger');
+  percentageError.style.display = 'none';
   error.style.display = 'none';
+
+  let isValid = true;
+
   if (parseInt(from) >= parseInt(to)) {
     error.innerText = 'الحد الأدنى يجب أن يكون أقل من الحد الأعلى';
     error.style.display = 'block';
+    isValid = false;
   }
-  else form.submit();
+
+  if (!percentage || isNaN(percentage)) {
+    percentageError.innerText = 'يجب إدخال النسبة المئوية';
+    percentageError.style.display = 'block';
+    isValid = false;
+  }
+  
+  if(isValid) form.submit();
 }
 
 /**

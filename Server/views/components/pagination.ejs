@@ -1,15 +1,15 @@
 <nav class="pagination-nav" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
-      <a class="page-link" page="<%= page - 1 %>">السابق</a>
+    <li class="page-item px-3 <%= page === 1 ? 'disabled' : '' %>">
+      <a class="page-link" page="<%= page - 1 %>"><i class="fa-solid fa-less-than"></i></a>
     </li>
 
-    <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
+    <li class="page-item px-3 <%= page === 1 ? 'disabled' : '' %>">
       <span><%= page %></span>
     </li>
 
-    <li class="page-item <%= page === totalPages ? 'disabled' : '' %>">
-      <a class="page-link" page="<%= page + 1 %>">التالي</a>
+    <li class="page-item px-3 <%= page === totalPages ? 'disabled' : '' %>">
+      <a class="page-link" page="<%= page + 1 %>"><i class="fa-solid fa-greater-than"></i></a>
     </li>
   </ul>
 </nav>

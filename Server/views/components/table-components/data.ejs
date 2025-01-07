@@ -23,13 +23,13 @@
       <%= (dataItem.updatedAtArabic)?dataItem.updatedAtArabic:"لا يوجد" %>
     </td>
     <td>
-      <button class="btn btn-success" data-bs-toggle="modal"
-        data-bs-target="#update-<%= type %>-modal-<%=index %>">تحديث</button>
+      <button class="btn btn-dark-golden" data-bs-toggle="modal"
+        data-bs-target="#update-<%= type %>-modal-<%=index %>"><i class="fa-solid fa-pen-to-square"></i></button>
       <%- include('../form-modal', {index, dataItem, operation: 'update'}) %>
     </td>
     <td>
       <button class="btn btn-danger" data-bs-toggle="modal"
-        data-bs-target="#delete-<%= type %>-modal-<%= index %>">حذف</button>
+        data-bs-target="#delete-<%= type %>-modal-<%= index %>"><i class="fa-solid fa-trash"></i></button>
       <%- include('../delete-modal', {index, dataItem}) %>
     </td>
   </tr>

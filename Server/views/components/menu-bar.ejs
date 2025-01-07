@@ -1,0 +1,52 @@
+<div id="menu-bar">
+  <div class="row p-3 g-3">
+    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-7 col-12">
+      <div class="input-group">
+        <label for="sort" class="input-group-text">
+          <label for="sort-type" class="input-group-text">ترتيب</label>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" name="sort-type" id="sort-type" form="filter-form" <%=(sort.startsWith("-"))?"checked":""%>>
+          </div>
+        </label>
+        <select class="form-select" id="sort" name="sort" form="filter-form">
+          <option value="createdAt" <%=(sort.replace('-', '' )==="createdAt" ) ? 'selected' : '' %>>تاريخ الإنشاء</option>
+          <option value="updatedAt" <%=(sort.replace('-', '' )==="updatedAt" ) ? 'selected' : '' %>>تاريخ آخر تحديث</option>
+          <% if(type==='users' ) { %>
+            <option value="username" <%=(sort.replace('-', '' )==="username" ) ? 'selected' : '' %>>إسم المستخدم</option>
+            <option value="role" <%=(sort.replace('-', '' )==="role" ) ? 'selected' : '' %>>الدور الوظيفي</option>
+          <% } else if (type==='production' ) { %>
+            <option value="quantity" <%=(sort.replace('-', '' )==="quantity" ) ? 'selected' : '' %>>كمية الإنتاج</option>
+            <option value="date" <%=(sort.replace('-', '' )==="date" ) ? 'selected' : '' %>>تاريخ الإنتاج</option>
+            <option value="cost" <%=(sort.replace('-', '' )==="cost" ) ? 'selected' : '' %>>سعر الإنتاج</option>
+          <% } else if (type==='productPrice' ) { %>
+            <option value="price" <%=(sort.replace('-', '' )==="price" ) ? 'selected' : '' %>>سعر المنتج</option>
+          <% } else if (type==='bonus' ) { %>
+            <option value="from" <%=(sort.replace('-', '' )==="from" ) ? 'selected' : '' %>>من</option>
+            <option value="to" <%=(sort.replace('-', '' )==="to" ) ? 'selected' : '' %>>إلى</option>
+            <option value="percentage" <%=(sort.replace('-', '' )==='percentage' ) ? 'selected' : '' %>>النسبة</option>
+          <% } else { %>
+            <option value="name" <%=(sort.replace('-', '' )==="name" ) ? 'selected' : '' %>>الإسم</option>
+          <% } %>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-2 col-md-3 col-sm-5 col-8">
+      <div class="input-group">
+        <label class="input-group-text" for="page-size">عدد الصفوف</label>
+        <input id="page-size" name="pageSize" type="number" class="form-control" form="filter-form" aria-label="page-size" aria-describedby="page-size" value="<%=(pagination.pageSize) ? pagination.pageSize : 10 %>">
+      </div>
+    </div>
+
+    <div class="col-xl-2 col-md-2 col-sm-3 col-5">
+      <button type="submit" class="btn w-4" form="filter-form"><i class="fa-solid fa-magnifying-glass"></i>&nbsp&nbsp&nbspفلترة</button>
+    </div>
+
+    <div class="col-xl-2 col-md-3 col-sm-4 col-7">
+      <div class="input-group">
+        <a class="btn w-4" href="/<%= type %>"><i class="fa-solid fa-eraser"></i>&nbsp&nbspحذف الفلاتر</a>
+      </div>
+    </div>
+
+  </div>
+</div>

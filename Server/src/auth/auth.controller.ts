@@ -42,7 +42,7 @@ export class AuthController {
   login(@Req() req: Request, @Res() res: Response) {
     req.login(req.user, (err) => {
       if (err) return res.redirect('/auth/login?error=خطأ في تسجيل الدخول&username='+(req.user as UserDocument).username);
-      else return res.redirect('/dashboard');
+      else return res.redirect('/production');
     });
   }
 
