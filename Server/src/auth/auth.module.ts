@@ -6,7 +6,6 @@ import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { LocalStrategy } from "./local.strategy";
 import { SessionSerializer } from "./session.serializer";
-import { LoggerModule } from "src/utils/logger/logger.module";
 
 @Module({
   imports: [

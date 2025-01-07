@@ -6,7 +6,6 @@ import {
   Res,
   Get,
   Query,
-  UseFilters,
   Render,
 } from "@nestjs/common";
 import { LocalAuthGuard } from "./guards/localAuth.guard";

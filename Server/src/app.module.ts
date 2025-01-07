@@ -23,12 +23,14 @@ import { BonusModule } from './bonus/bonus.module';
 import { ProductPriceModule } from './product-price/product-price.module';
 import { ProductionModule } from './production/production.module';
 import { UnauthorizedFilter } from './auth/filters/un-auth.filter';
+import { FallBackModule } from './fall-back/fall-back.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       validationSchema: envVariablesValidationSchema,
       isGlobal: true,
+      expandVariables: true
     }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -53,7 +55,8 @@ import { UnauthorizedFilter } from './auth/filters/un-auth.filter';
     DepartmentsModule,
     BonusModule,
     ProductPriceModule,
-    ProductionModule
+    ProductionModule,
+    FallBackModule
   ],
   controllers: [AppController],
   providers: [
